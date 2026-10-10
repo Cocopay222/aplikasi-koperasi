@@ -7,4 +7,13 @@ putenv('LOG_CHANNEL=stderr');
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp';
 $_ENV['LOG_CHANNEL'] = 'stderr';
 
-require __DIR__ . '/../public/index.php';
+try {
+    require __DIR__ . '/../public/index.php';
+} catch (\Throwable $e) {
+    echo "<h1>Fatal Error on Vercel:</h1>";
+    echo "<pre>";
+    echo "Message: " . $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+    echo "Stack trace:\n" . $e->getTraceAsString();
+    echo "</pre>";
+}
