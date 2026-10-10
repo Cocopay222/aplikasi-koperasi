@@ -18,6 +18,16 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->reportable(function (\Throwable $e) {
+            echo "<h1>ORIGINAL ERROR:</h1>";
+            echo "<pre>";
+            echo "Message: " . $e->getMessage() . "\n";
+            echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+            echo "Stack trace:\n" . $e->getTraceAsString();
+            echo "</pre>";
+            die(); // Stop execution to prevent the view crash
+        });
+        
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
