@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useForm, Head } from '@inertiajs/react';
 
 export default function Login({ errors }) {
@@ -27,7 +27,7 @@ export default function Login({ errors }) {
 
     return (
         <div className="login-wrap">
-            <Head title="Login - SAKTI Desk" />
+            <Head title="Login - SupportFlow" />
             
             {/* Skeleton Loading State */}
             {!isLoaded && (
@@ -167,7 +167,7 @@ export default function Login({ errors }) {
                                                 <input 
                                                     type={showPassword ? 'text' : 'password'} 
                                                     name="password" 
-                                                    placeholder="••••••••" 
+                                                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                                                     style={{ paddingLeft: '42px', paddingRight: '42px', fontSize: 'calc(13px * var(--text-scale, 1))', width: '100%', boxSizing: 'border-box' }} 
                                                     required 
                                                     value={data.password}
@@ -219,7 +219,7 @@ export default function Login({ errors }) {
                                             onMouseOver={e => !processing && (e.currentTarget.style.transform = 'translateY(-2px)', e.currentTarget.style.background = '#123566', e.currentTarget.style.boxShadow = '0 6px 20px rgba(23, 68, 126, 0.45)')} 
                                             onMouseOut={e => !processing && (e.currentTarget.style.transform = 'translateY(0)', e.currentTarget.style.background = '#17447e', e.currentTarget.style.boxShadow = '0 4px 14px rgba(23, 68, 126, 0.35)')}
                                         >
-                                            {processing ? 'Loading...' : 'Masuk ke Dashboard →'}
+                                            {processing ? 'Loading...' : 'Masuk ke Dashboard â†’'}
                                         </button>
                                     </form>
 
@@ -287,7 +287,7 @@ export default function Login({ errors }) {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '2px' }}>WHATSAPP CHAT</div>
-                                    <a href="https://wa.me/6285795085540" target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', fontWeight: 600, color: '#17447e', textDecoration: 'underline' }}>Hubungi via WhatsApp →</a>
+                                    <a href="https://wa.me/6285795085540" target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', fontWeight: 600, color: '#17447e', textDecoration: 'underline' }}>Hubungi via WhatsApp â†’</a>
                                 </div>
                             </div>
                         </div>

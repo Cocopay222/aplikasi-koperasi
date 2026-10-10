@@ -1,7 +1,7 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('page_title', 'Profil Saya')
-@section('page_subtitle', 'SAKTI Desk')
+@section('page_subtitle', 'SupportFlow')
 
 @section('sidebar_menu')
     <a href="{{ route('support.dashboard') }}">
@@ -49,9 +49,9 @@
         }
     </style>
 
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     {{-- SKELETON LOADING STATE                      --}}
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     <div class="skeleton-wrap" id="skeleton-loading">
         <div class="skel" style="width: 180px; height: 36px; border-radius: 8px; margin-bottom: 24px;"></div>
         <div class="skel-panel" style="padding: 30px; max-width: 100%;">
@@ -85,9 +85,9 @@
         </div>
     </div>
 
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     {{-- ACTUAL CONTENT                              --}}
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     <div class="content-wrap" id="actual-content" style="display: none;">
         
         <div class="fade-up" style="margin-bottom: 24px; animation-delay: 0.1s;">

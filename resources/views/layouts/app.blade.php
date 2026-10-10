@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAKTI Desk</title>
+    <title>SupportFlow</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ date('YmdHis') }}">
@@ -109,10 +109,10 @@
             </div>
             <div class="tx">
                 @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
-                    <strong>SAKTI Desk</strong>
+                    <strong>SupportFlow</strong>
                     <span style="text-transform: uppercase;">{{ __('messages.tim_support') ?? 'TIM SUPPORT' }}</span>
                 @else
-                    <strong>SAKTI Desk</strong>
+                    <strong>SupportFlow</strong>
                     <span>Tracker System</span>
                 @endif
             </div>
@@ -234,9 +234,9 @@
             <div>
                 <h1>@yield('page_title', 'Dashboard')</h1>
                 @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
-                    <div class="tag">@yield('page_subtitle', 'SAKTI Desk')</div>
+                    <div class="tag">@yield('page_subtitle', 'SupportFlow')</div>
                 @else
-                    <div class="tag">@yield('page_subtitle', 'SAKTI Desk')</div>
+                    <div class="tag">@yield('page_subtitle', 'SupportFlow')</div>
                 @endif
             </div>
             <div class="app-topbar-right" style="display: flex; align-items: center;">
@@ -290,7 +290,7 @@
 <div class="mobile-top-header">
     <div class="m-left">
         <div class="m-title">
-            <strong>@yield('page_title', 'Dashboard')</strong> / @yield('page_subtitle', 'SAKTI Desk')
+            <strong>@yield('page_title', 'Dashboard')</strong> / @yield('page_subtitle', 'SupportFlow')
         </div>
     </div>
     <div class="m-right">

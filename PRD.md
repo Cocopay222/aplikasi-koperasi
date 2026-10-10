@@ -1,5 +1,5 @@
-# Product Requirements Document (PRD)
-**Project Name:** SAKTI Desk  
+﻿# Product Requirements Document (PRD)
+**Project Name:** SupportFlow  
 **Client / Owner:** PT Sakti Kinerja Kolaborasindo  
 **Author:** Muhammad Radith Nurmansyah (NIM: 103012400226)  
 **Document Status:** Draft / Ready for Development  
@@ -7,7 +7,7 @@
 ---
 
 ## 1. Overview
-**SAKTI Desk** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Sakti Kinerja Kolaborasindo (seperti SAKTI.Link, SiCUNDO, dan SAKTI Online). 
+**SupportFlow** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Sakti Kinerja Kolaborasindo (seperti SAKTI.Link, SiCUNDO, dan SAKTI Online). 
 
 Tujuan utama sistem ini adalah menjembatani pelaporan kendala dari instansi mitra (Koperasi) ke tim *Support Engineer*, memastikan pelacakan siklus hidup tiket secara *real-time*, serta mengotomatisasi rekapitulasi analitik bulanan dan klasifikasi *Knowledge Base* (Smart FAQ).
 

@@ -1,7 +1,7 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('page_title', 'Dashboard')
-@section('page_subtitle', 'SAKTI Desk')
+@section('page_subtitle', 'SupportFlow')
 
 
 @section('content')
@@ -61,7 +61,7 @@
                     <h2>{{ __('messages.ada_kendala') }}</h2>
                     <p>{{ __('messages.laporkan_sekali') }}</p>
                 </div>
-                <button class="btn btn-amber" onclick="openModal('modal-create')">＋ {{ __('messages.buat_laporan_baru') }}</button>
+                <button class="btn btn-amber" onclick="openModal('modal-create')">ï¼‹ {{ __('messages.buat_laporan_baru') }}</button>
             </div>
 
             <!-- Statistik Sederhana -->
@@ -166,7 +166,7 @@
                                     </span>
                                 </div>
                                 <span style="font-size: 16px; color: var(--ink-soft);">
-                                    →
+                                    â†’
                                 </span>
                             </button>
                         </div>
@@ -188,7 +188,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.detail_laporan') }}</h3><p>{{ $t->ticket_id }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">âœ•</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
             <div style="margin-bottom: 24px;">
@@ -369,7 +369,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.btn_edit_report') }}</h3><p>{{ $t->ticket_id }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">âœ•</button>
         </div>
         <form action="{{ route('pelapor.tickets.update_pelapor', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'edit_lampiran_input_{{ $t->ticket_id }}', 8);">
             @csrf
@@ -421,7 +421,7 @@
                     <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
                 </div>
             </div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); event.stopPropagation();">âœ•</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
             <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft);">
@@ -449,7 +449,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.faq_detail') ?? 'FAQ Detail' }}</h3><p>{{ $faq->kategori->nama_kategori ?? __('messages.umum') ?? 'Umum' }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-faq-{{ $faq->faq_id }}'); event.stopPropagation();">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-faq-{{ $faq->faq_id }}'); event.stopPropagation();">âœ•</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
             <div style="margin-bottom: 16px;">
@@ -470,7 +470,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.buat_laporan_baru') }}</h3><p>{{ __('messages.jelaskan_kendala') }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-create')">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-create')">âœ•</button>
         </div>
         <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input', 8);">
             @csrf
@@ -512,7 +512,7 @@
                     <!-- Smart Auto-Suggest FAQ Box -->
                     <div id="faq-suggest-box" style="display: none; margin-top: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-sunken);">
                         <div style="font-size: 12px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
-                            <span style="display: flex; align-items: center; gap: 6px;">💡 {{ __('messages.solusi_cepat') }}</span>
+                            <span style="display: flex; align-items: center; gap: 6px;">ðŸ’¡ {{ __('messages.solusi_cepat') }}</span>
                             <button type="button" style="background: none; border: none; font-size: 11px; color: var(--brand-primary); cursor: pointer; font-weight: 500; padding: 0;" onclick="closeModal('modal-create'); switchDashTab('faq', document.getElementById('tab-btn-faq'));">{{ __('messages.lihat_semua_faq') }}</button>
                         </div>
                         <div id="faq-suggest-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
@@ -535,7 +535,7 @@
                                 infoSpan.style.display = 'block';
                                 let totalSize = 0;
                                 for(let i=0; i<this.files.length; i++) totalSize += this.files[i].size;
-                                infoSpan.innerHTML = '✅ ' + this.files.length + ' file dipilih (' + (totalSize/1024/1024).toFixed(2) + ' MB)';
+                                infoSpan.innerHTML = 'âœ… ' + this.files.length + ' file dipilih (' + (totalSize/1024/1024).toFixed(2) + ' MB)';
                             } else {
                                 clearBtn.style.display = 'none';
                                 infoSpan.style.display = 'none';

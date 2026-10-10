@@ -1,4 +1,4 @@
-# SAKTI Desk
+﻿# SupportFlow
 
 <div align="center">
 
@@ -10,7 +10,7 @@
 
 Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka modern dan responsif.
 
-[Demo](#) • [Dokumentasi](#dokumentasi) • [Instalasi](#panduan-instalasi) • [Preview](#preview)
+[Demo](#) â€¢ [Dokumentasi](#dokumentasi) â€¢ [Instalasi](#panduan-instalasi) â€¢ [Preview](#preview)
 
 </div>
 
@@ -18,7 +18,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 ## Tentang Proyek
 
-**SAKTI Desk** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
+**SupportFlow** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
 
 ## Fitur Utama
 
@@ -135,14 +135,14 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ## Panduan Instalasi
 
-### 1️. Clone Repositori
+### 1ï¸. Clone Repositori
 
 ```bash
 git clone https://github.com/Radithb/SAKTI-Desk.git
 cd SAKTI-Desk
 ```
 
-### 2️. Install Dependensi
+### 2ï¸. Install Dependensi
 
 ```bash
 # Install PHP dependencies
@@ -152,7 +152,7 @@ composer install
 npm install
 ```
 
-### 3️. Konfigurasi Environment
+### 3ï¸. Konfigurasi Environment
 
 ```bash
 # Salin file konfigurasi
@@ -165,7 +165,7 @@ php artisan key:generate
 Kemudian edit file `.env` dan sesuaikan konfigurasi berikut:
 
 ```env
-APP_NAME="SAKTI Desk"
+APP_NAME="SupportFlow"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost:8000
@@ -178,7 +178,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 4️. Migrasi Database
+### 4ï¸. Migrasi Database
 
 ```bash
 # Jalankan migrasi
@@ -188,7 +188,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-### 5️. Jalankan Aplikasi
+### 5ï¸. Jalankan Aplikasi
 
 ```bash
 # Development server
@@ -200,7 +200,7 @@ php artisan serve --port=8001
 
 Aplikasi akan dapat diakses di `http://localhost:8000`
 
-### 6️. Compile Assets (Opsional)
+### 6ï¸. Compile Assets (Opsional)
 
 ```bash
 # Development build
@@ -242,27 +242,27 @@ MAIL_FROM_ADDRESS=noreply@example.com
 
 ```
 SAKTI-Desk/
-├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   └── Requests/
-│   ├── Models/
-│   └── ...
-├── resources/
-│   ├── views/
-│   ├── css/
-│   └── js/
-├── routes/
-│   └── web.php
-├── database/
-│   ├── migrations/
-│   └── seeders/
-├── public/
-├── storage/
-├── .env.example
-├── composer.json
-├── package.json
-└── README.md
+â”œâ”€â”€ app/
+â”‚   â”œâ”€â”€ Http/
+â”‚   â”‚   â”œâ”€â”€ Controllers/
+â”‚   â”‚   â””â”€â”€ Requests/
+â”‚   â”œâ”€â”€ Models/
+â”‚   â””â”€â”€ ...
+â”œâ”€â”€ resources/
+â”‚   â”œâ”€â”€ views/
+â”‚   â”œâ”€â”€ css/
+â”‚   â””â”€â”€ js/
+â”œâ”€â”€ routes/
+â”‚   â””â”€â”€ web.php
+â”œâ”€â”€ database/
+â”‚   â”œâ”€â”€ migrations/
+â”‚   â””â”€â”€ seeders/
+â”œâ”€â”€ public/
+â”œâ”€â”€ storage/
+â”œâ”€â”€ .env.example
+â”œâ”€â”€ composer.json
+â”œâ”€â”€ package.json
+â””â”€â”€ README.md
 ```
 
 ### Fitur Utama
@@ -334,6 +334,6 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 **[kembali ke atas](#-SAKTI-Desk)**
 
-Dibuat dengan ❤️ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
+Dibuat dengan â¤ï¸ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
 
 </div>
