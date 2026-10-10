@@ -30,24 +30,28 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            // Cek apakah akun Pelapor sudah diverifikasi oleh Tim Support
-            if (Auth::user()->role === UserRole::PELAPOR && !Auth::user()->is_verified) {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+        try {
+            if (Auth::attempt($credentials)) {
+                // Cek apakah akun Pelapor sudah diverifikasi oleh Tim Support
+                if (Auth::user()->role === UserRole::PELAPOR && !Auth::user()->is_verified) {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
 
-                return back()->withErrors([
-                    'email' => 'Akun Anda belum diverifikasi oleh Tim Support. Silakan tunggu proses verifikasi.',
-                ])->onlyInput('email');
+                    return back()->withErrors([
+                        'email' => 'Akun Anda belum diverifikasi oleh Tim Support. Silakan tunggu proses verifikasi.',
+                    ])->onlyInput('email');
+                }
+
+                $request->session()->regenerate();
+
+                if (in_array(Auth::user()->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])) {
+                    return redirect()->intended('/support/dashboard');
+                }
+                return redirect()->intended('/pelapor/dashboard');
             }
-
-            $request->session()->regenerate();
-
-            if (in_array(Auth::user()->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])) {
-                return redirect()->intended('/support/dashboard');
-            }
-            return redirect()->intended('/pelapor/dashboard');
+        } catch (\Exception $e) {
+            dd("DATABASE ERROR CAUGHT: " . $e->getMessage() . " | Connection Config: " . json_encode(config('database.connections.' . config('database.default'))));
         }
 
         return back()->withErrors([
