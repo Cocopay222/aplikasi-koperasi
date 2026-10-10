@@ -70,7 +70,7 @@
             <div class="login-box fade-up" style="max-width:640px; animation-delay: 0.1s;">
                 <div class="login-brandmark">
                     <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
-                    <div class="tx"><strong>SAKTI Desk</strong><span>PT SAKTI KINERJA KOLABORASINDO</span></div>
+                    <div class="tx"><strong>SAKTI Desk</strong><span>SupportFlow</span></div>
                 </div>
 
                 <div class="login-panel-card fade-up" style="text-align:left; animation-delay: 0.2s;">

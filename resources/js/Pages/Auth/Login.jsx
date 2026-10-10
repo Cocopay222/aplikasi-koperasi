@@ -96,7 +96,7 @@ export default function Login({ errors }) {
                             <div className="brand">
                                 <img src="/logo.png" alt="Logo" />
                                 <div className="brand-text">
-                                    <h2>PT SAKTI Kinerja Kolaborasindo</h2>
+                                    <h2>SupportFlow</h2>
                                     <p>Portal Layanan &amp; Dukungan Koperasi</p>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@ export default function Login({ errors }) {
 
                             {/* Footer Info */}
                             <div style={{ marginTop: 'auto', position: 'relative', zIndex: 10, fontSize: '11px', color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '24px' }}>
-                                <span>&copy; PT SAKTI Kinerja Kolaborasindo</span>
+                                <span>&copy; SupportFlow</span>
                                 <span>&bull;</span>
                                 <span>Portal Pelaporan Mitra</span>
                             </div>

@@ -37,7 +37,7 @@
     "isEntry": true
   },
   "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login-CLYCuj-s.js",
+    "file": "assets/Login-HCP3beeo.js",
     "name": "Login",
     "src": "resources/js/Pages/Auth/Login.jsx",
     "isDynamicEntry": true,
@@ -46,7 +46,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-CRH3ytd9.js",
+    "file": "assets/app-CwyEkUGt.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,

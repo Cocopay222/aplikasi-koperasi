@@ -88,7 +88,7 @@
                 <div class="brand">
                     <img src="{{ asset('logo.png') }}" alt="Logo">
                     <div class="brand-text">
-                        <h2>PT SAKTI Kinerja Kolaborasindo</h2>
+                        <h2>SupportFlow</h2>
                         <p>{{ __('messages.portal_layanan_dukungan_koperasi') ?? 'Portal Layanan &amp; Dukungan Koperasi' }}</p>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
 
                 {{-- Footer Info --}}
                 <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
-                    <span>&copy; PT SAKTI Kinerja Kolaborasindo</span>
+                    <span>&copy; SupportFlow</span>
                     <span>&bull;</span>
                     <span>{{ __('messages.portal_pelaporan_mitra') ?? 'Portal Pelaporan Mitra' }}</span>
                 </div>

@@ -8,7 +8,7 @@
         <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
         <div>
             <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--ink); line-height: 1.2;">SAKTI Desk</h2>
-            <div style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--ink-soft); letter-spacing: 1px; text-transform: uppercase;">PT SAKTI KINERJA KOLABORASINDO</div>
+            <div style="font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--ink-soft); letter-spacing: 1px; text-transform: uppercase;">SupportFlow</div>
         </div>
     </div>
 
