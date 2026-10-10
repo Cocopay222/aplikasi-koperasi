@@ -412,7 +412,9 @@ Route::get('/laravel-db-test', function() {
 });
 Route::get('/run-migrations', function() {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true, '--drop-views' => true]);
+        \Illuminate\Support\Facades\Artisan::call('db:wipe', ['--force' => true, '--drop-views' => true]);
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
         return "✅ Migrations and Seeders ran successfully!";
     } catch (\Exception $e) {
         return "❌ Migration error: " . $e->getMessage();
