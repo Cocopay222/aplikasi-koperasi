@@ -32,9 +32,11 @@ try {
         try {
             $pdo = new PDO("pgsql:host=aws-0-ap-southeast-1.pooler.supabase.com;port=5432;dbname=postgres", "postgres.otwraoiqocjjckmvylgf", "Athafatthi11");
             echo "✅ Connected to Supabase!<br>";
-            $stmt = $pdo->query("SELECT * FROM users LIMIT 1");
+            $stmt = $pdo->query("SELECT email FROM users");
             if ($stmt) {
-                echo "✅ Users table exists and has " . count($stmt->fetchAll()) . " row(s).";
+                $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "✅ Users table exists and has " . count($users) . " row(s).<br>";
+                echo "<pre>" . print_r($users, true) . "</pre>";
             } else {
                 echo "❌ Users table query failed.";
             }
