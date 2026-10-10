@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('tickets', function (Blueprint $table) {
+            if (!Schema::hasColumn('tickets', 'lampiran_support')) {
+                $table->string('lampiran_support')->nullable()->after('penyelesaian');
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('tickets', function (Blueprint $table) {
+            if (Schema::hasColumn('tickets', 'lampiran_support')) {
+                $table->dropColumn('lampiran_support');
+            }
+        });
+    }
+};

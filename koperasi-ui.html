@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recap Mitra Tracker - Figma Mockup</title>
+    <!-- Font bawaan website Anda -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Mengambil CSS asli dari website Anda -->
+    <link rel="stylesheet" href="public/css/app.css">
+    
+    <style>
+        .hidden-view { display: none !important; }
+        /* Pastikan background menyesuaikan app.css */
+        body { background: var(--paper); }
+    </style>
+</head>
+<body>
+
+    <!-- ================= 1. LAYOUT LOGIN ================= -->
+    <div id="view-login" class="login-wrap">
+        <div class="content-wrap" style="width: 100%;">
+            <div class="login-split-layout fade-up">
+                <!-- Sisi Kiri -->
+                <div class="login-split-left">
+                    <div class="brand">
+                        <img src="public/logo.png" alt="Logo">
+                        <div class="brand-text">
+                            <h2>PT SAKTI Kinerja Kolaborasindo</h2>
+                            <p>PORTAL PELAPORAN &amp; PEMANTAUAN TIKET MITRA</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: auto 0; position: relative; z-index: 10;">
+                        <h1 style="margin-top: 0;">Transparansi penuh atas setiap laporan mitra Anda</h1>
+                        <p class="desc" style="margin-bottom: 0;">
+                            Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
+                        <span>&copy; PT SAKTI Kinerja Kolaborasindo</span>
+                        <span>&bull;</span>
+                        <span>Portal Pelaporan Mitra</span>
+                    </div>
+                </div>
+
+                <!-- Sisi Kanan -->
+                <div class="login-split-right">
+                    <div class="login-box" style="margin: 0 auto; max-width: 380px; width: 100%;">
+                        <div class="login-panel-card">
+                            <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px; font-size: calc(11px * var(--text-scale, 1));">Masuk ke akun</p>
+                            <h1 style="margin-bottom: 4px; font-size: calc(22px * var(--text-scale, 1));">Login</h1>
+                            <p class="lede" style="margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan</p>
+                            
+                            <form onsubmit="event.preventDefault(); navigateTo('view-dashboard');">
+                                <div class="field">
+                                    <label style="font-size: calc(12px * var(--text-scale, 1)); text-align: left; display: block;">Email</label>
+                                    <div style="position: relative; display: flex; align-items: center;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                        <input type="email" name="email" placeholder="support@skk.co.id" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label style="font-size: calc(12px * var(--text-scale, 1)); text-align: left; display: block;">Kata Sandi</label>
+                                    <div style="position: relative; display: flex; align-items: center;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                        </svg>
+                                        <input type="password" name="password" placeholder="••••••••" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: calc(11px * var(--text-scale, 1));">
+                                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink-soft); font-weight: 500;">
+                                        <input type="checkbox" name="remember" style="width: 14px; height: 14px; accent-color: var(--brand-primary); margin:0; padding:0; border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer;">
+                                        Ingat saya
+                                    </label>
+                                    <a href="#" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
+                                </div>
+
+                                <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;">Masuk ke Dashboard &rarr;</button>
+                            </form>
+
+                            <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(11px * var(--text-scale, 1));">
+                                <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(9px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
+                                <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
+                                Belum mempunyai akun? <a href="#" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= 2. LAYOUT DASHBOARD ================= -->
+    <div id="view-dashboard" class="app-shell hidden-view">
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <div class="lg">
+                    <img src="public/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                </div>
+                <div class="tx">
+                    <strong>Recap Mitra</strong>
+                    <span>Tracker System</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <button class="active">
+                    <span class="ic"><img src="public/analysis.png" alt=""></span> Dashboard
+                </button>
+                <button>
+                    <span class="ic"><img src="public/file.png" alt=""></span> Riwayat Lengkap
+                </button>
+                
+                <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+                <button>
+                    <span class="ic"><img src="public/setting.png" alt=""></span> Pengaturan
+                </button>
+                <button onclick="navigateTo('view-login')">
+                    <span class="ic"><img src="public/logout.png" alt=""></span> Keluar
+                </button>
+            </div>
+
+            <div class="sidebar-foot">
+                <button class="sidebar-foot-trigger">
+                    <div class="av" style="overflow: hidden;">B</div>
+                    <div class="nm">
+                        <strong>Budi Santoso</strong>
+                        <span>Koperasi Sejahtera</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="app-main">
+            <div class="app-topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                    <div class="tag">Recap Mitra Tracker</div>
+                </div>
+            </div>
+
+            <div class="pelapor-panel active" style="flex:1;">
+                <div class="welcome-banner fade-up" style="animation-delay: 0.1s;">
+                    <div class="wave">👋</div>
+                    <div>
+                        <h2>Halo, Budi Santoso!</h2>
+                        <p>Selamat datang di portal pelaporan dan pemantauan tiket mitra Anda.</p>
+                    </div>
+                </div>
+
+                <div class="cta-band fade-up" style="animation-delay: 0.15s;">
+                    <div>
+                        <h2>Ada kendala baru?</h2>
+                        <p>Laporkan kendala Anda segera agar dapat langsung kami tangani.</p>
+                    </div>
+                    <button class="btn btn-amber">＋ Buat Laporan Baru</button>
+                </div>
+
+                <div class="stat-row fade-up" style="animation-delay: 0.2s;">
+                    <div class="stat-card"><div class="n" style="color:var(--clay)">2</div><div class="l">Open / Proses</div></div>
+                    <div class="stat-card"><div class="n" style="color:#B8923F">1</div><div class="l">Pending / Butuh Info</div></div>
+                    <div class="stat-card"><div class="n" style="color:var(--sage)">5</div><div class="l">Selesai Total</div></div>
+                </div>
+
+                <div class="fade-up" style="animation-delay: 0.25s;">
+                    <div class="page-head" style="margin-bottom:14px;">
+                        <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">Riwayat Laporan Anda</h1></div>
+                    </div>
+                    
+                    <div class="ticket-list">
+                        <div class="ticket-card" style="cursor:pointer;">
+                            <div class="tid">TKT-001</div>
+                            <div class="main">
+                                <h3>Tidak Bisa Mengakses Server Cloud</h3>
+                                <p>Kendala gagal terhubung ke server cloud setelah update sistem kemarin...</p>
+                            </div>
+                            <div class="meta">Server &middot; 24 Jul 2026 &middot; 09:12</div>
+                            <span class="status status-open">PROSES</span>
+                        </div>
+                        <div class="ticket-card" style="cursor:pointer;">
+                            <div class="tid">TKT-002</div>
+                            <div class="main">
+                                <h3>Lupa Password Akses Dashboard Induk</h3>
+                                <p>Tolong reset password karena PIC sebelumnya sudah resign...</p>
+                            </div>
+                            <div class="meta">Akun &middot; 20 Jul 2026 &middot; 14:30</div>
+                            <span class="status status-done">SELESAI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT INTERAKTIF -->
+    <script>
+        function navigateTo(id) {
+            document.getElementById('view-login').classList.add('hidden-view');
+            document.getElementById('view-dashboard').classList.add('hidden-view');
+            
+            document.getElementById(id).classList.remove('hidden-view');
+        }
+    </script>
+</body>
+</html>
