@@ -1,10 +1,10 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="login-wrap">
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     {{-- SKELETON LOADING STATE                      --}}
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     <div class="content-wrap" id="skeleton-loading" style="width: 100%;">
         <div class="login-split-layout">
             <!-- Left Column Skeleton -->
@@ -78,15 +78,15 @@
         </div>
     </div>
 
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     {{-- ACTUAL CONTENT                              --}}
-    {{-- ═══════════════════════════════════════════ --}}
+    {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
     <div class="content-wrap" id="actual-content" style="width: 100%; display: none;">
         <div class="login-split-layout fade-up" style="animation-delay: 0.1s;">
             <!-- Left Column -->
             <div class="login-split-left">
                 <div class="brand">
-                    <img src="{{ asset('logo.png') }}" alt="Logo">
+                    <img src="{{ asset('logo.svg') }}" alt="Logo">
                     <div class="brand-text">
                         <h2>SupportFlow</h2>
                         <p>{{ __('messages.portal_layanan_dukungan_koperasi') ?? 'Portal Layanan &amp; Dukungan Koperasi' }}</p>
@@ -153,7 +153,7 @@
                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                     </svg>
-                                    <input type="password" name="password" id="password-input" placeholder="••••••••" style="padding-left: 42px; padding-right: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
+                                    <input type="password" name="password" id="password-input" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-left: 42px; padding-right: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
                                     <button type="button" id="toggle-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
                                         <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>

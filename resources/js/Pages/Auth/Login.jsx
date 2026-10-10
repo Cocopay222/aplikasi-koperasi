@@ -94,7 +94,7 @@ export default function Login({ errors }) {
                         {/* Left Column */}
                         <div className="login-split-left">
                             <div className="brand">
-                                <img src="/logo.png" alt="Logo" />
+                                <img src="/logo.svg" alt="Logo" />
                                 <div className="brand-text">
                                     <h2>SupportFlow</h2>
                                     <p>Portal Layanan &amp; Dukungan Koperasi</p>

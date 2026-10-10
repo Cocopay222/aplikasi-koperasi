@@ -69,7 +69,7 @@
         <div class="login-stage">
             <div class="login-box fade-up" style="max-width:640px; animation-delay: 0.1s;">
                 <div class="login-brandmark">
-                    <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
+                    <img src="{{ asset('logo.svg') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
                     <div class="tx"><strong>SupportFlow</strong><span>SupportFlow</span></div>
                 </div>
 

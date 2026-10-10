@@ -105,7 +105,7 @@
         <div class="sidebar-brand">
             <div class="lg">
                 <!-- Placeholder untuk logo -->
-                <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+                <img src="{{ asset('logo.svg') }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
             </div>
             <div class="tx">
                 @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
