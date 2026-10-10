@@ -410,6 +410,14 @@ Route::get('/laravel-db-test', function() {
         'connections_sqlite' => config('database.connections.sqlite'),
     ]);
 });
+Route::get('/run-migrations', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        return "✅ Migrations and Seeders ran successfully!";
+    } catch (\Exception $e) {
+        return "❌ Migration error: " . $e->getMessage();
+    }
+});
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
