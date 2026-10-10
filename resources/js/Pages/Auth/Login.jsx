@@ -127,7 +127,7 @@ export default function Login({ errors }) {
                                     <p className="lede" style={{ marginBottom: '18px', fontSize: 'calc(12px * var(--text-scale, 1))' }}>Masukkan email dan kata sandi Anda untuk melanjutkan</p>
 
                                     {/* Error Message */}
-                                    {Object.keys(errors).length > 0 && (
+                                    {errors && Object.keys(errors).length > 0 && (
                                         <div id="login-error" className="alert-dismiss" style={{ textAlign: 'left', marginBottom: '14px', fontWeight: 500, color: 'var(--amber)', background: 'var(--amber-soft)', padding: '10px 12px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', transition: 'opacity 0.6s ease, transform 0.6s ease' }}>
                                             <div>
                                                 {Object.values(errors).map((error, idx) => (
