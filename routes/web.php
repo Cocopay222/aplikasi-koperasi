@@ -410,15 +410,17 @@ Route::get('/laravel-db-test', function() {
         'connections_sqlite' => config('database.connections.sqlite'),
     ]);
 });
-Route::get('/run-migrations', function() {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('db:wipe', ['--force' => true, '--drop-views' => true]);
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-        return "✅ Migrations and Seeders ran successfully!";
-    } catch (\Exception $e) {
-        return "❌ Migration error: " . $e->getMessage();
-    }
+Route::get('/run-wipe', function() {
+    \Illuminate\Support\Facades\Artisan::call('db:wipe', ['--force' => true, '--drop-views' => true]);
+    return "✅ Wipe done!";
+});
+Route::get('/run-migrate', function() {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    return "✅ Migrate done!";
+});
+Route::get('/run-seed', function() {
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+    return "✅ Seed done!";
 });
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
