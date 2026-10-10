@@ -403,6 +403,13 @@ Route::get('/fix-cutoff-columns', function () {
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/laravel-db-test', function() {
+    return response()->json([
+        'default' => config('database.default'),
+        'connections_pgsql' => config('database.connections.pgsql'),
+        'connections_sqlite' => config('database.connections.sqlite'),
+    ]);
+});
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
