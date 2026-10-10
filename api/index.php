@@ -27,6 +27,22 @@ foreach ($dbVars as $key => $val) {
 }
 
 try {
+    if (isset($_SERVER['REQUEST_URI']) && str_starts_with($_SERVER['REQUEST_URI'], '/db-test')) {
+        echo "<h1>DB TEST</h1>";
+        try {
+            $pdo = new PDO("pgsql:host=db.otwraoiqocjjckmvylgf.supabase.co;port=5432;dbname=postgres", "postgres", "Athafatthi11");
+            echo "✅ Connected to Supabase!<br>";
+            $stmt = $pdo->query("SELECT * FROM users LIMIT 1");
+            if ($stmt) {
+                echo "✅ Users table exists and has " . count($stmt->fetchAll()) . " row(s).";
+            } else {
+                echo "❌ Users table query failed.";
+            }
+        } catch (\PDOException $e) {
+            echo "❌ PDO Error: " . $e->getMessage();
+        }
+        exit;
+    }
     require __DIR__ . '/../public/index.php';
 } catch (\Throwable $e) {
     echo "<h1>Fatal Error on Vercel:</h1>";
