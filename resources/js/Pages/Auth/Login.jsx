@@ -10,6 +10,7 @@ export default function Login({ errors }) {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [showForgotModal, setShowForgotModal] = useState(false);
 
     useEffect(() => {
         // Simulate skeleton loading matching original blade
@@ -207,7 +208,7 @@ export default function Login({ errors }) {
                                                 />
                                                 Ingat saya
                                             </label>
-                                            <a href="#" style={{ color: 'var(--brand-primary)', fontWeight: 600, textDecoration: 'underline' }}>Lupa kata sandi?</a>
+                                            <a href="#" onClick={(e) => { e.preventDefault(); setShowForgotModal(true); }} style={{ color: 'var(--brand-primary)', fontWeight: 600, textDecoration: 'underline' }}>Lupa kata sandi?</a>
                                         </div>
 
                                         <button 
@@ -225,7 +226,7 @@ export default function Login({ errors }) {
                                     <div className="register-prompt" style={{ position: 'relative', marginTop: '20px', borderTop: 'none', paddingTop: '18px', fontSize: 'calc(11px * var(--text-scale, 1))' }}>
                                         <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', background: 'var(--paper-raised)', padding: '0 10px', fontSize: 'calc(9px * var(--text-scale, 1))', color: 'var(--ink-soft)', fontFamily: 'var(--font-mono)', zIndex: 2 }}>atau</div>
                                         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, borderTop: '1px solid var(--line)', zIndex: 1 }}></div>
-                                        Belum mempunyai akun? <a href="#" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>Daftar</a>
+                                        Belum mempunyai akun? <a href="/register" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>Daftar</a>
                                     </div>
                                 </div>
                             </div>
@@ -233,6 +234,66 @@ export default function Login({ errors }) {
                             <div className="bottom-text fade-up" style={{ animationDelay: '0.25s' }}>
                                 Butuh bantuan masuk? <a href="#">Hubungi kami</a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Forgot Password Modal */}
+            {showForgotModal && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.7)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', backdropFilter: 'blur(4px)' }}>
+                    <div style={{ background: '#fff', borderRadius: '16px', padding: '32px', width: '100%', maxWidth: '440px', position: 'relative', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}>
+                        <button 
+                            onClick={() => setShowForgotModal(false)}
+                            style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '4px' }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                        
+                        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+                            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>Lupa Kata Sandi</h2>
+                            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.5, margin: 0 }}>
+                                Hubungi Tim Support/Admin. Penyetelan ulang kata sandi sepenuhnya dialihkan oleh Super Admin demi alasan keamanan.
+                            </p>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            {/* Phone */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                                <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0f172a' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '2px' }}>NOMOR TELEPON</div>
+                                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#1e293b', fontFamily: 'monospace' }}>+62 853-1780-5165</div>
+                                </div>
+                            </div>
+
+                            {/* Email */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                                <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#e0e7ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0f172a' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '2px' }}>EMAIL SUPPORT</div>
+                                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#1e293b', fontFamily: 'monospace' }}>info@ptskk.id</div>
+                                </div>
+                            </div>
+
+                            {/* WhatsApp */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                                <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '2px' }}>WHATSAPP CHAT</div>
+                                    <a href="https://wa.me/6285317805165" target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', fontWeight: 600, color: '#17447e', textDecoration: 'underline' }}>Hubungi via WhatsApp →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '10px', fontWeight: 600, color: '#64748b', letterSpacing: '0.1em', fontFamily: 'monospace' }}>
+                            JAM OPERASIONAL: SENIN - JUMAT (09:00 - 17:00 WIB)
                         </div>
                     </div>
                 </div>
