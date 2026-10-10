@@ -14,10 +14,10 @@ $_ENV['APP_SERVICES_CACHE'] = '/tmp/services.php';
 // Force Supabase connection for Vercel Runtime
 $dbVars = [
     'DB_CONNECTION' => 'pgsql',
-    'DB_HOST' => 'db.otwraoiqocjjckmvylgf.supabase.co',
+    'DB_HOST' => 'aws-0-ap-southeast-1.pooler.supabase.com',
     'DB_PORT' => '5432',
     'DB_DATABASE' => 'postgres',
-    'DB_USERNAME' => 'postgres',
+    'DB_USERNAME' => 'postgres.otwraoiqocjjckmvylgf',
     'DB_PASSWORD' => 'Athafatthi11'
 ];
 foreach ($dbVars as $key => $val) {
@@ -30,7 +30,7 @@ try {
     if (isset($_SERVER['REQUEST_URI']) && str_starts_with($_SERVER['REQUEST_URI'], '/db-test')) {
         echo "<h1>DB TEST</h1>";
         try {
-            $pdo = new PDO("pgsql:host=db.otwraoiqocjjckmvylgf.supabase.co;port=5432;dbname=postgres", "postgres", "Athafatthi11");
+            $pdo = new PDO("pgsql:host=aws-0-ap-southeast-1.pooler.supabase.com;port=5432;dbname=postgres", "postgres.otwraoiqocjjckmvylgf", "Athafatthi11");
             echo "✅ Connected to Supabase!<br>";
             $stmt = $pdo->query("SELECT * FROM users LIMIT 1");
             if ($stmt) {
