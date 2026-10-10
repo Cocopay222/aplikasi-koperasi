@@ -46,9 +46,11 @@ class AuthController extends Controller
                 $request->session()->regenerate();
 
                 if (in_array(Auth::user()->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])) {
-                    return redirect()->intended('/support/dashboard');
+                    $url = redirect()->intended('/support/dashboard')->getTargetUrl();
+                    return inertia()->location($url);
                 }
-                return redirect()->intended('/pelapor/dashboard');
+                $url = redirect()->intended('/pelapor/dashboard')->getTargetUrl();
+                return inertia()->location($url);
             }
         } catch (\Exception $e) {
             dd("DATABASE ERROR CAUGHT: " . $e->getMessage() . " | Connection Config: " . json_encode(config('database.connections.' . config('database.default'))));
