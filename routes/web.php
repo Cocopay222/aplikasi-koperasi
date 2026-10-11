@@ -613,3 +613,27 @@ Route::middleware(['auth', IsSuperAdmin::class])->prefix('superadmin')->name('su
     Route::put('/pengguna/{user}', [SuperAdminController::class, 'updatePengguna'])->name('pengguna.update');
     Route::delete('/pengguna/{user}', [SuperAdminController::class, 'destroyPengguna'])->name('pengguna.destroy');
 });
+
+// Route fallback for /storage/{path}
+Route::get('/storage/{path}', function ($path) {
+    $cleanPath = ltrim($path, '/');
+    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
+        return \Illuminate\Support\Facades\Storage::disk('public')->response($cleanPath);
+    }
+    
+    $file = \App\Models\UploadedFile::where('path', $cleanPath)
+        ->orWhere('path', 'like', "%$cleanPath")
+        ->first();
+        
+    if ($file && !empty($file->content)) {
+        $binary = base64_decode($file->content);
+        return response($binary, 200, [
+            'Content-Type' => $file->mime_type ?: 'application/octet-stream',
+            'Content-Disposition' => 'inline; filename="' . ($file->original_name ?: basename($cleanPath)) . '"',
+            'Cache-Control' => 'public, max-age=31536000',
+        ]);
+    }
+
+    abort(404);
+})->where('path', '.*')->name('storage.fallback');
+

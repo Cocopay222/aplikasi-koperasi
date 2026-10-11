@@ -476,15 +476,25 @@
                     @if($t->lampiran)
                     <div style="margin-bottom: 16px;">
                         <label>{{ __('messages.lampiran_bukti') }}</label>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
                         @php $lampirans = is_array($t->lampiran) ? $t->lampiran : [$t->lampiran]; @endphp
                         @foreach($lampirans as $lamp)
                             @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
-                            @if(in_array($ext, ['jpg', 'jpeg', 'png']))
-                                <div style="text-align: center;">
-                                    <a href="{{ Storage::url($lamp) }}" target="_blank">
-                                        <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="max-width: 100%; max-height: 150px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
-                                    </a>
+                            @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <div style="border: 1.5px solid var(--line, #e2e8f0); border-radius: 8px; overflow: hidden; background: white; width: 110px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+                                    <div style="position: relative; width: 110px; height: 75px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')">
+                                        <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; color: var(--text-muted);">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                            <span style="font-size: 0.6rem; font-weight: 600; color: #64748b; text-transform: uppercase;">{{ $ext }}</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 3px 6px; border-top: 1px solid var(--line); background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+                                        <span title="{{ basename($lamp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary); display: inline-flex; align-items: center;" title="Unduh">
+                                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        </a>
+                                    </div>
                                 </div>
                             @elseif($ext === 'mp4')
                                 <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ basename($lamp) }}')" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer;">
@@ -629,10 +639,22 @@
                                     @php $lampiranSupports = is_array($t->lampiran_support) ? $t->lampiran_support : [$t->lampiran_support]; @endphp
                                     @foreach($lampiranSupports as $lampSupp)
                                         @php $extSupp = strtolower(pathinfo($lampSupp, PATHINFO_EXTENSION)); @endphp
-                                        @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
-                                            <a href="{{ Storage::url($lampSupp) }}" target="_blank">
-                                                <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                                            </a>
+                                        @if(in_array($extSupp, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                            <div style="border: 1.5px solid #f59e0b; border-radius: 8px; overflow: hidden; background: white; width: 110px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+                                                <div style="position: relative; width: 110px; height: 75px; background: #fffbeb; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')">
+                                                    <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #fef3c7; color: #b45309;">
+                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                                        <span style="font-size: 0.6rem; font-weight: 600; color: #b45309; text-transform: uppercase;">{{ $extSupp }}</span>
+                                                    </div>
+                                                </div>
+                                                <div style="padding: 3px 6px; border-top: 1px solid #fde68a; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+                                                    <span title="{{ basename($lampSupp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
+                                                    <a href="{{ Storage::url($lampSupp) }}" download="{{ basename($lampSupp) }}" target="_blank" style="color: #d97706; display: inline-flex; align-items: center;" title="Unduh">
+                                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         @elseif($extSupp === 'mp4')
                                             <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
                                                 {{ __('messages.lihat_video') }}

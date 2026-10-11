@@ -56,15 +56,41 @@ foreach ($dbVars as $key => $val) {
 
 try {
     // Direct /storage/ handler for high-performance and reliable serverless delivery
-    if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/storage/(.+)$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), $matches)) {
-        $rawPath = urldecode($matches[1]);
-        $path = ltrim($rawPath, '/');
+    $reqUri = $_SERVER['REQUEST_URI'] ?? '';
+    $pathInfo = $_SERVER['PATH_INFO'] ?? '';
+    $storageTarget = null;
+    
+    if (preg_match('#^/storage/(.+)$#', parse_url($reqUri, PHP_URL_PATH) ?? '', $matches)) {
+        $storageTarget = urldecode($matches[1]);
+    } elseif (preg_match('#^/storage/(.+)$#', $pathInfo, $matches)) {
+        $storageTarget = urldecode($matches[1]);
+    } elseif (!empty($_GET['storage_path'])) {
+        $storageTarget = $_GET['storage_path'];
+    }
+
+    if ($storageTarget) {
+        $path = ltrim($storageTarget, '/');
         
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $extMimes = [
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+            'webp' => 'image/webp',
+            'svg' => 'image/svg+xml',
+            'pdf' => 'application/pdf',
+            'mp4' => 'video/mp4',
+            'csv' => 'text/csv',
+            'txt' => 'text/plain',
+        ];
+
         // 1. Check /tmp
         $tmpFile = '/tmp/storage/app/public/' . $path;
         if (file_exists($tmpFile) && is_file($tmpFile)) {
-            $mime = mime_content_type($tmpFile) ?: 'application/octet-stream';
+            $mime = $extMimes[$ext] ?? (mime_content_type($tmpFile) ?: 'application/octet-stream');
             header("Content-Type: $mime");
+            header("Content-Length: " . filesize($tmpFile));
             header("Cache-Control: public, max-age=31536000");
             readfile($tmpFile);
             exit;
@@ -73,8 +99,9 @@ try {
         // 2. Check local disk
         $localFile = dirname(__DIR__) . '/storage/app/public/' . $path;
         if (file_exists($localFile) && is_file($localFile)) {
-            $mime = mime_content_type($localFile) ?: 'application/octet-stream';
+            $mime = $extMimes[$ext] ?? (mime_content_type($localFile) ?: 'application/octet-stream');
             header("Content-Type: $mime");
+            header("Content-Length: " . filesize($localFile));
             header("Cache-Control: public, max-age=31536000");
             readfile($localFile);
             exit;
@@ -97,9 +124,10 @@ try {
                     @file_put_contents($tmpFile, $binary);
                 } catch (\Throwable $e) {}
 
-                $mime = $file['mime_type'] ?: 'application/octet-stream';
+                $mime = $extMimes[$ext] ?? ($file['mime_type'] ?: 'application/octet-stream');
                 $filename = $file['original_name'] ?: basename($path);
                 header("Content-Type: $mime");
+                header("Content-Length: " . strlen($binary));
                 header("Content-Disposition: inline; filename=\"$filename\"");
                 header("Cache-Control: public, max-age=31536000");
                 echo $binary;

@@ -14,7 +14,7 @@
     "routes": [
         {
             "src": "/storage/(.*)",
-            "dest": "/api/index.php"
+            "dest": "/api/index.php?storage_path=$1"
         },
         {
             "src": "/build/(.*)",
