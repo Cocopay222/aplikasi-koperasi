@@ -13,6 +13,10 @@
     ],
     "routes": [
         {
+            "src": "/storage/(.*)",
+            "dest": "/api/index.php"
+        },
+        {
             "src": "/build/(.*)",
             "dest": "/public/build/$1"
         },
@@ -38,6 +42,7 @@
         "SESSION_DRIVER": "cookie",
         "QUEUE_CONNECTION": "sync",
         "VIEW_COMPILED_PATH": "/tmp",
+        "LARAVEL_STORAGE_PATH": "/tmp/storage",
         "DB_CONNECTION": "pgsql",
         "DB_HOST": "db.otwraoiqocjjckmvylgf.supabase.co",
         "DB_PORT": "5432",

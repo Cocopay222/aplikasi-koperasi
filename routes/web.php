@@ -418,6 +418,70 @@ Route::get('/run-migrate', function() {
     \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
     return "✅ Migrate done!";
 });
+Route::get('/run-migrate-files', function() {
+    try {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('uploaded_files')) {
+            \Illuminate\Support\Facades\Schema::create('uploaded_files', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('disk')->default('public');
+                $table->string('path')->index();
+                $table->string('original_name')->nullable();
+                $table->string('mime_type')->nullable();
+                $table->bigInteger('size')->default(0);
+                $table->longText('content');
+                $table->timestamps();
+            });
+            return "✅ Tabel uploaded_files BERHASIL DIBUAT di database!";
+        }
+        return "ℹ️ Tabel uploaded_files SUDAH ADA di database.";
+    } catch (\Throwable $e) {
+        return "❌ Error: " . $e->getMessage();
+    }
+});
+Route::get('/storage/{path}', function ($path) {
+    // 1. Check local storage path
+    $localPath = storage_path('app/public/' . $path);
+    if (file_exists($localPath)) {
+        return response()->file($localPath);
+    }
+
+    // 2. Check /tmp/storage/app/public/
+    $tmpPath = '/tmp/storage/app/public/' . $path;
+    if (file_exists($tmpPath)) {
+        return response()->file($tmpPath);
+    }
+
+    // 3. Check public_path('storage/' . $path)
+    $pubPath = public_path('storage/' . $path);
+    if (file_exists($pubPath)) {
+        return response()->file($pubPath);
+    }
+
+    // 4. Retrieve from database for serverless persistence
+    $record = \App\Models\UploadedFile::where('path', $path)
+        ->orWhere('path', 'like', "%$path")
+        ->first();
+
+    if ($record && !empty($record->content)) {
+        $binary = base64_decode($record->content);
+
+        try {
+            $tmpDir = dirname($tmpPath);
+            if (!is_dir($tmpDir)) {
+                @mkdir($tmpDir, 0777, true);
+            }
+            @file_put_contents($tmpPath, $binary);
+        } catch (\Throwable $e) {}
+
+        return response($binary, 200, [
+            'Content-Type' => $record->mime_type ?: 'application/octet-stream',
+            'Content-Disposition' => 'inline; filename="' . ($record->original_name ?: basename($path)) . '"',
+            'Cache-Control' => 'public, max-age=31536000',
+        ]);
+    }
+
+    abort(404);
+})->where('path', '.*')->name('storage.serve');
 Route::get('/run-update-apps', function() {
     $migration = require database_path('migrations/2026_10_11_100000_update_master_aplikasis_names.php');
     $migration->up();

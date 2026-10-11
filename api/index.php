@@ -11,6 +11,34 @@ $_ENV['LOG_CHANNEL'] = 'stderr';
 $_ENV['APP_PACKAGES_CACHE'] = '/tmp/packages.php';
 $_ENV['APP_SERVICES_CACHE'] = '/tmp/services.php';
 
+$storageDir = '/tmp/storage';
+putenv("LARAVEL_STORAGE_PATH={$storageDir}");
+$_ENV['LARAVEL_STORAGE_PATH'] = $storageDir;
+$_SERVER['LARAVEL_STORAGE_PATH'] = $storageDir;
+
+$dirsToCreate = [
+    $storageDir,
+    $storageDir . '/app',
+    $storageDir . '/app/public',
+    $storageDir . '/app/public/lampiran_tiket',
+    $storageDir . '/app/public/avatars',
+    $storageDir . '/app/public/berita_acara',
+    $storageDir . '/app/public/surat_balasan',
+    $storageDir . '/app/public/ebooks',
+    $storageDir . '/app/private',
+    $storageDir . '/framework',
+    $storageDir . '/framework/cache',
+    $storageDir . '/framework/cache/data',
+    $storageDir . '/framework/sessions',
+    $storageDir . '/framework/views',
+    $storageDir . '/logs',
+];
+foreach ($dirsToCreate as $d) {
+    if (!is_dir($d)) {
+        @mkdir($d, 0777, true);
+    }
+}
+
 // Force Supabase connection for Vercel Runtime
 $dbVars = [
     'DB_CONNECTION' => 'pgsql',

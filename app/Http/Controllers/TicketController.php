@@ -9,6 +9,7 @@ use App\Models\MasterKategori;
 use App\Models\Faq;
 use App\Enums\TicketStatus;
 use App\Http\Requests\StoreTicketRequest;
+use App\Models\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
@@ -74,7 +75,7 @@ class TicketController extends Controller
         $lampiranPaths = [];
         if ($request->hasFile('lampiran')) {
             foreach ($request->file('lampiran') as $file) {
-                $lampiranPaths[] = $file->store('lampiran_tiket', 'public');
+                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
             }
         }
 
@@ -103,9 +104,7 @@ class TicketController extends Controller
         if ($ticket->lampiran) {
             $lampirans = is_array($ticket->lampiran) ? $ticket->lampiran : [$ticket->lampiran];
             foreach ($lampirans as $lamp) {
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
-                }
+                UploadedFile::deleteFile($lamp, 'public');
             }
         }
 
@@ -137,15 +136,13 @@ class TicketController extends Controller
             if ($ticket->lampiran) {
                 $lampirans = is_array($ticket->lampiran) ? $ticket->lampiran : [$ticket->lampiran];
                 foreach ($lampirans as $lamp) {
-                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
-                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
-                    }
+                    UploadedFile::deleteFile($lamp, 'public');
                 }
             }
 
             $lampiranPaths = [];
             foreach ($request->file('lampiran') as $file) {
-                $lampiranPaths[] = $file->store('lampiran_tiket', 'public');
+                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
             }
             $updateData['lampiran'] = count($lampiranPaths) > 0 ? $lampiranPaths : null;
         }
@@ -196,7 +193,7 @@ class TicketController extends Controller
                 // Replace spaces with underscores for better URL safety
                 $filename = str_replace(' ', '_', $filename);
                 
-                $paths[] = $file->storeAs('surat_balasan', $filename, 'public');
+                $paths[] = UploadedFile::storeUploadedFile($file, 'surat_balasan', 'public', $filename);
             }
 
             $ticket->update([
@@ -235,9 +232,7 @@ class TicketController extends Controller
             $existing = json_decode($ticket->surat_balasan, true);
             if (is_array($existing) && isset($existing[$index])) {
                 $path = $existing[$index];
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
-                }
+                UploadedFile::deleteFile($path, 'public');
                 unset($existing[$index]);
                 // Re-index array
                 $existing = array_values($existing);
@@ -367,9 +362,7 @@ class TicketController extends Controller
             if ($ticket->lampiran_support) {
                 $lampirans = is_array($ticket->lampiran_support) ? $ticket->lampiran_support : [$ticket->lampiran_support];
                 foreach ($lampirans as $lamp) {
-                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
-                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
-                    }
+                    UploadedFile::deleteFile($lamp, 'public');
                 }
             }
             $data['lampiran_support'] = null;
@@ -379,14 +372,12 @@ class TicketController extends Controller
             if ($ticket->lampiran_support) {
                 $lampirans = is_array($ticket->lampiran_support) ? $ticket->lampiran_support : [$ticket->lampiran_support];
                 foreach ($lampirans as $lamp) {
-                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
-                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
-                    }
+                    UploadedFile::deleteFile($lamp, 'public');
                 }
             }
             $lampiranSupportPaths = [];
             foreach ($request->file('lampiran_support') as $file) {
-                $lampiranSupportPaths[] = $file->store('lampiran_tiket', 'public');
+                $lampiranSupportPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
             }
             $data['lampiran_support'] = count($lampiranSupportPaths) > 0 ? $lampiranSupportPaths : null;
         }

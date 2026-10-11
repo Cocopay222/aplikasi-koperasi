@@ -130,10 +130,10 @@ class AuthController extends Controller
         if ($user) {
             if ($request->hasFile('avatar')) {
                 // Hapus avatar lama jika ada
-                if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                if ($user->avatar) {
+                    \App\Models\UploadedFile::deleteFile($user->avatar, 'public');
                 }
-                $path = $request->file('avatar')->store('avatars', 'public');
+                $path = \App\Models\UploadedFile::storeUploadedFile($request->file('avatar'), 'avatars', 'public');
                 $user->avatar = $path;
                 $user->save();
             }
@@ -215,10 +215,10 @@ class AuthController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar) {
+                \App\Models\UploadedFile::deleteFile($user->avatar, 'public');
             }
-            $path = $request->file('avatar')->store('avatars', 'public');
+            $path = \App\Models\UploadedFile::storeUploadedFile($request->file('avatar'), 'avatars', 'public');
             $user->avatar = $path;
         }
 

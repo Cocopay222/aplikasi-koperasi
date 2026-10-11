@@ -22,3 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*'),
         );
     })->create();
+
+if (isset($_SERVER['VERCEL']) || (is_dir('/tmp') && !is_writable($app->storagePath()))) {
+    $app->useStoragePath('/tmp/storage');
+}
+
+return $app;

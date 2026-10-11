@@ -180,7 +180,7 @@ class ImplementasiController extends Controller
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
             'metode_pelatihan' => $request->metode_pelatihan,
-            'berita_acara' => $request->hasFile('berita_acara') ? $request->file('berita_acara')->store('berita_acara', 'public') : null,
+            'berita_acara' => $request->hasFile('berita_acara') ? \App\Models\UploadedFile::storeUploadedFile($request->file('berita_acara'), 'berita_acara', 'public') : null,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
             'anggota_hadir' => $anggotaHadirStr,
             'kontak_pic' => is_array($request->kontak_pic) ? implode(', ', array_filter($request->kontak_pic)) : $request->kontak_pic,
@@ -485,10 +485,10 @@ class ImplementasiController extends Controller
 
         $berita_acara_path = $implementasi->berita_acara;
         if ($request->hasFile('berita_acara')) {
-            if ($implementasi->berita_acara && Storage::disk('public')->exists($implementasi->berita_acara)) {
-                Storage::disk('public')->delete($implementasi->berita_acara);
+            if ($implementasi->berita_acara) {
+                \App\Models\UploadedFile::deleteFile($implementasi->berita_acara, 'public');
             }
-            $berita_acara_path = $request->file('berita_acara')->store('berita_acara', 'public');
+            $berita_acara_path = \App\Models\UploadedFile::storeUploadedFile($request->file('berita_acara'), 'berita_acara', 'public');
         }
 
         $anggotaList = [];

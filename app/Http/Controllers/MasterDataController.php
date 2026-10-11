@@ -47,7 +47,7 @@ class MasterDataController extends Controller
             foreach ($request->file('ebooks') as $file) {
                 $originalName = $file->getClientOriginalName();
                 $filename = time() . '_' . preg_replace('/[^A-Za-z0-9\-\.]/', '_', $originalName);
-                $ebookPaths[] = $file->storeAs('ebooks', $filename, 'public');
+                $ebookPaths[] = \App\Models\UploadedFile::storeUploadedFile($file, 'ebooks', 'public', $filename);
             }
         }
 
@@ -83,7 +83,7 @@ class MasterDataController extends Controller
             foreach ($request->file('ebooks') as $file) {
                 $originalName = $file->getClientOriginalName();
                 $filename = time() . '_' . preg_replace('/[^A-Za-z0-9\-\.]/', '_', $originalName);
-                $ebookPaths[] = $file->storeAs('ebooks', $filename, 'public');
+                $ebookPaths[] = \App\Models\UploadedFile::storeUploadedFile($file, 'ebooks', 'public', $filename);
             }
         }
 
@@ -110,9 +110,7 @@ class MasterDataController extends Controller
 
         if (is_array($aplikasi->ebook)) {
             foreach ($aplikasi->ebook as $path) {
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
-                }
+                \App\Models\UploadedFile::deleteFile($path, 'public');
             }
         }
 
@@ -137,9 +135,7 @@ class MasterDataController extends Controller
         foreach ($indices as $index) {
             if (isset($ebooks[$index])) {
                 $path = $ebooks[$index];
-                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
-                }
+                \App\Models\UploadedFile::deleteFile($path, 'public');
                 unset($ebooks[$index]);
             }
         }
@@ -156,9 +152,7 @@ class MasterDataController extends Controller
 
         if (isset($ebooks[$index])) {
             $path = $ebooks[$index];
-            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
-            }
+            \App\Models\UploadedFile::deleteFile($path, 'public');
             unset($ebooks[$index]);
             $aplikasi->update(['ebook' => array_values($ebooks)]);
             return back()->with('success', __('messages.success_hapus_ebook'));
