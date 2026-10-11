@@ -418,6 +418,11 @@ Route::get('/run-migrate', function() {
     \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
     return "✅ Migrate done!";
 });
+Route::get('/run-update-apps', function() {
+    $migration = require database_path('migrations/2026_10_11_100000_update_master_aplikasis_names.php');
+    $migration->up();
+    return "✅ Master aplikasi updated to Super series successfully!";
+});
 Route::get('/run-seed', function() {
     \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
     return "✅ Seed done!";

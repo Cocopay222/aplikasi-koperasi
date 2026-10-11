@@ -18,16 +18,15 @@ class MasterDataSeeder extends Seeder
         ]);
 
         $aplikasis = [
-            ['nama_aplikasi' => 'SiCUNDO SAKTI', 'deskripsi' => 'Aplikasi SiCUNDO SAKTI', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'SAKTI Multiusaha', 'deskripsi' => 'Aplikasi SAKTI Multiusaha', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
-            ['nama_aplikasi' => 'Sakti Online', 'deskripsi' => 'Aplikasi Sakti Online', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
-            ['nama_aplikasi' => 'Dashboard Sakti Online', 'deskripsi' => 'Aplikasi Dashboard Sakti Online', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
-            ['nama_aplikasi' => 'LACI', 'deskripsi' => 'Aplikasi LACI', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'Transaksi SAKTI.Link', 'deskripsi' => 'Aplikasi Transaksi SAKTI.Link', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'SAKTI.Link', 'deskripsi' => 'Aplikasi SAKTI.Link', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'SAKTI Retail', 'deskripsi' => 'Aplikasi SAKTI Retail', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'SiCUNDO KU', 'deskripsi' => 'Aplikasi SiCUNDO KU', 'username' => null, 'password' => null, 'is_active' => true],
-            ['nama_aplikasi' => 'Sakti Mobile', 'deskripsi' => 'Aplikasi Sakti Mobile', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'Super Multiusaha', 'deskripsi' => 'Aplikasi Super Multiusaha', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
+            ['nama_aplikasi' => 'Super Online', 'deskripsi' => 'Aplikasi Super Online', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
+            ['nama_aplikasi' => 'Dashboard Super Online', 'deskripsi' => 'Aplikasi Dashboard Super Online', 'username' => 'user1', 'password' => 'user1', 'is_active' => true],
+            ['nama_aplikasi' => 'Super LACI', 'deskripsi' => 'Aplikasi Super LACI', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'Transaksi Super.Link', 'deskripsi' => 'Aplikasi Transaksi Super.Link', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'Super.Link', 'deskripsi' => 'Aplikasi Super.Link', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'Super Retail', 'deskripsi' => 'Aplikasi Super Retail', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'SICUNDO SUPER', 'deskripsi' => 'Aplikasi SICUNDO SUPER', 'username' => null, 'password' => null, 'is_active' => true],
+            ['nama_aplikasi' => 'Super Mobile', 'deskripsi' => 'Aplikasi Super Mobile', 'username' => null, 'password' => null, 'is_active' => true],
         ];
 
         foreach ($aplikasis as $app) {
