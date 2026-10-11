@@ -287,7 +287,7 @@ export default function Login({ errors }) {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '2px' }}>WHATSAPP CHAT</div>
-                                    <a href="https://wa.me/6285795085540" target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', fontWeight: 600, color: '#17447e', textDecoration: 'underline' }}>{'Hubungi via WhatsApp \u2192'}</a>
+                                    <a href="https://wa.me/6285795085540" target="_blank" rel="noopener noreferrer" style={{ fontSize: '14px', fontWeight: 600, color: '#1e293b', fontFamily: 'monospace', textDecoration: 'none' }}>+62 857-9508-5540</a>
                                 </div>
                             </div>
                         </div>

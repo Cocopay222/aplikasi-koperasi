@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">{{ __('messages.telepon') }}</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 853-1780-5165</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 857-9508-5540</div>
                 </div>
             </div>
             
@@ -38,18 +38,18 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">{{ __('messages.email') }}</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">info@ptskk.id</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">cocopay@gmail.com</div>
                 </div>
             </div>
             
             <!-- WhatsApp -->
-            <a href="https://wa.me/6285317805165?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SAKTI%20Desk" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: 0.2s; background: var(--paper);" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='var(--paper)'">
+            <a href="https://wa.me/6285795085540?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SupportFlow" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: 0.2s; background: var(--paper);" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='var(--paper)'">
                 <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 22px; height: 22px; object-fit: contain;">
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">WhatsApp</div>
-                    <div style="font-size: 13px; color: var(--ink-soft); margin-top: 4px;">{{ __('messages.klik_untuk_chat') }}</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 857-9508-5540</div>
                 </div>
             </a>
         </div>

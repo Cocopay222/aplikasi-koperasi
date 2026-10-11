@@ -242,7 +242,7 @@
                 </div>
                 <div style="flex-grow: 1;">
                     <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.whatsapp_chat') ?? 'WhatsApp Chat' }}</div>
-                    <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--brand-primary); font-weight: 600; margin-top: 2px; text-decoration: underline;">{{ __('messages.hubungi_via_whatsapp') ?? 'Hubungi via WhatsApp' }} &rarr;</div>
+                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 857-9508-5540</div>
                 </div>
             </a>
         </div>
