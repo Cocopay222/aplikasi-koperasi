@@ -60,14 +60,16 @@ try {
         try {
             $pdo = new PDO("pgsql:host=aws-0-ap-southeast-1.pooler.supabase.com;port=5432;dbname=postgres", "postgres.otwraoiqocjjckmvylgf", "Athafatthi11");
             echo "✅ Connected to Supabase!<br>";
-            $stmt = $pdo->query("SELECT email FROM users");
-            if ($stmt) {
-                $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo "✅ Users table exists and has " . count($users) . " row(s).<br>";
-                echo "<pre>" . print_r($users, true) . "</pre>";
-            } else {
-                echo "❌ Users table query failed.";
-            }
+            
+            echo "<h3>Tickets:</h3>";
+            $stmt = $pdo->query("SELECT ticket_id, pelapor_id, lampiran, lampiran_support FROM tickets ORDER BY ticket_id DESC LIMIT 5");
+            $tickets = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
+            echo "<pre>" . print_r($tickets, true) . "</pre>";
+
+            echo "<h3>Uploaded Files:</h3>";
+            $stmt2 = $pdo->query("SELECT id, disk, path, original_name, mime_type, size, created_at FROM uploaded_files ORDER BY id DESC LIMIT 10");
+            $files = $stmt2 ? $stmt2->fetchAll(PDO::FETCH_ASSOC) : [];
+            echo "<pre>" . print_r($files, true) . "</pre>";
         } catch (\PDOException $e) {
             echo "❌ PDO Error: " . $e->getMessage();
         }

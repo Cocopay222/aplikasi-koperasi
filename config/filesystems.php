@@ -45,7 +45,7 @@ return [
             'root' => (isset($_SERVER['VERCEL']) || (is_dir('/tmp') && !is_writable(storage_path('app/public'))))
                 ? '/tmp/storage/app/public'
                 : storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => env('APP_URL') ? rtrim(env('APP_URL'), '/').'/storage' : '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

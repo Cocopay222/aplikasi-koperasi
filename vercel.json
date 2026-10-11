@@ -36,6 +36,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
+        "APP_URL": "https://aplikasi-koperasinew.vercel.app",
         "APP_KEY": "base64:dlCfFAzNxSCAFjlPl0DTzJTB3dDFX9P39C0G32ZVae0=",
         "LOG_CHANNEL": "stderr",
         "CACHE_DRIVER": "array",
