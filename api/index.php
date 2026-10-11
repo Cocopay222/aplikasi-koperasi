@@ -55,6 +55,11 @@ foreach ($dbVars as $key => $val) {
 }
 
 try {
+    $pdoInit = new PDO("pgsql:host=aws-0-ap-southeast-1.pooler.supabase.com;port=5432;dbname=postgres", "postgres.otwraoiqocjjckmvylgf", "Athafatthi11");
+    $pdoInit->exec("UPDATE master_kategoris SET nama_kategori = 'Transaksi Super Link' WHERE nama_kategori IN ('Transaksi SAKTI.Link', 'Transaksi Sakti.Link', 'Transaksi Sakti Link', 'Transaksi Super.Link')");
+} catch (\Throwable $e) {}
+
+try {
     // Direct /storage/ handler for high-performance and reliable serverless delivery
     $reqUri = $_SERVER['REQUEST_URI'] ?? '';
     $pathInfo = $_SERVER['PATH_INFO'] ?? '';
@@ -150,6 +155,11 @@ try {
             $stmt2 = $pdo->query("SELECT id, disk, path, original_name, mime_type, size, created_at FROM uploaded_files ORDER BY id DESC LIMIT 10");
             $files = $stmt2 ? $stmt2->fetchAll(PDO::FETCH_ASSOC) : [];
             echo "<pre>" . print_r($files, true) . "</pre>";
+
+            echo "<h3>Master Kategoris:</h3>";
+            $stmtKat = $pdo->query("SELECT kategori_id, nama_kategori FROM master_kategoris ORDER BY kategori_id ASC");
+            $kats = $stmtKat ? $stmtKat->fetchAll(PDO::FETCH_ASSOC) : [];
+            echo "<pre>" . print_r($kats, true) . "</pre>";
         } catch (\PDOException $e) {
             echo "❌ PDO Error: " . $e->getMessage();
         }

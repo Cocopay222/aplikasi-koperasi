@@ -41,7 +41,7 @@ class MasterDataSeeder extends Seeder
             ['nama_kategori' => 'Support SOP'],
             ['nama_kategori' => 'Support Data'],
             ['nama_kategori' => 'Support Teknis Bug/Optimise'],
-            ['nama_kategori' => 'Transaksi SAKTI.Link'],
+            ['nama_kategori' => 'Transaksi Super Link'],
             ['nama_kategori' => 'Support Pra'],
             ['nama_kategori' => 'Setup Datalama'],
             ['nama_kategori' => 'Fraud'],
