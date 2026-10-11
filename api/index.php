@@ -150,6 +150,11 @@ try {
             $stmt2 = $pdo->query("SELECT id, disk, path, original_name, mime_type, size, created_at FROM uploaded_files ORDER BY id DESC LIMIT 10");
             $files = $stmt2 ? $stmt2->fetchAll(PDO::FETCH_ASSOC) : [];
             echo "<pre>" . print_r($files, true) . "</pre>";
+
+            echo "<h3>Recap Query Test:</h3>";
+            $stmt3 = $pdo->query("SELECT CAST(EXTRACT(MONTH FROM tanggal_input) AS INTEGER) as month, COUNT(*) as total FROM tickets WHERE EXTRACT(YEAR FROM tanggal_input) = 2026 GROUP BY CAST(EXTRACT(MONTH FROM tanggal_input) AS INTEGER)");
+            $recap = $stmt3 ? $stmt3->fetchAll(PDO::FETCH_ASSOC) : [];
+            echo "<pre>" . print_r($recap, true) . "</pre>";
         } catch (\PDOException $e) {
             echo "❌ PDO Error: " . $e->getMessage();
         }

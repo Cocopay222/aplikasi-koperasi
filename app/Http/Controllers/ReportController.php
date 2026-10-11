@@ -15,22 +15,33 @@ class ReportController extends Controller
         return redirect()->route('support.recap.diagram', $request->query());
     }
 
+    private function getMonthExpression(): string
+    {
+        $driver = DB::connection()->getDriverName();
+        return match ($driver) {
+            'pgsql' => 'CAST(EXTRACT(MONTH FROM tanggal_input) AS INTEGER)',
+            'sqlite' => "CAST(strftime('%m', tanggal_input) AS INTEGER)",
+            default => 'MONTH(tanggal_input)',
+        };
+    }
+
     public function diagram(Request $request)
     {
-        $year = $request->input('year', date('Y'));
+        $year = (int)$request->input('year', date('Y'));
+        $monthExpr = $this->getMonthExpression();
 
         // FR-10A: Monthly Bar Chart Data (Grouping by month based on tanggal_input)
         $monthlyTickets = Ticket::select(
-            DB::raw('MONTH(tanggal_input) as month'),
+            DB::raw("{$monthExpr} as month"),
             DB::raw('COUNT(*) as total')
         )
         ->whereYear('tanggal_input', $year)
-        ->groupBy('month')
+        ->groupBy(DB::raw($monthExpr))
         ->pluck('total', 'month')->toArray();
 
         $chartData = [];
         for ($i = 1; $i <= 12; $i++) {
-            $chartData[] = $monthlyTickets[$i] ?? 0;
+            $chartData[] = (int)($monthlyTickets[$i] ?? $monthlyTickets[(string)$i] ?? 0);
         }
 
         return view('support.recap-diagram', compact('year', 'chartData'));
@@ -38,18 +49,19 @@ class ReportController extends Controller
 
     public function table(Request $request)
     {
-        $year = $request->input('year', date('Y'));
+        $year = (int)$request->input('year', date('Y'));
+        $monthExpr = $this->getMonthExpression();
 
         // FR-10B: Category Crosstab (All tickets based on tanggal_input, matching the diagram)
         $kategoris = MasterKategori::all();
         
         $crosstabData = Ticket::select(
             'kategori_id',
-            DB::raw('MONTH(tanggal_input) as month'),
+            DB::raw("{$monthExpr} as month"),
             DB::raw('COUNT(*) as total')
         )
         ->whereYear('tanggal_input', $year)
-        ->groupBy('kategori_id', 'month')
+        ->groupBy('kategori_id', DB::raw($monthExpr))
         ->get();
 
         $crosstab = [];
@@ -69,9 +81,10 @@ class ReportController extends Controller
 
         foreach ($crosstabData as $data) {
             $catId = $data->kategori_id ?: 'uncategorized';
-            if (isset($crosstab[$catId])) {
-                $crosstab[$catId]['months'][$data->month] = $data->total;
-                $crosstab[$catId]['total_year'] += $data->total;
+            $m = (int)$data->month;
+            if (isset($crosstab[$catId]) && $m >= 1 && $m <= 12) {
+                $crosstab[$catId]['months'][$m] = (int)$data->total;
+                $crosstab[$catId]['total_year'] += (int)$data->total;
             }
         }
 
