@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="login-wrap">
@@ -153,7 +153,7 @@
                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                     </svg>
-                                    <input type="password" name="password" id="password-input" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="padding-left: 42px; padding-right: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
+                                    <input type="password" name="password" id="password-input" placeholder="••••••••" style="padding-left: 42px; padding-right: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
                                     <button type="button" id="toggle-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
                                         <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -220,7 +220,7 @@
                 </div>
                 <div style="flex-grow: 1;">
                     <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.nomor_telepon') ?? 'Nomor Telepon' }}</div>
-                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 853-1780-5165</div>
+                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 857-9508-5540</div>
                 </div>
             </div>
 
@@ -231,12 +231,12 @@
                 </div>
                 <div style="flex-grow: 1;">
                     <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.email_support') ?? 'Email Support' }}</div>
-                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">info@ptskk.id</div>
+                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">cocopay@gmail.com</div>
                 </div>
             </div>
 
             <!-- WhatsApp -->
-            <a href="https://wa.me/{{ formatNomorWa(config('services.whatsapp_support_number') ?? '085317805165') }}?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SAKTI%20Desk" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 16px; background: var(--paper, #fff); transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='var(--paper-sunken, #f8f9fa)'" onmouseout="this.style.background='var(--paper, #fff)'">
+            <a href="https://wa.me/6285795085540?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SupportFlow" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 16px; background: var(--paper, #fff); transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='var(--paper-sunken, #f8f9fa)'" onmouseout="this.style.background='var(--paper, #fff)'">
                 <div style="background: var(--brand-primary-soft, rgba(229, 57, 53, 0.05)); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;">
                 </div>

@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('page_title', __('messages.title_riwayat'))
 @section('page_subtitle', 'SupportFlow')
@@ -116,7 +116,7 @@
                     <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
                 </div>
             </div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); event.stopPropagation();">âœ•</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); event.stopPropagation();">&times;</button>
         </div>
         
         <div class="modal-body" style="padding: 24px;">
@@ -142,7 +142,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.detail_laporan') }}</h3><p>{{ $t->ticket_id }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); event.stopPropagation();">âœ•</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); event.stopPropagation();">&times;</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
             <div style="margin-bottom: 24px;">
@@ -331,7 +331,7 @@
                     <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
                 </div>
             </div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); event.stopPropagation();">âœ•</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); event.stopPropagation();">&times;</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
             <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft);">
@@ -357,7 +357,7 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>{{ __('messages.btn_edit_report') }}</h3><p>{{ $t->ticket_id }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}');">âœ•</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}');">&times;</button>
         </div>
         <form action="{{ route('pelapor.tickets.update_pelapor', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'edit_lampiran_input_{{ $t->ticket_id }}', 8);">
             @csrf
