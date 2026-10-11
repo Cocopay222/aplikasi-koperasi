@@ -55,6 +55,58 @@ foreach ($dbVars as $key => $val) {
 }
 
 try {
+    // Direct /storage/ handler for high-performance and reliable serverless delivery
+    if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/storage/(.+)$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), $matches)) {
+        $rawPath = urldecode($matches[1]);
+        $path = ltrim($rawPath, '/');
+        
+        // 1. Check /tmp
+        $tmpFile = '/tmp/storage/app/public/' . $path;
+        if (file_exists($tmpFile) && is_file($tmpFile)) {
+            $mime = mime_content_type($tmpFile) ?: 'application/octet-stream';
+            header("Content-Type: $mime");
+            header("Cache-Control: public, max-age=31536000");
+            readfile($tmpFile);
+            exit;
+        }
+
+        // 2. Check local disk
+        $localFile = dirname(__DIR__) . '/storage/app/public/' . $path;
+        if (file_exists($localFile) && is_file($localFile)) {
+            $mime = mime_content_type($localFile) ?: 'application/octet-stream';
+            header("Content-Type: $mime");
+            header("Cache-Control: public, max-age=31536000");
+            readfile($localFile);
+            exit;
+        }
+
+        // 3. Query Supabase database
+        try {
+            $pdo = new PDO("pgsql:host=aws-0-ap-southeast-1.pooler.supabase.com;port=5432;dbname=postgres", "postgres.otwraoiqocjjckmvylgf", "Athafatthi11");
+            $stmt = $pdo->prepare("SELECT mime_type, original_name, content FROM uploaded_files WHERE path = ? OR path LIKE ? LIMIT 1");
+            $stmt->execute([$path, "%$path"]);
+            $file = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($file && !empty($file['content'])) {
+                $binary = base64_decode($file['content']);
+                try {
+                    $dir = dirname($tmpFile);
+                    if (!is_dir($dir)) {
+                        @mkdir($dir, 0777, true);
+                    }
+                    @file_put_contents($tmpFile, $binary);
+                } catch (\Throwable $e) {}
+
+                $mime = $file['mime_type'] ?: 'application/octet-stream';
+                $filename = $file['original_name'] ?: basename($path);
+                header("Content-Type: $mime");
+                header("Content-Disposition: inline; filename=\"$filename\"");
+                header("Cache-Control: public, max-age=31536000");
+                echo $binary;
+                exit;
+            }
+        } catch (\Throwable $e) {}
+    }
     if (isset($_SERVER['REQUEST_URI']) && str_starts_with($_SERVER['REQUEST_URI'], '/db-test')) {
         echo "<h1>DB TEST</h1>";
         try {

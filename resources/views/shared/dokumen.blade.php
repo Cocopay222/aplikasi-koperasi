@@ -108,20 +108,50 @@
                 @if($ticket->lampiran)
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Dokumen Pendukung:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;">
                         @php $lampirans = is_array($ticket->lampiran) ? $ticket->lampiran : [$ticket->lampiran]; @endphp
                         @foreach($lampirans as $lamp)
                             @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
                             @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="doc-img-btn" style="border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: white; cursor: pointer; padding: 0; width: fit-content; text-align: center; display: flex; flex-direction: column;">
-                                    <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="height: 100px; width: auto; object-fit: cover;">
-                                    <span class="doc-img-label" style="font-size: 0.7rem; padding: 4px; border-top: 1px solid var(--line); color: var(--text-muted); background: #f8fafc; display: block;">{{ Str::limit(basename($lamp), 15) }}</span>
-                                </button>
+                                <div style="border: 1.5px solid var(--line, #e2e8f0); border-radius: 10px; overflow: hidden; background: white; width: 140px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;">
+                                    <div style="position: relative; width: 140px; height: 100px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')">
+                                        <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; color: var(--text-muted);">
+                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                            <span style="font-size: 0.65rem; font-weight: 600; margin-top: 4px; color: #64748b; text-transform: uppercase;">{{ $ext }}</span>
+                                        </div>
+                                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                                            <span style="color: white; font-size: 0.75rem; font-weight: 600; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                                Lihat
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 6px 8px; border-top: 1px solid var(--line, #e2e8f0); background: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 4px;">
+                                        <span title="{{ basename($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             @else
-                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm doc-btn-ghost" style="display: inline-flex; align-items: center; gap: 8px;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                                    Lihat {{ strtoupper($ext) }}
-                                </button>
+                                <div style="border: 1.5px solid var(--line, #e2e8f0); border-radius: 10px; background: white; padding: 8px 12px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                                    <div style="width: 36px; height: 36px; border-radius: 8px; background: {{ $ext === 'pdf' ? '#fee2e2' : ($ext === 'mp4' ? '#ede9fe' : (in_array($ext, ['doc','docx']) ? '#e0f2fe' : '#f1f5f9')) }}; display: flex; align-items: center; justify-content: center; color: {{ $ext === 'pdf' ? '#dc2626' : ($ext === 'mp4' ? '#7c3aed' : (in_array($ext, ['doc','docx']) ? '#0284c7' : '#475569')) }}; font-weight: 700; font-size: 0.75rem;">
+                                        {{ strtoupper($ext ?: 'FILE') }}
+                                    </div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <span title="{{ basename($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: var(--ink, #1e293b); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <span style="font-size: 0.7rem; color: var(--text-muted, #64748b);">Dokumen</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 4px; margin-left: 6px;">
+                                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--line, #cbd5e1); border-radius: 6px; cursor: pointer;">
+                                            Buka
+                                        </button>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--line, #cbd5e1); border-radius: 6px; color: var(--ink); text-decoration: none;">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </div>
@@ -224,20 +254,50 @@
                 @if($ticket->lampiran_support)
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Lampiran Respons Dokumen:</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start;">
                         @php $lampiranSupports = is_array($ticket->lampiran_support) ? $ticket->lampiran_support : [$ticket->lampiran_support]; @endphp
                         @foreach($lampiranSupports as $lamp)
                             @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
                             @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="doc-img-btn" style="border: 1px solid #f59e0b; border-radius: 8px; overflow: hidden; background: white; cursor: pointer; padding: 0; width: fit-content; text-align: center; display: flex; flex-direction: column;">
-                                    <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="height: 100px; width: auto; object-fit: cover;">
-                                    <span class="doc-img-label" style="font-size: 0.7rem; padding: 4px; border-top: 1px solid #f59e0b; color: #b45309; background: #fef3c7; display: block;">{{ Str::limit(basename($lamp), 15) }}</span>
-                                </button>
+                                <div style="border: 1.5px solid #f59e0b; border-radius: 10px; overflow: hidden; background: white; width: 140px; box-shadow: 0 2px 6px rgba(245,158,11,0.08); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;">
+                                    <div style="position: relative; width: 140px; height: 100px; background: #fffbeb; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')">
+                                        <img src="{{ Storage::url($lamp) }}" alt="Lampiran Support" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #fef3c7; color: #b45309;">
+                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                            <span style="font-size: 0.65rem; font-weight: 600; margin-top: 4px; color: #b45309; text-transform: uppercase;">{{ $ext }}</span>
+                                        </div>
+                                        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                                            <span style="color: white; font-size: 0.75rem; font-weight: 600; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                                Lihat
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 6px 8px; border-top: 1px solid #fde68a; background: #fffbeb; display: flex; align-items: center; justify-content: space-between; gap: 4px;">
+                                        <span title="{{ basename($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             @else
-                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #f59e0b; background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                                    Lihat {{ strtoupper($ext) }}
-                                </button>
+                                <div style="border: 1.5px solid #fde68a; border-radius: 10px; background: #fffbeb; padding: 8px 12px; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 2px 6px rgba(245,158,11,0.06);">
+                                    <div style="width: 36px; height: 36px; border-radius: 8px; background: #fef3c7; display: flex; align-items: center; justify-content: center; color: #b45309; font-weight: 700; font-size: 0.75rem;">
+                                        {{ strtoupper($ext ?: 'FILE') }}
+                                    </div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <span title="{{ basename($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: #92400e; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <span style="font-size: 0.7rem; color: #b45309;">Respons Support</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 4px; margin-left: 6px;">
+                                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #fcd34d; border-radius: 6px; cursor: pointer; color: #b45309;">
+                                            Buka
+                                        </button>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #fcd34d; border-radius: 6px; color: #b45309; text-decoration: none;">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        </a>
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </div>

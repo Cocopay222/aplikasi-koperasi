@@ -255,28 +255,42 @@
             @if($t->lampiran)
             <div style="margin-bottom: 24px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.lampiran_bukti') }}</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start;">
                 @php $lampirans = is_array($t->lampiran) ? $t->lampiran : [$t->lampiran]; @endphp
                 @foreach($lampirans as $lamp)
                     @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
-                    @if(in_array($ext, ['jpg', 'jpeg', 'png']))
-                        <div style="text-align: center;">
-                            <a href="{{ Storage::url($lamp) }}" target="_blank">
-                                <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                            </a>
+                    @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                        <div style="border: 1.5px solid var(--line, #e2e8f0); border-radius: 8px; overflow: hidden; background: white; width: 120px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+                            <div style="position: relative; width: 120px; height: 85px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')">
+                                <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #f1f5f9; color: var(--text-muted);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    <span style="font-size: 0.65rem; font-weight: 600; margin-top: 3px; color: #64748b; text-transform: uppercase;">{{ $ext }}</span>
+                                </div>
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                                    <span style="color: white; font-size: 0.7rem; font-weight: 600; background: rgba(0,0,0,0.6); padding: 3px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                        Lihat
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="padding: 4px 6px; border-top: 1px solid var(--line, #e2e8f0); background: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 3px;">
+                                <span title="{{ basename($lamp) }}" style="font-size: 0.7rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center;" title="Unduh">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                </a>
+                            </div>
                         </div>
-                    @elseif($ext === 'mp4')
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                            {{ __('messages.lihat_video') }}
-                        </button>
-                    @elseif($ext === 'pdf')
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
-                            {{ __('messages.unduh_pdf') }}
-                        </button>
                     @else
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
-                            Lihat {{ strtoupper($ext) }}
-                        </button>
+                        <div style="border: 1.5px solid var(--line, #e2e8f0); border-radius: 8px; background: white; padding: 6px 10px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                            <div style="width: 30px; height: 30px; border-radius: 6px; background: {{ $ext === 'pdf' ? '#fee2e2' : ($ext === 'mp4' ? '#ede9fe' : (in_array($ext, ['doc','docx']) ? '#e0f2fe' : '#f1f5f9')) }}; display: flex; align-items: center; justify-content: center; color: {{ $ext === 'pdf' ? '#dc2626' : ($ext === 'mp4' ? '#7c3aed' : (in_array($ext, ['doc','docx']) ? '#0284c7' : '#475569')) }}; font-weight: 700; font-size: 0.68rem;">
+                                {{ strtoupper($ext ?: 'FILE') }}
+                            </div>
+                            <span title="{{ basename($lamp) }}" style="font-size: 0.75rem; font-weight: 500; color: var(--ink, #1e293b); max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                            <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 3px 6px; font-size: 0.7rem; border: 1px solid var(--line, #cbd5e1); border-radius: 5px; cursor: pointer;">
+                                Buka
+                            </button>
+                        </div>
                     @endif
                 @endforeach
                 </div>
@@ -334,28 +348,42 @@
             @if($t->lampiran_support)
             <div style="margin-bottom: 24px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Lampiran Respons Support</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start;">
                 @php $lampiranSupports = is_array($t->lampiran_support) ? $t->lampiran_support : [$t->lampiran_support]; @endphp
                 @foreach($lampiranSupports as $lampSupp)
                     @php $extSupp = strtolower(pathinfo($lampSupp, PATHINFO_EXTENSION)); @endphp
-                    @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
-                        <div style="text-align: center;">
-                            <a href="{{ Storage::url($lampSupp) }}" target="_blank">
-                                <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                            </a>
+                    @if(in_array($extSupp, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                        <div style="border: 1.5px solid #f59e0b; border-radius: 8px; overflow: hidden; background: white; width: 120px; box-shadow: 0 2px 4px rgba(245,158,11,0.06); display: flex; flex-direction: column;">
+                            <div style="position: relative; width: 120px; height: 85px; background: #fffbeb; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer;" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')">
+                                <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div style="display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; background: #fef3c7; color: #b45309;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    <span style="font-size: 0.65rem; font-weight: 600; margin-top: 3px; color: #b45309; text-transform: uppercase;">{{ $extSupp }}</span>
+                                </div>
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                                    <span style="color: white; font-size: 0.7rem; font-weight: 600; background: rgba(0,0,0,0.6); padding: 3px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                        Lihat
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="padding: 4px 6px; border-top: 1px solid #fde68a; background: #fffbeb; display: flex; align-items: center; justify-content: space-between; gap: 3px;">
+                                <span title="{{ basename($lampSupp) }}" style="font-size: 0.7rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
+                                <a href="{{ Storage::url($lampSupp) }}" download="{{ basename($lampSupp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center;" title="Unduh">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                </a>
+                            </div>
                         </div>
-                    @elseif($extSupp === 'mp4')
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ basename($lampSupp) }}')" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                            {{ __('messages.lihat_video') }}
-                        </button>
-                    @elseif($extSupp === 'pdf')
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
-                            {{ __('messages.unduh_pdf') }}
-                        </button>
                     @else
-                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
-                            Lihat {{ strtoupper($extSupp) }}
-                        </button>
+                        <div style="border: 1.5px solid #fde68a; border-radius: 8px; background: #fffbeb; padding: 6px 10px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(245,158,11,0.04);">
+                            <div style="width: 30px; height: 30px; border-radius: 6px; background: #fef3c7; display: flex; align-items: center; justify-content: center; color: #b45309; font-weight: 700; font-size: 0.68rem;">
+                                {{ strtoupper($extSupp ?: 'FILE') }}
+                            </div>
+                            <span title="{{ basename($lampSupp) }}" style="font-size: 0.75rem; font-weight: 500; color: #92400e; max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
+                            <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="padding: 3px 6px; font-size: 0.7rem; border: 1px solid #fcd34d; border-radius: 5px; cursor: pointer; color: #b45309;">
+                                Buka
+                            </button>
+                        </div>
                     @endif
                 @endforeach
                 </div>

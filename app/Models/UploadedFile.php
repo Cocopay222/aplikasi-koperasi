@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadedFile extends Model
 {
+    protected $table = 'uploaded_files';
+
     protected $fillable = [
         'disk',
         'path',
@@ -27,6 +29,22 @@ class UploadedFile extends Model
         $filename = $customFilename ?: $file->hashName();
         $relativePath = $directory . '/' . $filename;
 
+        // Capture content and metadata before any move/store operations
+        $content = '';
+        $originalName = $filename;
+        $mimeType = 'application/octet-stream';
+
+        if ($file instanceof \Illuminate\Http\UploadedFile) {
+            $originalName = $file->getClientOriginalName();
+            $mimeType = $file->getClientMimeType() ?: ($file->getMimeType() ?: 'application/octet-stream');
+            try {
+                $realPath = $file->getRealPath();
+                if ($realPath && file_exists($realPath)) {
+                    $content = file_get_contents($realPath);
+                }
+            } catch (\Throwable $e) {}
+        }
+
         // 1. Try Laravel native storage store / storeAs
         $stored = false;
         try {
@@ -37,27 +55,37 @@ class UploadedFile extends Model
             }
             $stored = true;
         } catch (\Throwable $e) {
-            Log::warning('Native store failed, falling back to tmp: ' . $e->getMessage());
+            Log::warning('Native store failed: ' . $e->getMessage());
         }
 
-        // 2. Fallback to /tmp storage if native storage failed on read-only system
-        if (!$stored) {
+        // 2. Always write to /tmp storage cache for current lambda if we have content
+        if (!empty($content)) {
             try {
                 $tmpDir = '/tmp/storage/app/' . $disk . '/' . $directory;
                 if (!is_dir($tmpDir)) {
                     @mkdir($tmpDir, 0777, true);
                 }
-                $content = file_get_contents($file->getRealPath());
-                if ($content !== false) {
-                    @file_put_contents($tmpDir . '/' . $filename, $content);
-                }
-            } catch (\Throwable $e2) {
-                Log::warning('Fallback tmp store failed: ' . $e2->getMessage());
+                @file_put_contents($tmpDir . '/' . $filename, $content);
+            } catch (\Throwable $e) {
+                Log::warning('Fallback tmp store failed: ' . $e->getMessage());
+            }
+
+            // 3. Persist binary to PostgreSQL database for serverless persistence
+            try {
+                self::updateOrCreate(
+                    ['path' => $relativePath],
+                    [
+                        'disk' => $disk,
+                        'original_name' => $originalName,
+                        'mime_type' => $mimeType,
+                        'size' => strlen($content),
+                        'content' => base64_encode($content),
+                    ]
+                );
+            } catch (\Throwable $e) {
+                Log::warning('UploadedFile save to DB failed: ' . $e->getMessage());
             }
         }
-
-        // 3. Always persist binary to PostgreSQL for persistence across serverless lambdas
-        self::saveFile($file, $relativePath, $disk);
 
         return $relativePath;
     }
@@ -79,9 +107,13 @@ class UploadedFile extends Model
                 if ($realPath && file_exists($realPath)) {
                     $content = file_get_contents($realPath);
                 }
-            } elseif (is_string($file) && file_exists($file)) {
-                $content = file_get_contents($file);
-                $mimeType = mime_content_type($file) ?: 'application/octet-stream';
+            } elseif (is_string($file)) {
+                if (file_exists($file)) {
+                    $content = file_get_contents($file);
+                    $mimeType = mime_content_type($file) ?: 'application/octet-stream';
+                } else {
+                    $content = $file;
+                }
             }
 
             if (!empty($content)) {
