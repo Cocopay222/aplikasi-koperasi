@@ -62,11 +62,11 @@ class AuthController extends Controller
     }
 
     /**
-     * Menampilkan form registrasi Pelapor.
+     * Menampilkan informasi registrasi Pelapor (dialihkan ke pop up modal Login).
      */
     public function register()
     {
-        return view('auth.register');
+        return redirect()->route('login', ['action' => 'register']);
     }
 
     /**

@@ -275,22 +275,35 @@
         const modalText = document.getElementById('support-modal-text');
 
         const defaultTitle = 'Hubungi Tim Support';
-        const defaultText = 'Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:';
-        const registerText = 'Hubungi Tim Support/Admin. Pembuatan akun (registrasi) baru sepenuhnya dialihkan oleh Super Admin untuk keperluan validasi mitra/koperasi.';
+        const defaultText = 'Jika Anda mengalami kendala saat login atau membutuhkan informasi bantuan, silakan hubungi tim support kami melalui kontak di bawah ini:';
+        const registerTitle = 'Pendaftaran Akun Pelapor';
+        const registerText = 'Pendaftaran dan pembuatan akun Pelapor dilakukan secara terpusat oleh Admin / Super Admin demi validasi dan verifikasi data koperasi mitra. Silakan hubungi Admin / Tim Support kami di bawah ini agar akun Anda segera dibuatkan:';
+        const forgotPasswordTitle = 'Lupa Kata Sandi';
         const forgotPasswordText = 'Hubungi Tim Support/Admin. Penyetelan ulang kata sandi sepenuhnya dialihkan oleh Super Admin demi alasan keamanan.';
 
+        const whatsappLink = document.querySelector('#support-modal a[href*="wa.me"]');
+
         function openModal(e, mode = 'support') {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             
-            if(mode === 'register') {
-                modalTitle.textContent = 'Pembuatan Akun Baru';
+            if (mode === 'register') {
+                modalTitle.textContent = registerTitle;
                 modalText.textContent = registerText;
-            } else if(mode === 'forgot') {
-                modalTitle.textContent = 'Lupa Kata Sandi';
+                if (whatsappLink) {
+                    whatsappLink.href = 'https://wa.me/6285795085540?text=' + encodeURIComponent('Halo Admin, saya ingin mendaftarkan akun Pelapor Koperasi baru.');
+                }
+            } else if (mode === 'forgot') {
+                modalTitle.textContent = forgotPasswordTitle;
                 modalText.textContent = forgotPasswordText;
+                if (whatsappLink) {
+                    whatsappLink.href = 'https://wa.me/6285795085540?text=' + encodeURIComponent('Halo Admin, saya ingin meminta bantuan reset kata sandi akun saya.');
+                }
             } else {
                 modalTitle.textContent = defaultTitle;
                 modalText.textContent = defaultText;
+                if (whatsappLink) {
+                    whatsappLink.href = 'https://wa.me/6285795085540?text=' + encodeURIComponent('Halo Tim Support, saya butuh bantuan terkait akses aplikasi.');
+                }
             }
 
             supportModal.style.display = 'flex';
@@ -312,6 +325,13 @@
         if (registerTrigger) registerTrigger.addEventListener('click', (e) => openModal(e, 'register'));
         if (forgotPasswordTrigger) forgotPasswordTrigger.addEventListener('click', (e) => openModal(e, 'forgot'));
         if (closeSupportModal) closeSupportModal.addEventListener('click', closeModal);
+
+        // Auto trigger modal if URL contains action parameter (e.g. from /register redirect)
+        const params = new URLSearchParams(window.location.search);
+        const action = params.get('action');
+        if (action === 'register' || action === 'forgot' || action === 'support') {
+            openModal(null, action);
+        }
         
         // Close modal when clicking outside modal-card
         if (supportModal) {
