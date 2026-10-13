@@ -20,6 +20,33 @@ class UploadedFile extends Model
     ];
 
     /**
+     * Cache nama asli per request agar tidak query berulang.
+     */
+    protected static array $displayNameCache = [];
+
+    /**
+     * Ambil nama file asli untuk ditampilkan.
+     * Prioritas: kolom original_name di DB, lalu basename tanpa prefix timestamp.
+     */
+    public static function displayName(?string $path): string
+    {
+        if (!$path) {
+            return '';
+        }
+
+        if (!array_key_exists($path, self::$displayNameCache)) {
+            $original = null;
+            try {
+                $original = self::where('path', $path)->value('original_name');
+            } catch (\Throwable $e) {}
+
+            self::$displayNameCache[$path] = $original ?: preg_replace('/^\d+_/', '', basename($path));
+        }
+
+        return self::$displayNameCache[$path];
+    }
+
+    /**
      * Store an uploaded file safely, handling serverless read-only filesystems
      * and persisting the file binary to the database.
      */

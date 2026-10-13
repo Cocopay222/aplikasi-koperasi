@@ -128,8 +128,8 @@
                                         </div>
                                     </div>
                                     <div style="padding: 6px 8px; border-top: 1px solid var(--line, #e2e8f0); background: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-                                        <span title="{{ basename($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
-                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
+                                        <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
                                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                         </a>
                                     </div>
@@ -140,14 +140,14 @@
                                         {{ strtoupper($ext ?: 'FILE') }}
                                     </div>
                                     <div style="display: flex; flex-direction: column;">
-                                        <span title="{{ basename($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: var(--ink, #1e293b); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: var(--ink, #1e293b); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
                                         <span style="font-size: 0.7rem; color: var(--text-muted, #64748b);">Dokumen</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 4px; margin-left: 6px;">
                                         <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--line, #cbd5e1); border-radius: 6px; cursor: pointer;">
                                             Buka
                                         </button>
-                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--line, #cbd5e1); border-radius: 6px; color: var(--ink); text-decoration: none;">
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--line, #cbd5e1); border-radius: 6px; color: var(--ink); text-decoration: none;">
                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                         </a>
                                     </div>
@@ -274,8 +274,8 @@
                                         </div>
                                     </div>
                                     <div style="padding: 6px 8px; border-top: 1px solid #fde68a; background: #fffbeb; display: flex; align-items: center; justify-content: space-between; gap: 4px;">
-                                        <span title="{{ basename($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
-                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
+                                        <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.72rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 95px; display: block;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center; padding: 2px;" title="Unduh">
                                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                         </a>
                                     </div>
@@ -286,14 +286,14 @@
                                         {{ strtoupper($ext ?: 'FILE') }}
                                     </div>
                                     <div style="display: flex; flex-direction: column;">
-                                        <span title="{{ basename($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: #92400e; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                                        <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.8rem; font-weight: 600; color: #92400e; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
                                         <span style="font-size: 0.7rem; color: #b45309;">Respons Support</span>
                                     </div>
                                     <div style="display: flex; align-items: center; gap: 4px; margin-left: 6px;">
                                         <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #fcd34d; border-radius: 6px; cursor: pointer; color: #b45309;">
                                             Buka
                                         </button>
-                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #fcd34d; border-radius: 6px; color: #b45309; text-decoration: none;">
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #fcd34d; border-radius: 6px; color: #b45309; text-decoration: none;">
                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                         </a>
                                     </div>

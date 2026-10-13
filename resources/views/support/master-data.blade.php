@@ -298,9 +298,9 @@
                                         @if(is_array($app->ebook) && count($app->ebook) > 0)
                                             <div style="display: flex; flex-direction: column; gap: 6px;">
                                                 @foreach($app->ebook as $index => $path)
-                                                    <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem;" title="Download {{ preg_replace('/^\d+_/', '', basename($path)) }}">
+                                                    <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem;" title="Download {{ \App\Models\UploadedFile::displayName($path) }}">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                                        {{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 25) }}
+                                                        {{ Str::limit(\App\Models\UploadedFile::displayName($path), 25) }}
                                                     </a>
                                                 @endforeach
                                             </div>
@@ -815,9 +815,9 @@
                                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 6px;">
                                         <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
                                             <input type="checkbox" name="ebook_selections_{{ $app->aplikasi_id }}[]" value="{{ $index }}" onchange="checkBulkDelete({{ $app->aplikasi_id }})" style="margin: 0; cursor: pointer;">
-                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 6px;" title="{{ __('messages.btn_open') }} {{ preg_replace('/^\d+_/', '', basename($path)) }}">
+                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 6px;" title="{{ __('messages.btn_open') }} {{ \App\Models\UploadedFile::displayName($path) }}">
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                                <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">{{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 35) }}</span>
+                                                <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">{{ Str::limit(\App\Models\UploadedFile::displayName($path), 35) }}</span>
                                             </a>
                                         </div>
                                         <button type="button" onclick="if(confirm('{{ __('messages.confirm_delete_ebook') }}')) { document.getElementById('delete-ebook-form-{{ $app->aplikasi_id }}-{{ $index }}').submit(); }" style="background: none; border: none; color: var(--danger); cursor: pointer; padding: 4px; border-radius: 4px;" title="{{ __('messages.hapus') }}">

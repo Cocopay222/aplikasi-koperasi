@@ -276,8 +276,8 @@
                                 </div>
                             </div>
                             <div style="padding: 4px 6px; border-top: 1px solid var(--line, #e2e8f0); background: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 3px;">
-                                <span title="{{ basename($lamp) }}" style="font-size: 0.7rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
-                                <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center;" title="Unduh">
+                                <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.7rem; font-weight: 500; color: var(--ink, #1e293b); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
+                                <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" style="color: var(--primary, #0284c7); display: inline-flex; align-items: center;" title="Unduh">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 </a>
                             </div>
@@ -287,7 +287,7 @@
                             <div style="width: 30px; height: 30px; border-radius: 6px; background: {{ $ext === 'pdf' ? '#fee2e2' : ($ext === 'mp4' ? '#ede9fe' : (in_array($ext, ['doc','docx']) ? '#e0f2fe' : '#f1f5f9')) }}; display: flex; align-items: center; justify-content: center; color: {{ $ext === 'pdf' ? '#dc2626' : ($ext === 'mp4' ? '#7c3aed' : (in_array($ext, ['doc','docx']) ? '#0284c7' : '#475569')) }}; font-weight: 700; font-size: 0.68rem;">
                                 {{ strtoupper($ext ?: 'FILE') }}
                             </div>
-                            <span title="{{ basename($lamp) }}" style="font-size: 0.75rem; font-weight: 500; color: var(--ink, #1e293b); max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
+                            <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.75rem; font-weight: 500; color: var(--ink, #1e293b); max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
                             <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="padding: 3px 6px; font-size: 0.7rem; border: 1px solid var(--line, #cbd5e1); border-radius: 5px; cursor: pointer;">
                                 Buka
                             </button>
@@ -369,8 +369,8 @@
                                 </div>
                             </div>
                             <div style="padding: 4px 6px; border-top: 1px solid #fde68a; background: #fffbeb; display: flex; align-items: center; justify-content: space-between; gap: 3px;">
-                                <span title="{{ basename($lampSupp) }}" style="font-size: 0.7rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
-                                <a href="{{ Storage::url($lampSupp) }}" download="{{ basename($lampSupp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center;" title="Unduh">
+                                <span title="{{ \App\Models\UploadedFile::displayName($lampSupp) }}" style="font-size: 0.7rem; font-weight: 500; color: #92400e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; display: block;">{{ \App\Models\UploadedFile::displayName($lampSupp) }}</span>
+                                <a href="{{ Storage::url($lampSupp) }}" download="{{ \App\Models\UploadedFile::displayName($lampSupp) }}" target="_blank" style="color: #b45309; display: inline-flex; align-items: center;" title="Unduh">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 </a>
                             </div>
@@ -380,7 +380,7 @@
                             <div style="width: 30px; height: 30px; border-radius: 6px; background: #fef3c7; display: flex; align-items: center; justify-content: center; color: #b45309; font-weight: 700; font-size: 0.68rem;">
                                 {{ strtoupper($extSupp ?: 'FILE') }}
                             </div>
-                            <span title="{{ basename($lampSupp) }}" style="font-size: 0.75rem; font-weight: 500; color: #92400e; max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
+                            <span title="{{ \App\Models\UploadedFile::displayName($lampSupp) }}" style="font-size: 0.75rem; font-weight: 500; color: #92400e; max-width: 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ \App\Models\UploadedFile::displayName($lampSupp) }}</span>
                             <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="padding: 3px 6px; font-size: 0.7rem; border: 1px solid #fcd34d; border-radius: 5px; cursor: pointer; color: #b45309;">
                                 Buka
                             </button>
@@ -490,8 +490,8 @@
                                         </div>
                                     </div>
                                     <div style="padding: 3px 6px; border-top: 1px solid var(--line); background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
-                                        <span title="{{ basename($lamp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ preg_replace('/^\d+_/', '', basename($lamp)) }}</span>
-                                        <a href="{{ Storage::url($lamp) }}" download="{{ basename($lamp) }}" target="_blank" style="color: var(--primary); display: inline-flex; align-items: center;" title="Unduh">
+                                        <span title="{{ \App\Models\UploadedFile::displayName($lamp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ \App\Models\UploadedFile::displayName($lamp) }}</span>
+                                        <a href="{{ Storage::url($lamp) }}" download="{{ \App\Models\UploadedFile::displayName($lamp) }}" target="_blank" style="color: var(--primary); display: inline-flex; align-items: center;" title="Unduh">
                                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                         </a>
                                     </div>
@@ -649,8 +649,8 @@
                                                     </div>
                                                 </div>
                                                 <div style="padding: 3px 6px; border-top: 1px solid #fde68a; background: #ffffff; display: flex; align-items: center; justify-content: space-between;">
-                                                    <span title="{{ basename($lampSupp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ preg_replace('/^\d+_/', '', basename($lampSupp)) }}</span>
-                                                    <a href="{{ Storage::url($lampSupp) }}" download="{{ basename($lampSupp) }}" target="_blank" style="color: #d97706; display: inline-flex; align-items: center;" title="Unduh">
+                                                    <span title="{{ \App\Models\UploadedFile::displayName($lampSupp) }}" style="font-size: 0.68rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px;">{{ \App\Models\UploadedFile::displayName($lampSupp) }}</span>
+                                                    <a href="{{ Storage::url($lampSupp) }}" download="{{ \App\Models\UploadedFile::displayName($lampSupp) }}" target="_blank" style="color: #d97706; display: inline-flex; align-items: center;" title="Unduh">
                                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                                     </a>
                                                 </div>
