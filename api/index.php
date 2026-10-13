@@ -11,6 +11,16 @@ $_ENV['LOG_CHANNEL'] = 'stderr';
 $_ENV['APP_PACKAGES_CACHE'] = '/tmp/packages.php';
 $_ENV['APP_SERVICES_CACHE'] = '/tmp/services.php';
 
+// Auto invalidate stale compiled blade templates in /tmp across deployments
+$versionFile = '/tmp/blade_version.txt';
+$deployVer = '20261013_v5';
+if (!file_exists($versionFile) || @file_get_contents($versionFile) !== $deployVer) {
+    foreach (glob('/tmp/*.php') as $bladeFile) {
+        @unlink($bladeFile);
+    }
+    @file_put_contents($versionFile, $deployVer);
+}
+
 $storageDir = '/tmp/storage';
 putenv("LARAVEL_STORAGE_PATH={$storageDir}");
 $_ENV['LARAVEL_STORAGE_PATH'] = $storageDir;

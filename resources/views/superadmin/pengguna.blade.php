@@ -45,8 +45,16 @@
     {{-- Summary Statistics Cards --}}
     <div class="fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
         <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.12); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
-                🏢
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.22) 100%); border: 1px solid rgba(16, 185, 129, 0.25); color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+                    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+                    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                    <path d="M10 6h4"></path>
+                    <path d="M10 10h4"></path>
+                    <path d="M10 14h4"></path>
+                    <path d="M10 18h4"></path>
+                </svg>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Pelapor Koperasi</div>
@@ -61,8 +69,13 @@
         </div>
 
         <div style="background: var(--paper-raised); border: 1px solid {{ $pelaporUnverified > 0 ? '#f59e0b' : 'var(--line)' }}; border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); background: {{ $pelaporUnverified > 0 ? 'linear-gradient(145deg, var(--paper-raised), #fffbeb)' : 'var(--paper-raised)' }};">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(245, 158, 11, 0.15); color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
-                ⏳
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 119, 6, 0.24) 100%); border: 1px solid rgba(245, 158, 11, 0.3); color: #d97706; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.18);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 22h14"></path>
+                    <path d="M5 2h14"></path>
+                    <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path>
+                    <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path>
+                </svg>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Menunggu Verifikasi</div>
@@ -77,8 +90,11 @@
         </div>
 
         <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(59, 130, 246, 0.12); color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
-                🎧
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.14) 0%, rgba(37, 99, 235, 0.22) 100%); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                </svg>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tim Support</div>
@@ -93,8 +109,11 @@
         </div>
 
         <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-            <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(139, 92, 246, 0.12); color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
-                🛡️
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.14) 0%, rgba(124, 58, 237, 0.22) 100%); border: 1px solid rgba(139, 92, 246, 0.25); color: #7c3aed; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.15);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                </svg>
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Super Admin</div>
@@ -144,16 +163,19 @@
     <div class="fade-up" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button type="button" id="tab-btn-all" class="tab-btn-custom active" onclick="switchTab('all')" style="background: #1E4B8F; color: #ffffff; border: 1px solid #1E4B8F; box-shadow: 0 2px 8px rgba(30, 75, 143, 0.35);">
-                👥 Semua Pengguna ({{ $users->count() }} Orang)
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Semua Pengguna ({{ $users->count() }} Orang)</span>
             </button>
             <button type="button" id="tab-btn-pelapor" class="tab-btn-custom" onclick="switchTab('pelapor')">
-                🏢 Data Pelapor Koperasi ({{ $totalPelapor }} Orang)
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                <span>Data Pelapor Koperasi ({{ $totalPelapor }} Orang)</span>
                 @if($pelaporUnverified > 0)
                     <span style="background: #ef4444; color: white; padding: 2px 7px; border-radius: 12px; font-size: 0.72rem; margin-left: 6px;">{{ $pelaporUnverified }} Baru</span>
                 @endif
             </button>
             <button type="button" id="tab-btn-support" class="tab-btn-custom" onclick="switchTab('support')">
-                🎧 Tim Support ({{ $totalSupport }} Orang)
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                <span>Tim Support ({{ $totalSupport }} Orang)</span>
             </button>
         </div>
 
@@ -260,7 +282,8 @@
         <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: #f0fdf4; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #10b981;">
             <div>
                 <h3 style="font-size: 1rem; font-weight: 700; color: #065f46; margin: 0; display: flex; align-items: center; gap: 8px;">
-                    🏢 Manajemen Khusus Data Pelapor Mitra Koperasi
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669;"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path></svg>
+                    Manajemen Khusus Data Pelapor Mitra Koperasi
                 </h3>
                 <span style="font-size: 0.8rem; color: #047857;">Daftar perwakilan koperasi, kontak WhatsApp langsung, status verifikasi, dan histori aktivitas tiket.</span>
             </div>
@@ -308,8 +331,9 @@
                                 {{ $user->instansi ? $user->instansi->nama_instansi : '-' }}
                             </div>
                             @if($user->instansi && $user->instansi->kota)
-                                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
-                                    📍 {{ $user->instansi->kota }}
+                                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; display: inline-flex; align-items: center; gap: 4px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #64748b; flex-shrink: 0;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <span>{{ $user->instansi->kota }}</span>
                                 </div>
                             @endif
                         </td>
@@ -405,7 +429,8 @@
         <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: #eff6ff; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #2563eb;">
             <div>
                 <h3 style="font-size: 1rem; font-weight: 700; color: #1e40af; margin: 0; display: flex; align-items: center; gap: 8px;">
-                    🎧 Manajemen Tim Support Internal
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb; flex-shrink: 0;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                    <span>Manajemen Tim Support Internal</span>
                 </h3>
                 <span style="font-size: 0.8rem; color: #1d4ed8;">Daftar staf teknis internal penanganan tiket kendala koperasi.</span>
             </div>
