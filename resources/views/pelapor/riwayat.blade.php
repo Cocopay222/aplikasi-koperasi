@@ -27,22 +27,28 @@
             </div>
         </div>
 
-        <div class="toolbar fade-up" style="animation-delay: 0.15s; margin-bottom:20px;">
-            <div class="search">
-                <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-                <input type="text" placeholder="{{ __('messages.cari_laporan') }}" style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
+        <div class="toolbar fade-up" style="animation-delay: 0.15s; margin-bottom:20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; gap: 12px; align-items: center; flex: 1; min-width: 280px;">
+                <div class="search" style="flex: 1;">
+                    <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
+                    <input type="text" placeholder="{{ __('messages.cari_laporan') }}" style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
+                </div>
+                <form id="filter-form" action="{{ route('pelapor.riwayat') }}" method="GET" style="margin:0;">
+                    <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+                        <option value="">{{ __('messages.status_semua') }}</option>
+                        <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
+                        <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
+                        <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }}>In Review</option>
+                        <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }}>Waiting</option>
+                        <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>{{ __('messages.status_selesai') }}</option>
+                    </select>
+                </form>
             </div>
-            <form id="filter-form" action="{{ route('pelapor.riwayat') }}" method="GET" style="margin:0;">
-                <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
-                    <option value="">{{ __('messages.status_semua') }}</option>
-                    <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
-                    <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
-                    <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }}>In Review</option>
-                    <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }}>Waiting</option>
-                    <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>{{ __('messages.status_selesai') }}</option>
-                </select>
-            </form>
+            <a href="{{ route('pelapor.riwayat.export', request()->query()) }}" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--paper-raised); font-size: 0.85rem;" title="Download rekap laporan ke format Excel/CSV">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export Excel / CSV
+            </a>
         </div>
 
         <div class="fade-up" style="animation-delay: 0.2s;">
@@ -52,7 +58,8 @@
                     <tr>
                         <th width="120">{{ __('messages.id_laporan') }}</th>
                         <th width="120">{{ __('messages.col_tanggal') }}</th>
-                        <th width="180">{{ __('messages.aplikasi') }}</th>
+                        <th width="160">{{ __('messages.aplikasi') }}</th>
+                        <th width="110">Urgensi</th>
                         <th>{{ __('messages.permasalahan') }}</th>
                         <th width="120">{{ __('messages.status') }}</th>
                         <th width="100">{{ __('messages.aksi') }}</th>
@@ -67,7 +74,29 @@
                             <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">{{ $t->tanggal_input->format('H:i') }}</div>
                         </td>
                         <td><div class="cat-tag">{{ $t->aplikasi->nama_aplikasi }}</div></td>
-                        <td><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:500;">{{ $t->permasalahan }}</div></td>
+                        @php
+                            $urgensi = $t->urgensi ?? 'Sedang';
+                            $urgensiColor = match($urgensi) {
+                                'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                                'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                                default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                            };
+                        @endphp
+                        <td>
+                            <span style="background: {{ $urgensiColor['bg'] }}; color: {{ $urgensiColor['color'] }}; padding: 3px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; white-space: nowrap;">
+                                ⚡ {{ $urgensi }}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:500;">
+                                {{ $t->permasalahan }}
+                            </div>
+                            @if($t->rating)
+                                <div style="font-size: 0.75rem; color: #f59e0b; font-weight: 600; margin-top: 2px;">
+                                    ★ {{ $t->rating }}/5
+                                </div>
+                            @endif
+                        </td>
                         <td>
                             @php
                                 $rawStatus = $t->status instanceof \BackedEnum ? $t->status->value : (string)$t->status;
@@ -151,7 +180,54 @@
                     {{ __('messages.open_history_letter_document') }}
                 </a>
             </div>
-            @php $statusStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
+            @php
+                $statusStr = is_object($t->status) ? $t->status->value : (string)$t->status;
+                $isDone = in_array(strtolower($statusStr), ['done', 'selesai']);
+                $targetSla = $t->kategori?->sla_jam ?? 24;
+                if ($isDone) {
+                    $endTime = $t->tanggal_penyelesaian ?? now();
+                    $totalHours = max(1, round($t->tanggal_input->diffInMinutes($endTime) / 60, 1));
+                    $onTime = $totalHours <= $targetSla;
+                } else {
+                    $hoursElapsed = round($t->tanggal_input->diffInMinutes(now()) / 60, 1);
+                    $hoursLeft = max(0, round($targetSla - $hoursElapsed, 1));
+                    $slaPercent = min(100, round(($hoursElapsed / $targetSla) * 100));
+                }
+            @endphp
+
+            {{-- SLA Tracker Card --}}
+            <div style="margin-bottom: 20px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.5px;">Target SLA Layanan</span>
+                    </div>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #2563eb; background: rgba(37, 99, 235, 0.1); padding: 2px 8px; border-radius: 6px;">Target: {{ $targetSla }} Jam</span>
+                </div>
+                @if($isDone)
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.85rem;">
+                        <span style="color: var(--ink-soft);">Diselesaikan dalam: <b>{{ $totalHours }} Jam</b></span>
+                        @if($onTime)
+                            <span style="background: rgba(16, 185, 129, 0.15); color: #059669; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+                                ✓ Tepat Waktu (Sesuai SLA)
+                            </span>
+                        @else
+                            <span style="background: rgba(245, 158, 11, 0.15); color: #d97706; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">
+                                ⚠ Melewati Target SLA
+                            </span>
+                        @endif
+                    </div>
+                @else
+                    <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden; margin-bottom: 8px;">
+                        <div style="width: {{ $slaPercent }}%; height: 100%; background: {{ $slaPercent > 85 ? '#ef4444' : ($slaPercent > 60 ? '#f59e0b' : '#10b981') }}; border-radius: 10px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                        <span>Berjalan: {{ $hoursElapsed }} jam</span>
+                        <span style="font-weight: 600; color: {{ $hoursLeft <= 2 ? '#dc2626' : 'var(--ink)' }};">Estimasi Sisa: ~{{ $hoursLeft }} jam</span>
+                    </div>
+                @endif
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
@@ -160,6 +236,26 @@
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
                     <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->kategori->nama_kategori ?? '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Tingkat Urgensi</div>
+                    @php
+                        $mUrgensi = $t->urgensi ?? 'Sedang';
+                        $mUrgensiColor = match($mUrgensi) {
+                            'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                            'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                            default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                        };
+                    @endphp
+                    <div>
+                        <span style="background: {{ $mUrgensiColor['bg'] }}; color: {{ $mUrgensiColor['color'] }}; padding: 3px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                            ⚡ {{ $mUrgensi }}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">PIC Tim Support</div>
+                    <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->picSupport?->nama ?? 'Menunggu Penugasan' }}</div>
                 </div>
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.col_tanggal') ?? 'Tanggal' }}</div>
@@ -338,6 +434,105 @@
                 </div>
                 @endif
             </div>
+
+            {{-- CSAT Rating Component --}}
+            @if($isDone)
+            <div style="margin-top: 20px; padding: 18px; border-radius: 12px; background: #fffbeb; border: 1.5px solid #fde68a;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <div style="font-weight: 700; font-size: 0.95rem; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                        <span style="font-size: 1.2rem;">⭐</span> Kepuasan Layanan Dukungan (CSAT)
+                    </div>
+                    @if($t->rating)
+                        <span style="background: #fef3c7; color: #b45309; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Sudah Dinilai</span>
+                    @endif
+                </div>
+
+                @if($t->rating)
+                    <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 8px;">
+                        @for($i = 1; $i <= 5; $i++)
+                            <span style="font-size: 1.3rem; color: {{ $i <= $t->rating ? '#f59e0b' : '#cbd5e1' }};">★</span>
+                        @endfor
+                        <span style="font-weight: 700; color: #b45309; margin-left: 6px; font-size: 0.95rem;">{{ $t->rating }} / 5 Bintang</span>
+                    </div>
+                    @if($t->rating_ulasan)
+                        <div style="font-size: 0.88rem; color: #78350f; font-style: italic; background: rgba(255,255,255,0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid #fef08a;">
+                            "{{ $t->rating_ulasan }}"
+                        </div>
+                    @endif
+                @else
+                    <p style="font-size: 0.82rem; color: #92400e; margin: 0 0 12px 0;">
+                        Tiket ini telah selesai ditangani. Mohon berikan penilaian atas bantuan dari Tim Support:
+                    </p>
+                    <form action="{{ route('pelapor.tickets.rating', $t->ticket_id) }}" method="POST">
+                        @csrf
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <div class="star-rating-box" id="star-box-{{ $t->ticket_id }}" style="display: flex; gap: 6px; font-size: 1.6rem; cursor: pointer;">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span class="star-item" data-value="{{ $i }}" onclick="setRating('{{ $t->ticket_id }}', {{ $i }})" onmouseover="hoverRating('{{ $t->ticket_id }}', {{ $i }})" onmouseout="resetRatingHover('{{ $t->ticket_id }}')" style="color: #cbd5e1; transition: color 0.15s;">★</span>
+                                @endfor
+                            </div>
+                            <input type="hidden" name="rating" id="rating-input-{{ $t->ticket_id }}" value="" required>
+                            <span id="rating-label-{{ $t->ticket_id }}" style="font-size: 0.85rem; font-weight: 600; color: #b45309; margin-left: 6px;">Pilih Bintang</span>
+                        </div>
+                        <textarea name="rating_ulasan" placeholder="Tuliskan ulasan atau masukan untuk tim support (opsional)..." style="width: 100%; padding: 8px 12px; border: 1px solid #fde68a; border-radius: 8px; font-size: 0.85rem; font-family: inherit; box-sizing: border-box; min-height: 60px; background: white; margin-bottom: 10px;"></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm" style="background: #d97706; border-color: #d97706; font-size: 0.82rem; padding: 6px 14px;">Kirim Penilaian</button>
+                    </form>
+                @endif
+            </div>
+            @endif
+
+            {{-- Discussion / Chat Thread Component --}}
+            <div style="margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); font-size: 0.95rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Diskusi & Komentar Tiket
+                    </div>
+                    <span style="font-size: 0.75rem; background: var(--paper-sunken); border: 1px solid var(--line); color: var(--ink-soft); padding: 2px 8px; border-radius: 12px; font-weight: 600;">
+                        {{ $t->comments->count() }} Pesan
+                    </span>
+                </div>
+
+                {{-- Chat Thread List --}}
+                <div style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px;">
+                    @forelse($t->comments as $comment)
+                        @php
+                            $isMe = $comment->user_id === Auth::id();
+                            $isSupport = in_array($comment->user?->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]);
+                        @endphp
+                        <div style="display: flex; flex-direction: column; align-items: {{ $isMe ? 'flex-end' : 'flex-start' }};">
+                            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 0.72rem; color: var(--text-muted);">
+                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#2563eb' : 'var(--ink)') }};">
+                                    {{ $isMe ? 'Anda' : $comment->user?->nama }}
+                                </span>
+                                @if($isSupport)
+                                    <span style="background: rgba(37, 99, 235, 0.12); color: #2563eb; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
+                                @endif
+                                <span>&middot; {{ $comment->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div style="max-width: 85%; padding: 8px 14px; border-radius: 12px; font-size: 0.88rem; line-height: 1.45; white-space: pre-wrap; background: {{ $isMe ? 'var(--brand-primary)' : 'var(--paper-raised)' }}; color: {{ $isMe ? '#ffffff' : 'var(--ink)' }}; border: 1px solid {{ $isMe ? 'var(--brand-primary)' : 'var(--line)' }}; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                {{ $comment->pesan }}
+                            </div>
+                        </div>
+                    @empty
+                        <div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.82rem; font-style: italic;">
+                            Belum ada pesan diskusi pada tiket ini. Tulis pesan di bawah untuk berkomunikasi langsung dengan tim Support.
+                        </div>
+                    @endforelse
+                </div>
+
+                {{-- Form Kirim Komentar --}}
+                <form action="{{ route('pelapor.tickets.comment', $t->ticket_id) }}" method="POST" style="display: flex; gap: 8px; align-items: flex-end;">
+                    @csrf
+                    <div style="flex: 1;">
+                        <textarea name="pesan" required placeholder="Tulis tanggapan atau pertanyaan untuk Tim Support..." style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.85rem; font-family: inherit; background: var(--paper); color: var(--ink); box-sizing: border-box; resize: vertical; min-height: 42px; max-height: 100px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 16px; height: 42px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        Kirim
+                    </button>
+                </form>
+            </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
             @if($statusStr === 'Open')
@@ -405,6 +600,14 @@
                     </select>
                 </div>
                 <div class="field" style="margin-bottom: 16px;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Tingkat Urgensi</label>
+                    <select name="urgensi" style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px;">
+                        <option value="Rendah" {{ ($t->urgensi ?? 'Sedang') === 'Rendah' ? 'selected' : '' }}>🟢 Rendah (Pertanyaan umum / Tidak mengganggu operasional)</option>
+                        <option value="Sedang" {{ ($t->urgensi ?? 'Sedang') === 'Sedang' ? 'selected' : '' }}>🟡 Sedang (Kendala wajar / Ada alternatif lain)</option>
+                        <option value="Tinggi" {{ ($t->urgensi ?? 'Sedang') === 'Tinggi' ? 'selected' : '' }}>🔴 Tinggi (Sistem kritis lumpuh / Butuh penanganan segera)</option>
+                    </select>
+                </div>
+                <div class="field" style="margin-bottom: 16px;">
                     <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">{{ __('messages.deskripsi_kendala') }}</label>
                     <textarea name="permasalahan" required style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px; min-height: 100px;">{{ $t->permasalahan }}</textarea>
                 </div>
@@ -451,5 +654,47 @@
             });
         });
     });
+
+    const currentRatings = {};
+    const ratingLabels = {
+        1: 'Sangat Buruk (1)',
+        2: 'Kurang Puas (2)',
+        3: 'Cukup (3)',
+        4: 'Puas & Membantu (4)',
+        5: 'Sangat Memuaskan! (5)'
+    };
+
+    function setRating(ticketId, star) {
+        currentRatings[ticketId] = star;
+        const input = document.getElementById('rating-input-' + ticketId);
+        if (input) input.value = star;
+        const label = document.getElementById('rating-label-' + ticketId);
+        if (label) label.textContent = ratingLabels[star] || (star + ' Bintang');
+        updateStarColors(ticketId, star);
+    }
+
+    function hoverRating(ticketId, star) {
+        updateStarColors(ticketId, star);
+        const label = document.getElementById('rating-label-' + ticketId);
+        if (label) label.textContent = ratingLabels[star] || (star + ' Bintang');
+    }
+
+    function resetRatingHover(ticketId) {
+        const selected = currentRatings[ticketId] || 0;
+        updateStarColors(ticketId, selected);
+        const label = document.getElementById('rating-label-' + ticketId);
+        if (label) {
+            label.textContent = selected > 0 ? (ratingLabels[selected] || (selected + ' Bintang')) : 'Pilih Bintang';
+        }
+    }
+
+    function updateStarColors(ticketId, count) {
+        const box = document.getElementById('star-box-' + ticketId);
+        if (!box) return;
+        const stars = box.querySelectorAll('.star-item');
+        stars.forEach((s, idx) => {
+            s.style.color = (idx < count) ? '#f59e0b' : '#cbd5e1';
+        });
+    }
 </script>
 @endsection

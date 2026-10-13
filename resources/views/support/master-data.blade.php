@@ -366,6 +366,7 @@
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_kategori') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Target SLA</th>
                                     <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.jumlah') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                 </tr>
@@ -374,6 +375,9 @@
                             @foreach($kategoris as $kategori)
                             <tr style="border-bottom: 1px solid var(--line);">
                                 <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 500;">{{ $kategori->nama_kategori }}</td>
+                                <td style="padding: 1.25rem 1.5rem; text-align: center;">
+                                    <span style="background: rgba(37, 99, 235, 0.1); color: #2563eb; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ $kategori->sla_jam ?? 24 }} jam</span>
+                                </td>
                                 <td style="padding: 1.25rem 1.5rem; text-align: right;">
                                     <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
                                         {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.jumlah') }}
@@ -769,6 +773,11 @@
                         <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama_kategori" required placeholder="{{ __('messages.contoh_bug') }}">
                     </div>
+                    <div class="field">
+                        <label>Target SLA (jam) <span style="color:var(--danger)">*</span></label>
+                        <input type="number" name="sla_jam" required min="1" max="720" value="24">
+                        <small style="color: var(--text-muted); font-size: 0.8rem;">Batas waktu penyelesaian tiket untuk kategori ini.</small>
+                    </div>
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-kategori')">{{ __('messages.batal') }}</button>
@@ -881,6 +890,10 @@
                     <div class="field">
                         <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama_kategori" required value="{{ $kategori->nama_kategori }}" placeholder="{{ __('messages.contoh_bug') }}">
+                    </div>
+                    <div class="field">
+                        <label>Target SLA (jam) <span style="color:var(--danger)">*</span></label>
+                        <input type="number" name="sla_jam" required min="1" max="720" value="{{ $kategori->sla_jam ?? 24 }}">
                     </div>
                 </div>
                 <div class="modal-foot">

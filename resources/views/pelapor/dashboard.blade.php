@@ -91,7 +91,25 @@
                                 <h3>{{ $t->permasalahan }}</h3>
                                 <p>{{ $t->penyelesaian ?? __('messages.belum_ada_catatan') }}</p>
                             </div>
-                            <div class="meta">{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</div>
+                            <div class="meta" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                                <span>{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</span>
+                                @php
+                                    $urgensi = $t->urgensi ?? 'Sedang';
+                                    $urgensiColor = match($urgensi) {
+                                        'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                                        'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                                        default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                                    };
+                                @endphp
+                                <span style="background: {{ $urgensiColor['bg'] }}; color: {{ $urgensiColor['color'] }}; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600;">
+                                    ⚡ {{ $urgensi }}
+                                </span>
+                                @if($t->rating)
+                                    <span style="color: #f59e0b; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 2px;">
+                                        ★ {{ $t->rating }}/5
+                                    </span>
+                                @endif
+                            </div>
                             
                             @php
                                 $rawStatus = $t->status instanceof \BackedEnum ? $t->status->value : (string)$t->status;
@@ -203,7 +221,54 @@
                     {{ __('messages.open_history_letter_document') }}
                 </a>
             </div>
-            @php $statusStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
+            @php
+                $statusStr = is_object($t->status) ? $t->status->value : (string)$t->status;
+                $isDone = in_array(strtolower($statusStr), ['done', 'selesai']);
+                $targetSla = $t->kategori?->sla_jam ?? 24;
+                if ($isDone) {
+                    $endTime = $t->tanggal_penyelesaian ?? now();
+                    $totalHours = max(1, round($t->tanggal_input->diffInMinutes($endTime) / 60, 1));
+                    $onTime = $totalHours <= $targetSla;
+                } else {
+                    $hoursElapsed = round($t->tanggal_input->diffInMinutes(now()) / 60, 1);
+                    $hoursLeft = max(0, round($targetSla - $hoursElapsed, 1));
+                    $slaPercent = min(100, round(($hoursElapsed / $targetSla) * 100));
+                }
+            @endphp
+
+            {{-- SLA Tracker Card --}}
+            <div style="margin-bottom: 20px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.5px;">Target SLA Layanan</span>
+                    </div>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #2563eb; background: rgba(37, 99, 235, 0.1); padding: 2px 8px; border-radius: 6px;">Target: {{ $targetSla }} Jam</span>
+                </div>
+                @if($isDone)
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.85rem;">
+                        <span style="color: var(--ink-soft);">Diselesaikan dalam: <b>{{ $totalHours }} Jam</b></span>
+                        @if($onTime)
+                            <span style="background: rgba(16, 185, 129, 0.15); color: #059669; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+                                ✓ Tepat Waktu (Sesuai SLA)
+                            </span>
+                        @else
+                            <span style="background: rgba(245, 158, 11, 0.15); color: #d97706; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">
+                                ⚠ Melewati Target SLA
+                            </span>
+                        @endif
+                    </div>
+                @else
+                    <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden; margin-bottom: 8px;">
+                        <div style="width: {{ $slaPercent }}%; height: 100%; background: {{ $slaPercent > 85 ? '#ef4444' : ($slaPercent > 60 ? '#f59e0b' : '#10b981') }}; border-radius: 10px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                        <span>Berjalan: {{ $hoursElapsed }} jam</span>
+                        <span style="font-weight: 600; color: {{ $hoursLeft <= 2 ? '#dc2626' : 'var(--ink)' }};">Estimasi Sisa: ~{{ $hoursLeft }} jam</span>
+                    </div>
+                @endif
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
@@ -212,6 +277,26 @@
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
                     <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->kategori->nama_kategori ?? '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Tingkat Urgensi</div>
+                    @php
+                        $mUrgensi = $t->urgensi ?? 'Sedang';
+                        $mUrgensiColor = match($mUrgensi) {
+                            'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                            'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                            default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                        };
+                    @endphp
+                    <div>
+                        <span style="background: {{ $mUrgensiColor['bg'] }}; color: {{ $mUrgensiColor['color'] }}; padding: 3px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                            ⚡ {{ $mUrgensi }}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">PIC Tim Support</div>
+                    <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->picSupport?->nama ?? 'Menunggu Penugasan' }}</div>
                 </div>
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.col_tanggal') ?? 'Tanggal' }}</div>
@@ -390,6 +475,105 @@
                 </div>
                 @endif
             </div>
+
+            {{-- CSAT Rating Component --}}
+            @if($isDone)
+            <div style="margin-top: 20px; padding: 18px; border-radius: 12px; background: #fffbeb; border: 1.5px solid #fde68a;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <div style="font-weight: 700; font-size: 0.95rem; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                        <span style="font-size: 1.2rem;">⭐</span> Kepuasan Layanan Dukungan (CSAT)
+                    </div>
+                    @if($t->rating)
+                        <span style="background: #fef3c7; color: #b45309; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Sudah Dinilai</span>
+                    @endif
+                </div>
+
+                @if($t->rating)
+                    <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 8px;">
+                        @for($i = 1; $i <= 5; $i++)
+                            <span style="font-size: 1.3rem; color: {{ $i <= $t->rating ? '#f59e0b' : '#cbd5e1' }};">★</span>
+                        @endfor
+                        <span style="font-weight: 700; color: #b45309; margin-left: 6px; font-size: 0.95rem;">{{ $t->rating }} / 5 Bintang</span>
+                    </div>
+                    @if($t->rating_ulasan)
+                        <div style="font-size: 0.88rem; color: #78350f; font-style: italic; background: rgba(255,255,255,0.7); padding: 10px 14px; border-radius: 8px; border: 1px solid #fef08a;">
+                            "{{ $t->rating_ulasan }}"
+                        </div>
+                    @endif
+                @else
+                    <p style="font-size: 0.82rem; color: #92400e; margin: 0 0 12px 0;">
+                        Tiket ini telah selesai ditangani. Mohon berikan penilaian atas bantuan dari Tim Support:
+                    </p>
+                    <form action="{{ route('pelapor.tickets.rating', $t->ticket_id) }}" method="POST">
+                        @csrf
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                            <div class="star-rating-box" id="star-box-{{ $t->ticket_id }}" style="display: flex; gap: 6px; font-size: 1.6rem; cursor: pointer;">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <span class="star-item" data-value="{{ $i }}" onclick="setRating('{{ $t->ticket_id }}', {{ $i }})" onmouseover="hoverRating('{{ $t->ticket_id }}', {{ $i }})" onmouseout="resetRatingHover('{{ $t->ticket_id }}')" style="color: #cbd5e1; transition: color 0.15s;">★</span>
+                                @endfor
+                            </div>
+                            <input type="hidden" name="rating" id="rating-input-{{ $t->ticket_id }}" value="" required>
+                            <span id="rating-label-{{ $t->ticket_id }}" style="font-size: 0.85rem; font-weight: 600; color: #b45309; margin-left: 6px;">Pilih Bintang</span>
+                        </div>
+                        <textarea name="rating_ulasan" placeholder="Tuliskan ulasan atau masukan untuk tim support (opsional)..." style="width: 100%; padding: 8px 12px; border: 1px solid #fde68a; border-radius: 8px; font-size: 0.85rem; font-family: inherit; box-sizing: border-box; min-height: 60px; background: white; margin-bottom: 10px;"></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm" style="background: #d97706; border-color: #d97706; font-size: 0.82rem; padding: 6px 14px;">Kirim Penilaian</button>
+                    </form>
+                @endif
+            </div>
+            @endif
+
+            {{-- Discussion / Chat Thread Component --}}
+            <div style="margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); font-size: 0.95rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Diskusi & Komentar Tiket
+                    </div>
+                    <span style="font-size: 0.75rem; background: var(--paper-sunken); border: 1px solid var(--line); color: var(--ink-soft); padding: 2px 8px; border-radius: 12px; font-weight: 600;">
+                        {{ $t->comments->count() }} Pesan
+                    </span>
+                </div>
+
+                {{-- Chat Thread List --}}
+                <div style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px;">
+                    @forelse($t->comments as $comment)
+                        @php
+                            $isMe = $comment->user_id === Auth::id();
+                            $isSupport = in_array($comment->user?->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]);
+                        @endphp
+                        <div style="display: flex; flex-direction: column; align-items: {{ $isMe ? 'flex-end' : 'flex-start' }};">
+                            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 0.72rem; color: var(--text-muted);">
+                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#2563eb' : 'var(--ink)') }};">
+                                    {{ $isMe ? 'Anda' : $comment->user?->nama }}
+                                </span>
+                                @if($isSupport)
+                                    <span style="background: rgba(37, 99, 235, 0.12); color: #2563eb; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
+                                @endif
+                                <span>&middot; {{ $comment->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div style="max-width: 85%; padding: 8px 14px; border-radius: 12px; font-size: 0.88rem; line-height: 1.45; white-space: pre-wrap; background: {{ $isMe ? 'var(--brand-primary)' : 'var(--paper-raised)' }}; color: {{ $isMe ? '#ffffff' : 'var(--ink)' }}; border: 1px solid {{ $isMe ? 'var(--brand-primary)' : 'var(--line)' }}; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                {{ $comment->pesan }}
+                            </div>
+                        </div>
+                    @empty
+                        <div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.82rem; font-style: italic;">
+                            Belum ada pesan diskusi pada tiket ini. Tulis pesan di bawah untuk berkomunikasi langsung dengan tim Support.
+                        </div>
+                    @endforelse
+                </div>
+
+                {{-- Form Kirim Komentar --}}
+                <form action="{{ route('pelapor.tickets.comment', $t->ticket_id) }}" method="POST" style="display: flex; gap: 8px; align-items: flex-end;">
+                    @csrf
+                    <div style="flex: 1;">
+                        <textarea name="pesan" required placeholder="Tulis tanggapan atau pertanyaan untuk Tim Support..." style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.85rem; font-family: inherit; background: var(--paper); color: var(--ink); box-sizing: border-box; resize: vertical; min-height: 42px; max-height: 100px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 16px; height: 42px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        Kirim
+                    </button>
+                </form>
+            </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
             @if($statusStr === 'Open')
@@ -420,6 +604,14 @@
                         @foreach($aplikasis as $app)
                             <option value="{{ $app->aplikasi_id }}" {{ $t->aplikasi_id == $app->aplikasi_id ? 'selected' : '' }}>{{ $app->nama_aplikasi }}</option>
                         @endforeach
+                    </select>
+                </div>
+                <div class="field" style="margin-bottom: 16px;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Tingkat Urgensi</label>
+                    <select name="urgensi" style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px;">
+                        <option value="Rendah" {{ ($t->urgensi ?? 'Sedang') === 'Rendah' ? 'selected' : '' }}>Rendah (Pertanyaan / Konsultasi)</option>
+                        <option value="Sedang" {{ ($t->urgensi ?? 'Sedang') === 'Sedang' ? 'selected' : '' }}>Sedang (Gangguan Normal)</option>
+                        <option value="Tinggi" {{ ($t->urgensi ?? 'Sedang') === 'Tinggi' ? 'selected' : '' }}>Tinggi (Mendesak / Operasional Macet)</option>
                     </select>
                 </div>
                 <div class="field" style="margin-bottom: 16px;">
@@ -542,6 +734,37 @@
                     </select>
                     @error('aplikasi_id') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
+
+                <div class="field" style="margin-top: 14px;">
+                    <label style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>Tingkat Urgensi / Prioritas</span>
+                        <span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Pilih sesuai dampak kendala</span>
+                    </label>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px;">
+                        <label style="display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; cursor: pointer; background: var(--paper); transition: all 0.2s;" class="urgensi-radio-label" onclick="selectUrgensi(this, 'Rendah')">
+                            <input type="radio" name="urgensi" value="Rendah" style="margin-top: 2px;">
+                            <div>
+                                <div style="font-weight: 600; font-size: 13px; color: #0284c7;">Rendah</div>
+                                <div style="font-size: 11px; color: var(--text-muted); line-height: 1.3;">Konsultasi / Tanya</div>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1.5px solid #f59e0b; border-radius: 8px; cursor: pointer; background: #fffbeb; transition: all 0.2s;" class="urgensi-radio-label" onclick="selectUrgensi(this, 'Sedang')">
+                            <input type="radio" name="urgensi" value="Sedang" checked style="margin-top: 2px;">
+                            <div>
+                                <div style="font-weight: 600; font-size: 13px; color: #d97706;">Sedang</div>
+                                <div style="font-size: 11px; color: #b45309; line-height: 1.3;">Gangguan Normal</div>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; cursor: pointer; background: var(--paper); transition: all 0.2s;" class="urgensi-radio-label" onclick="selectUrgensi(this, 'Tinggi')">
+                            <input type="radio" name="urgensi" value="Tinggi" style="margin-top: 2px;">
+                            <div>
+                                <div style="font-weight: 600; font-size: 13px; color: #dc2626;">Tinggi</div>
+                                <div style="font-size: 11px; color: var(--text-muted); line-height: 1.3;">Operasional Macet</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="field">
                     <label>{{ __('messages.deskripsi_kendala') }}</label>
                     <textarea name="permasalahan" id="permasalahan_input" required placeholder="{{ __('messages.tuliskan_detail') }}">{{ old('permasalahan') }}</textarea>
@@ -550,37 +773,28 @@
                     <!-- Smart Auto-Suggest FAQ Box -->
                     <div id="faq-suggest-box" style="display: none; margin-top: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-sunken);">
                         <div style="font-size: 12px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
-                            <span style="display: flex; align-items: center; gap: 6px;">ðŸ’¡ {{ __('messages.solusi_cepat') }}</span>
+                            <span style="display: flex; align-items: center; gap: 6px;">💡 {{ __('messages.solusi_cepat') }}</span>
                             <button type="button" style="background: none; border: none; font-size: 11px; color: var(--brand-primary); cursor: pointer; font-weight: 500; padding: 0;" onclick="closeModal('modal-create'); switchDashTab('faq', document.getElementById('tab-btn-faq'));">{{ __('messages.lihat_semua_faq') }}</button>
                         </div>
                         <div id="faq-suggest-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>
                 </div>
+
                 <div class="field" style="margin-top: 14px;">
-                    <label>{{ __('messages.upload_lampiran_opsional') }}</label>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="file" id="lampiran_input" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xlsx,.csv,.pptx,.ppsx,.xlsm,.docm,.xlsb,.zip,.rar" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
-                            if (!window.dtPelapor) window.dtPelapor = new DataTransfer();
-                            for(let i=0; i<this.files.length; i++) {
-                                window.dtPelapor.items.add(this.files[i]);
-                            }
-                            this.files = window.dtPelapor.files;
-                            
-                            const clearBtn = document.getElementById('clear_lampiran_btn');
-                            const infoSpan = document.getElementById('lampiran_info');
-                            if (this.files.length > 0) {
-                                clearBtn.style.display = 'inline-block';
-                                infoSpan.style.display = 'block';
-                                let totalSize = 0;
-                                for(let i=0; i<this.files.length; i++) totalSize += this.files[i].size;
-                                infoSpan.innerHTML = '&#9989; ' + this.files.length + ' file dipilih (' + (totalSize/1024/1024).toFixed(2) + ' MB)';
-                            } else {
-                                clearBtn.style.display = 'none';
-                                infoSpan.style.display = 'none';
-                            }
-                        ">
-                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="window.dtPelapor = new DataTransfer(); document.getElementById('lampiran_input').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <label style="margin-bottom: 0;">{{ __('messages.upload_lampiran_opsional') }}</label>
+                        <span style="font-size: 11.5px; color: #0284c7; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                            📋 Bisa Paste (Ctrl + V)
+                        </span>
                     </div>
+                    <div style="font-size: 11.5px; color: #64748b; margin-bottom: 8px;">
+                        Pilih file atau tekan <b>Ctrl + V</b> di mana saja pada form ini untuk menempelkan screenshot layar.
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="file" id="lampiran_input" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xlsx,.csv,.pptx,.ppsx,.xlsm,.docm,.xlsb,.zip,.rar" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="handleLampiranFileChange(this)">
+                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="clearAllLampiran()">{{ __('messages.hapus_lampiran') }}</button>
+                    </div>
+                    <div id="lampiran_preview_container" style="display: none; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
                     <div id="lampiran_info" style="display: none; font-size: 12.5px; color: #059669; font-weight: 600; margin-top: 6px;"></div>
                     <div class="helper">{{ __('messages.format_lampiran') }}</div>
                     @error('lampiran') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
@@ -624,6 +838,164 @@ function switchDashTab(tabName, btn) {
             el.style.animation = '';
         });
     }
+}
+
+function selectUrgensi(label, val) {
+    document.querySelectorAll('.urgensi-radio-label').forEach(l => {
+        l.style.borderColor = 'var(--line)';
+        l.style.background = 'var(--paper)';
+    });
+    label.style.borderColor = val === 'Tinggi' ? '#dc2626' : (val === 'Sedang' ? '#f59e0b' : '#0284c7');
+    label.style.background = val === 'Tinggi' ? '#fef2f2' : (val === 'Sedang' ? '#fffbeb' : '#eff6ff');
+    const radio = label.querySelector('input[type="radio"]');
+    if (radio) radio.checked = true;
+}
+
+function handleLampiranFileChange(input) {
+    if (!window.dtPelapor) window.dtPelapor = new DataTransfer();
+    for (let i = 0; i < input.files.length; i++) {
+        window.dtPelapor.items.add(input.files[i]);
+    }
+    input.files = window.dtPelapor.files;
+    renderLampiranPreviews();
+}
+
+function clearAllLampiran() {
+    window.dtPelapor = new DataTransfer();
+    const input = document.getElementById('lampiran_input');
+    if (input) input.value = '';
+    renderLampiranPreviews();
+}
+
+function removeLampiranIndex(index) {
+    if (!window.dtPelapor) return;
+    const newDt = new DataTransfer();
+    for (let i = 0; i < window.dtPelapor.files.length; i++) {
+        if (i !== index) newDt.items.add(window.dtPelapor.files[i]);
+    }
+    window.dtPelapor = newDt;
+    const input = document.getElementById('lampiran_input');
+    if (input) input.files = window.dtPelapor.files;
+    renderLampiranPreviews();
+}
+
+function renderLampiranPreviews() {
+    const container = document.getElementById('lampiran_preview_container');
+    const infoSpan = document.getElementById('lampiran_info');
+    const clearBtn = document.getElementById('clear_lampiran_btn');
+    const input = document.getElementById('lampiran_input');
+
+    if (!container || !input) return;
+    container.innerHTML = '';
+
+    const files = window.dtPelapor ? window.dtPelapor.files : input.files;
+    if (!files || files.length === 0) {
+        container.style.display = 'none';
+        if (infoSpan) infoSpan.style.display = 'none';
+        if (clearBtn) clearBtn.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'flex';
+    if (clearBtn) clearBtn.style.display = 'inline-block';
+    if (infoSpan) {
+        infoSpan.style.display = 'block';
+        let totalSize = 0;
+        for (let i = 0; i < files.length; i++) totalSize += files[i].size;
+        infoSpan.innerHTML = '&#9989; ' + files.length + ' file dipilih (' + (totalSize / 1024 / 1024).toFixed(2) + ' MB)';
+    }
+
+    Array.from(files).forEach((file, idx) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'position: relative; width: 85px; height: 85px; border-radius: 8px; border: 1.5px solid var(--line); overflow: hidden; background: var(--paper-raised); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; padding: 4px; box-sizing: border-box;';
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.innerHTML = '&times;';
+        removeBtn.style.cssText = 'position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%; background: #ef4444; color: white; border: none; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2;';
+        removeBtn.onclick = function(e) {
+            e.stopPropagation();
+            removeLampiranIndex(idx);
+        };
+        item.appendChild(removeBtn);
+
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.style.cssText = 'width: 100%; height: 100%; object-fit: cover; border-radius: 6px;';
+            item.appendChild(img);
+        } else {
+            const ext = file.name.split('.').pop().toUpperCase();
+            item.innerHTML += `<div style="font-weight: 700; color: var(--primary); font-size: 12px;">${ext}</div><div style="font-size: 9.5px; color: var(--text-muted); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100%;">${file.name}</div>`;
+        }
+
+        container.appendChild(item);
+    });
+}
+
+// Paste Screenshot Langsung dari Clipboard (Ctrl + V)
+document.addEventListener('paste', function(e) {
+    const modalCreate = document.getElementById('modal-create');
+    if (!modalCreate) return;
+    const isVisible = modalCreate.classList.contains('active') || modalCreate.style.display === 'flex' || modalCreate.style.display === 'block';
+    if (!isVisible) return;
+
+    const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+    if (!items) return;
+
+    let foundImage = false;
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.kind === 'file' && item.type.startsWith('image/')) {
+            const blob = item.getAsFile();
+            const dateStr = new Date().toISOString().replace(/[:.]/g, '-');
+            const file = new File([blob], 'screenshot_' + dateStr + '.png', { type: blob.type });
+
+            if (!window.dtPelapor) window.dtPelapor = new DataTransfer();
+            window.dtPelapor.items.add(file);
+
+            const input = document.getElementById('lampiran_input');
+            if (input) input.files = window.dtPelapor.files;
+
+            renderLampiranPreviews();
+            foundImage = true;
+        }
+    }
+    if (foundImage) {
+        e.preventDefault();
+    }
+});
+
+// Star Rating CSAT Handlers
+function setRating(ticketId, val) {
+    const input = document.getElementById('rating-input-' + ticketId);
+    if (input) input.value = val;
+    const labels = ['', 'Sangat Buruk 😡', 'Kurang Memuaskan 🙁', 'Cukup Baik 😐', 'Memuaskan 😊', 'Sangat Puas! 🌟'];
+    const labelEl = document.getElementById('rating-label-' + ticketId);
+    if (labelEl) labelEl.innerText = labels[val] || val + ' Bintang';
+    const box = document.getElementById('star-box-' + ticketId);
+    if (!box) return;
+    const stars = box.querySelectorAll('.star-item');
+    stars.forEach((s, idx) => {
+        s.style.color = (idx < val) ? '#f59e0b' : '#cbd5e1';
+    });
+}
+function hoverRating(ticketId, val) {
+    const box = document.getElementById('star-box-' + ticketId);
+    if (!box) return;
+    const stars = box.querySelectorAll('.star-item');
+    stars.forEach((s, idx) => {
+        s.style.color = (idx < val) ? '#fbbf24' : '#cbd5e1';
+    });
+}
+function resetRatingHover(ticketId) {
+    const currentVal = parseInt(document.getElementById('rating-input-' + ticketId)?.value) || 0;
+    const box = document.getElementById('star-box-' + ticketId);
+    if (!box) return;
+    const stars = box.querySelectorAll('.star-item');
+    stars.forEach((s, idx) => {
+        s.style.color = (idx < currentVal) ? '#f59e0b' : '#cbd5e1';
+    });
 }
 
 function checkFileSize(form, inputId, maxMb) {

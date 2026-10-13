@@ -16,6 +16,7 @@ class StoreTicketRequest extends FormRequest
         return [
             'aplikasi_id' => ['required', 'exists:master_aplikasis,aplikasi_id'],
             'permasalahan' => ['required', 'string', 'min:10'],
+            'urgensi' => ['nullable', 'string', 'in:Rendah,Sedang,Tinggi'],
             'whatsapp' => ['nullable', 'string', 'max:30'],
             'email' => ['nullable', 'email', 'max:255'],
             'lampiran' => ['nullable', 'array'], // File tidak terbatas

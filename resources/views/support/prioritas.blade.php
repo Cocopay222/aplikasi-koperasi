@@ -134,7 +134,22 @@
     <tbody>
         @foreach($tickets as $t)
         <tr class="clickable-row hoverable-row" data-target="modal-preview-{{ $t->ticket_id }}" style="cursor: pointer;">
-            <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->ticket_id }}</td>
+            <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">
+                <div>{{ $t->ticket_id }}</div>
+                @php
+                    $urg = $t->urgensi ?? 'Sedang';
+                    $urgColor = match($urg) {
+                        'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                        'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                        default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                    };
+                @endphp
+                <div style="margin-top: 4px;">
+                    <span style="background: {{ $urgColor['bg'] }}; color: {{ $urgColor['color'] }}; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; font-family: var(--font-body); white-space: nowrap;">
+                        ⚡ {{ $urg }}
+                    </span>
+                </div>
+            </td>
             <td style="white-space: nowrap;">
                 @php
                     $diff = $t->created_at->diffForHumans();
@@ -437,6 +452,134 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            @php
+                $statusStr = is_object($t->status) ? $t->status->value : (string)$t->status;
+                $isDone = in_array(strtolower($statusStr), ['done', 'selesai']);
+                $targetSla = $t->kategori?->sla_jam ?? 24;
+                if ($isDone) {
+                    $endTime = $t->tanggal_penyelesaian ?? now();
+                    $totalHours = max(1, round($t->tanggal_input->diffInMinutes($endTime) / 60, 1));
+                    $onTime = $totalHours <= $targetSla;
+                } else {
+                    $hoursElapsed = round($t->tanggal_input->diffInMinutes(now()) / 60, 1);
+                    $hoursLeft = max(0, round($targetSla - $hoursElapsed, 1));
+                    $slaPercent = min(100, round(($hoursElapsed / $targetSla) * 100));
+                }
+                $mUrgensi = $t->urgensi ?? 'Sedang';
+                $mUrgColor = match($mUrgensi) {
+                    'Tinggi' => ['bg' => 'rgba(239, 68, 68, 0.12)', 'color' => '#dc2626'],
+                    'Rendah' => ['bg' => 'rgba(2, 132, 199, 0.12)', 'color' => '#0284c7'],
+                    default => ['bg' => 'rgba(217, 119, 6, 0.12)', 'color' => '#d97706'],
+                };
+            @endphp
+
+            {{-- SLA Tracker & Urgensi Box --}}
+            <div style="margin-top: 16px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="background: {{ $mUrgColor['bg'] }}; color: {{ $mUrgColor['color'] }}; padding: 3px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;">
+                            ⚡ Urgensi: {{ $mUrgensi }}
+                        </span>
+                    </div>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #2563eb; background: rgba(37, 99, 235, 0.1); padding: 2px 8px; border-radius: 6px;">Target SLA: {{ $targetSla }} Jam</span>
+                </div>
+                @if($isDone)
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.85rem;">
+                        <span style="color: var(--ink-soft);">Diselesaikan dalam: <b>{{ $totalHours }} Jam</b></span>
+                        @if($onTime)
+                            <span style="background: rgba(16, 185, 129, 0.15); color: #059669; padding: 3px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">✓ Tepat Waktu</span>
+                        @else
+                            <span style="background: rgba(245, 158, 11, 0.15); color: #d97706; padding: 3px 10px; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">⚠ Melewati Target SLA</span>
+                        @endif
+                    </div>
+                @else
+                    <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden; margin-bottom: 8px;">
+                        <div style="width: {{ $slaPercent }}%; height: 100%; background: {{ $slaPercent > 85 ? '#ef4444' : ($slaPercent > 60 ? '#f59e0b' : '#10b981') }}; border-radius: 10px;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted);">
+                        <span>Berjalan: {{ $hoursElapsed }} jam</span>
+                        <span style="font-weight: 600; color: {{ $hoursLeft <= 2 ? '#dc2626' : 'var(--ink)' }};">Estimasi Sisa: ~{{ $hoursLeft }} jam</span>
+                    </div>
+                @endif
+            </div>
+
+            {{-- CSAT Rating Display if evaluated --}}
+            @if($t->rating)
+            <div style="margin-top: 16px; padding: 14px 16px; border-radius: 10px; background: #fffbeb; border: 1.5px solid #fde68a;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-weight: 700; font-size: 0.88rem; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                        ⭐ Penilaian Pelapor (CSAT):
+                    </span>
+                    <span style="font-weight: 700; color: #b45309; font-size: 0.9rem;">{{ $t->rating }} / 5 Bintang</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 6px;">
+                    @for($i = 1; $i <= 5; $i++)
+                        <span style="font-size: 1.2rem; color: {{ $i <= $t->rating ? '#f59e0b' : '#cbd5e1' }};">★</span>
+                    @endfor
+                </div>
+                @if($t->rating_ulasan)
+                    <div style="font-size: 0.85rem; color: #78350f; font-style: italic; background: rgba(255,255,255,0.7); padding: 8px 12px; border-radius: 6px; border: 1px solid #fef08a;">
+                        "{{ $t->rating_ulasan }}"
+                    </div>
+                @endif
+            </div>
+            @endif
+
+            {{-- Discussion / Chat Thread Component --}}
+            <div style="margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); font-size: 0.95rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Diskusi & Komentar Tiket
+                    </div>
+                    <span style="font-size: 0.75rem; background: var(--paper-sunken); border: 1px solid var(--line); color: var(--ink-soft); padding: 2px 8px; border-radius: 12px; font-weight: 600;">
+                        {{ $t->comments->count() }} Pesan
+                    </span>
+                </div>
+
+                {{-- Chat Thread List --}}
+                <div style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px;">
+                    @forelse($t->comments as $comment)
+                        @php
+                            $isMe = $comment->user_id === Auth::id();
+                            $isSupport = in_array($comment->user?->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]);
+                        @endphp
+                        <div style="display: flex; flex-direction: column; align-items: {{ $isMe ? 'flex-end' : 'flex-start' }};">
+                            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 0.72rem; color: var(--text-muted);">
+                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#2563eb' : 'var(--ink)') }};">
+                                    {{ $isMe ? 'Anda (Support)' : $comment->user?->nama }}
+                                </span>
+                                @if(!$isSupport)
+                                    <span style="background: rgba(16, 185, 129, 0.12); color: #059669; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">PELAPOR</span>
+                                @else
+                                    <span style="background: rgba(37, 99, 235, 0.12); color: #2563eb; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
+                                @endif
+                                <span>&middot; {{ $comment->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div style="max-width: 85%; padding: 8px 14px; border-radius: 12px; font-size: 0.88rem; line-height: 1.45; white-space: pre-wrap; background: {{ $isMe ? 'var(--brand-primary)' : 'var(--paper-raised)' }}; color: {{ $isMe ? '#ffffff' : 'var(--ink)' }}; border: 1px solid {{ $isMe ? 'var(--brand-primary)' : 'var(--line)' }}; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                {{ $comment->pesan }}
+                            </div>
+                        </div>
+                    @empty
+                        <div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.82rem; font-style: italic;">
+                            Belum ada pesan diskusi pada tiket ini. Tim Support dapat mengirimkan pesan langsung ke Pelapor di bawah ini.
+                        </div>
+                    @endforelse
+                </div>
+
+                {{-- Form Kirim Balasan Komentar --}}
+                <form action="{{ route('support.tickets.comment', $t->ticket_id) }}" method="POST" style="display: flex; gap: 8px; align-items: flex-end;">
+                    @csrf
+                    <div style="flex: 1;">
+                        <textarea name="pesan" required placeholder="Ketik pesan tanggapan atau instruksi untuk Pelapor..." style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.85rem; font-family: inherit; background: var(--paper); color: var(--ink); box-sizing: border-box; resize: vertical; min-height: 42px; max-height: 100px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 16px; height: 42px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        Balas
+                    </button>
+                </form>
             </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">

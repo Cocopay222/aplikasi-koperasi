@@ -83,6 +83,7 @@ class TicketController extends Controller
             'pelapor_id' => Auth::id(),
             'aplikasi_id' => $data['aplikasi_id'],
             'permasalahan' => $data['permasalahan'],
+            'urgensi' => $request->input('urgensi', 'Sedang'),
             'lampiran' => count($lampiranPaths) > 0 ? $lampiranPaths : null,
             'status' => TicketStatus::OPEN->value,
             'tanggal_input' => now(),
@@ -128,6 +129,7 @@ class TicketController extends Controller
         $updateData = [
             'aplikasi_id' => $data['aplikasi_id'],
             'permasalahan' => $data['permasalahan'],
+            'urgensi' => $request->input('urgensi', $ticket->urgensi ?? 'Sedang'),
         ];
 
         // Jika pelapor tidak memilih file, biarkan lampiran lama
@@ -461,5 +463,125 @@ class TicketController extends Controller
         $prefix = time() . substr(str_replace('.', '', (string) microtime(true)), -4);
 
         return $prefix . '_' . substr($name, 0, 100) . ($ext ? '.' . $ext : '');
+    }
+
+    /**
+     * Submit Rating CSAT oleh Pelapor ketika tiket Done
+     */
+    public function submitRating(Request $request, Ticket $ticket)
+    {
+        if ($ticket->pelapor_id !== Auth::id()) {
+            abort(403, 'Akses tidak diizinkan.');
+        }
+
+        $rawStatus = $ticket->status instanceof \BackedEnum ? $ticket->status->value : (string)$ticket->status;
+        if (strtolower($rawStatus) !== 'done') {
+            return back()->with('error', 'Rating hanya dapat diberikan untuk tiket yang sudah selesai (Done).');
+        }
+
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'rating_ulasan' => 'nullable|string|max:1000',
+        ]);
+
+        $ticket->update([
+            'rating' => $request->rating,
+            'rating_ulasan' => $request->rating_ulasan,
+        ]);
+
+        return back()->with('success', 'Terima kasih atas penilaian dan ulasan yang Anda berikan!');
+    }
+
+    /**
+     * Kirim pesan/komentar diskusi pada tiket (Pelapor & Support)
+     */
+    public function storeComment(Request $request, Ticket $ticket)
+    {
+        $user = Auth::user();
+        $isPelapor = $ticket->pelapor_id === $user->user_id;
+        $isStaff = in_array($user->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]);
+
+        if (!$isPelapor && !$isStaff) {
+            abort(403, 'Akses tidak diizinkan.');
+        }
+
+        $request->validate([
+            'pesan' => 'required|string|max:2000',
+        ]);
+
+        $ticket->comments()->create([
+            'user_id' => $user->user_id,
+            'pesan' => trim($request->pesan),
+        ]);
+
+        return back()->with('success', 'Pesan diskusi berhasil dikirim.');
+    }
+
+    /**
+     * Export rekap tiket pelapor ke CSV (kompatibel Excel)
+     */
+    public function exportPelapor(Request $request)
+    {
+        $query = Ticket::with(['aplikasi', 'kategori', 'picSupport'])
+            ->where('pelapor_id', Auth::id());
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $tickets = $query->latest('tanggal_input')->get();
+
+        $filename = 'rekap_laporan_koperasi_' . date('Ymd_His') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $callback = function () use ($tickets) {
+            $file = fopen('php://output', 'w');
+            // Tulis BOM UTF-8 agar Excel membaca karakter dengan benar
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+            fputcsv($file, [
+                'ID Tiket',
+                'Tanggal Lapor',
+                'Aplikasi',
+                'Kategori Kendala',
+                'Tingkat Urgensi',
+                'Permasalahan',
+                'Status',
+                'PIC Support',
+                'Solusi / Penyelesaian',
+                'Rating Layanan',
+                'Ulasan Pelapor',
+                'Tanggal Penyelesaian',
+            ]);
+
+            foreach ($tickets as $t) {
+                $statusStr = $t->status instanceof \BackedEnum ? $t->status->value : (string)$t->status;
+                fputcsv($file, [
+                    $t->ticket_id,
+                    $t->tanggal_input ? $t->tanggal_input->format('d/m/Y H:i') : '-',
+                    $t->aplikasi?->nama_aplikasi ?? '-',
+                    $t->kategori?->nama_kategori ?? '-',
+                    $t->urgensi ?? 'Sedang',
+                    $t->permasalahan,
+                    $statusStr,
+                    $t->picSupport?->nama ?? 'Belum Ditugaskan',
+                    $t->penyelesaian ?? '-',
+                    $t->rating ? $t->rating . ' / 5' : 'Belum Dinilai',
+                    $t->rating_ulasan ?? '-',
+                    $t->tanggal_penyelesaian ? $t->tanggal_penyelesaian->format('d/m/Y H:i') : '-',
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

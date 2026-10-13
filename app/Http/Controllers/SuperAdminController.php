@@ -19,20 +19,37 @@ class SuperAdminController extends Controller
             return redirect('/login')->with('error', __('messages.akses_ditolak'));
         }
 
-        $query = User::with('instansi');
+        $query = User::with('instansi')
+            ->withCount([
+                'ticketsReported',
+                'ticketsReported as active_tickets_count' => function($q) {
+                    $q->whereIn('status', ['Open', 'Proses', 'Pending', 'In Review', 'Waiting']);
+                }
+            ]);
 
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('whatsapp', 'like', "%{$search}%")
+                  ->orWhereHas('instansi', function($iq) use ($search) {
+                      $iq->where('nama_instansi', 'like', "%{$search}%");
+                  });
             });
         }
 
         $users = $query->orderBy('created_at', 'desc')->get();
         $instansis = Instansi::all();
-        
-        return view('superadmin.pengguna', compact('users', 'instansis'));
+
+        $totalPelapor = User::where('role', UserRole::PELAPOR)->count();
+        $totalSupport = User::where('role', UserRole::SUPPORT)->count();
+        $totalSuperadmin = User::where('role', UserRole::SUPERADMIN)->count();
+        $pelaporUnverified = User::where('role', UserRole::PELAPOR)->where('is_verified', false)->count();
+
+        return view('superadmin.pengguna', compact(
+            'users', 'instansis', 'totalPelapor', 'totalSupport', 'totalSuperadmin', 'pelaporUnverified'
+        ));
     }
 
     public function storePengguna(Request $request)

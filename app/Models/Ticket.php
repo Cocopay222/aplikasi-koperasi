@@ -23,6 +23,9 @@ class Ticket extends Model
         'penyelesaian',
         'pencegahan',
         'status',
+        'urgensi',
+        'rating',
+        'rating_ulasan',
         'link_ticket',
         'template_laporan',
         'surat_balasan',
@@ -33,6 +36,7 @@ class Ticket extends Model
 
     protected $casts = [
         'status' => TicketStatus::class,
+        'rating' => 'integer',
         'is_faq' => 'boolean',
         'tanggal_input' => 'datetime',
         'tanggal_penyelesaian' => 'datetime',
@@ -63,6 +67,11 @@ class Ticket extends Model
     public function logs()
     {
         return $this->hasMany(TicketLog::class, 'ticket_id', 'ticket_id')->orderBy('created_at', 'desc');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(TicketComment::class, 'ticket_id', 'ticket_id')->with('user')->orderBy('created_at', 'asc');
     }
     
     protected static function boot()

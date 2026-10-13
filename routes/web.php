@@ -193,6 +193,32 @@ Route::get('/run-migrations', function () {
             });
             $message .= "✅ Kolom 'kantor_cabang' BERHASIL DITAMBAHKAN ke implementasi_koperasi!<br>";
         }
+        if (\Illuminate\Support\Facades\Schema::hasTable('tickets')) {
+            \Illuminate\Support\Facades\Schema::table('tickets', function (\Illuminate\Database\Schema\Blueprint $table) {
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'urgensi')) {
+                    $table->string('urgensi', 50)->default('Sedang');
+                }
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'rating')) {
+                    $table->unsignedTinyInteger('rating')->nullable();
+                }
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'rating_ulasan')) {
+                    $table->text('rating_ulasan')->nullable();
+                }
+            });
+            $message .= "✅ Kolom 'urgensi', 'rating', 'rating_ulasan' BERHASIL DIPASTIKAN di tickets!<br>";
+        }
+        if (!\Illuminate\Support\Facades\Schema::hasTable('ticket_comments')) {
+            \Illuminate\Support\Facades\Schema::create('ticket_comments', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('ticket_id');
+                $table->unsignedBigInteger('user_id');
+                $table->text('pesan');
+                $table->timestamps();
+                $table->foreign('ticket_id')->references('ticket_id')->on('tickets')->onDelete('cascade');
+                $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            });
+            $message .= "✅ Tabel 'ticket_comments' BERHASIL DIBUAT!<br>";
+        }
     } catch (\Exception $e) {
         $message .= "⚠️ Gagal menambah kolom: " . $e->getMessage() . "<br>";
     }
@@ -260,6 +286,49 @@ Route::get('/run-migrate-cabang', function() {
         return "ℹ️ Kolom 'kantor_cabang' SUDAH ADA di tabel database Anda.";
     } catch (\Exception $e) {
         return "❌ Error: " . $e->getMessage();
+    }
+});
+
+Route::get('/run-migrate-pelapor', function() {
+    $results = [];
+    try {
+        if (\Illuminate\Support\Facades\Schema::hasTable('tickets')) {
+            \Illuminate\Support\Facades\Schema::table('tickets', function (\Illuminate\Database\Schema\Blueprint $table) use (&$results) {
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'urgensi')) {
+                    $table->string('urgensi', 50)->default('Sedang');
+                    $results[] = "Kolom 'urgensi' berhasil ditambahkan ke tabel tickets.";
+                }
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'rating')) {
+                    $table->unsignedTinyInteger('rating')->nullable();
+                    $results[] = "Kolom 'rating' berhasil ditambahkan ke tabel tickets.";
+                }
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'rating_ulasan')) {
+                    $table->text('rating_ulasan')->nullable();
+                    $results[] = "Kolom 'rating_ulasan' berhasil ditambahkan ke tabel tickets.";
+                }
+            });
+        }
+
+        if (!\Illuminate\Support\Facades\Schema::hasTable('ticket_comments')) {
+            \Illuminate\Support\Facades\Schema::create('ticket_comments', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('ticket_id');
+                $table->unsignedBigInteger('user_id');
+                $table->text('pesan');
+                $table->timestamps();
+
+                $table->foreign('ticket_id')->references('ticket_id')->on('tickets')->onDelete('cascade');
+                $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+                $table->index('ticket_id');
+            });
+            $results[] = "Tabel 'ticket_comments' berhasil dibuat.";
+        } else {
+            $results[] = "Tabel 'ticket_comments' sudah ada.";
+        }
+
+        return "<h3>✅ Migrasi Fitur Pelapor & Komentar Berhasil!</h3><pre>" . implode("\n", $results) . "</pre><br><a href='/'>Kembali ke Aplikasi</a>";
+    } catch (\Throwable $e) {
+        return "<h3>❌ Gagal Migrasi:</h3><pre>" . $e->getMessage() . "</pre>";
     }
 });
 
@@ -540,9 +609,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
     Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
+    Route::get('/riwayat/export', [TicketController::class, 'exportPelapor'])->name('riwayat.export');
     Route::get('/tickets/{ticket}/dokumen', [TicketController::class, 'dokumen'])->name('tickets.dokumen');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
     Route::put('/tickets/{ticket}/edit', [TicketController::class, 'updatePelapor'])->name('tickets.update_pelapor');
+    Route::post('/tickets/{ticket}/rating', [TicketController::class, 'submitRating'])->name('tickets.rating');
+    Route::post('/tickets/{ticket}/comments', [TicketController::class, 'storeComment'])->name('tickets.comment');
     Route::post('/tickets/{ticket}/upload-balasan', [TicketController::class, 'uploadBalasan'])->name('tickets.upload_balasan');
     Route::delete('/tickets/{ticket}/balasan/{index}', [TicketController::class, 'deleteBalasan'])->name('tickets.delete_balasan');
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
@@ -560,6 +632,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     });
     Route::get('/tickets/{ticket}/dokumen', [TicketController::class, 'dokumen'])->name('tickets.dokumen');
     Route::match(['PUT', 'POST'], '/tickets/{ticket}', [TicketController::class, 'updateSupport'])->name('tickets.update');
+    Route::post('/tickets/{ticket}/comments', [TicketController::class, 'storeComment'])->name('tickets.comment');
     
     // Reporting
     Route::get('/recap', [ReportController::class, 'index'])->name('recap');
