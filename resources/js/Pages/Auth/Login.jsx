@@ -103,9 +103,9 @@ export default function Login({ errors }) {
                             
                             <div className="login-text-content" style={{ position: 'relative', zIndex: 10 }}>
                                 <p style={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '8px', fontSize: 'calc(12px * var(--text-scale, 1))', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>PORTAL LAYANAN PENGGUNA</p>
-                                <h1 style={{ marginTop: 0 }}>Portal Layanan Pengguna Aplikasi SAKTI</h1>
+                                <h1 style={{ marginTop: 0 }}>Portal Layanan Pengguna Aplikasi SUPER</h1>
                                 <p className="desc" style={{ marginBottom: 0 }}>
-                                    Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SAKTI. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.
+                                    Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SUPER. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.
                                 </p>
                                 <p className="desc-mobile" style={{ display: 'none' }}>Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.</p>
                             </div>

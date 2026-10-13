@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="login-wrap" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; background: #ffffff;">
@@ -71,7 +71,7 @@
 
     {{-- Bottom Brand Footer --}}
     <div style="margin-top: 32px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--ink-soft); letter-spacing: 2px; text-transform: uppercase; display: flex; gap: 24px; opacity: 0.7;">
-        <span>SAKTI ONLINE</span>
+        <span>SUPER ONLINE</span>
         <span>SICUNDO</span>
         <span>ISO 27001:2022</span>
     </div>
