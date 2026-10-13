@@ -41,14 +41,16 @@ class SuperAdminController extends Controller
 
         $users = $query->orderBy('created_at', 'desc')->get();
         $instansis = Instansi::all();
+        $totalInstansi = Instansi::count();
 
+        // Hitung total orang/akun yang terdaftar di database (bukan berdasarkan sesi login)
         $totalPelapor = User::where('role', UserRole::PELAPOR)->count();
         $totalSupport = User::where('role', UserRole::SUPPORT)->count();
         $totalSuperadmin = User::where('role', UserRole::SUPERADMIN)->count();
         $pelaporUnverified = User::where('role', UserRole::PELAPOR)->where('is_verified', false)->count();
 
         return view('superadmin.pengguna', compact(
-            'users', 'instansis', 'totalPelapor', 'totalSupport', 'totalSuperadmin', 'pelaporUnverified'
+            'users', 'instansis', 'totalPelapor', 'totalSupport', 'totalSuperadmin', 'pelaporUnverified', 'totalInstansi'
         ));
     }
 

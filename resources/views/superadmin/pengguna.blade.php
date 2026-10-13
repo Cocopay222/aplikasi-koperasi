@@ -33,6 +33,15 @@
         </div>
     @endif
 
+    {{-- Info Penjelasan Total Orang Terdaftar --}}
+    <div class="fade-up" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.18); border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; font-size: 0.82rem; color: var(--ink-soft); flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1rem;">ℹ️</span>
+            <span>Data statistik di bawah ini menghitung <strong>total jumlah orang / akun pengguna yang telah terdaftar</strong> di database sistem (bukan dihitung dari sesi login/online).</span>
+        </div>
+        <span style="font-weight: 700; color: #2563eb; font-size: 0.82rem; white-space: nowrap;">Total Keseluruhan: {{ $users->count() }} Orang</span>
+    </div>
+
     {{-- Summary Statistics Cards --}}
     <div class="fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
         <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
@@ -41,8 +50,13 @@
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Pelapor Koperasi</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.2;">{{ $totalPelapor }}</div>
-                <div style="font-size: 0.75rem; color: #10b981; font-weight: 500;">Mitra Terdaftar</div>
+                <div style="line-height: 1.2;">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--ink);">{{ $totalPelapor }}</span>
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); margin-left: 2px;">Orang</span>
+                </div>
+                <div style="font-size: 0.75rem; color: #10b981; font-weight: 500; margin-top: 3px;">
+                    Total Pelapor Terdaftar
+                </div>
             </div>
         </div>
 
@@ -52,8 +66,11 @@
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Menunggu Verifikasi</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: {{ $pelaporUnverified > 0 ? '#d97706' : 'var(--ink)' }}; line-height: 1.2;">{{ $pelaporUnverified }}</div>
-                <div style="font-size: 0.75rem; color: {{ $pelaporUnverified > 0 ? '#b45309' : 'var(--text-muted)' }}; font-weight: 500;">
+                <div style="line-height: 1.2;">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: {{ $pelaporUnverified > 0 ? '#d97706' : 'var(--ink)' }};">{{ $pelaporUnverified }}</span>
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); margin-left: 2px;">Orang</span>
+                </div>
+                <div style="font-size: 0.75rem; color: {{ $pelaporUnverified > 0 ? '#b45309' : 'var(--text-muted)' }}; font-weight: 500; margin-top: 3px;">
                     {{ $pelaporUnverified > 0 ? 'Perlu tindakan Super Admin' : 'Semua akun aktif' }}
                 </div>
             </div>
@@ -65,8 +82,13 @@
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tim Support</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.2;">{{ $totalSupport }}</div>
-                <div style="font-size: 0.75rem; color: #2563eb; font-weight: 500;">Petugas Internal</div>
+                <div style="line-height: 1.2;">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--ink);">{{ $totalSupport }}</span>
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); margin-left: 2px;">Orang</span>
+                </div>
+                <div style="font-size: 0.75rem; color: #2563eb; font-weight: 500; margin-top: 3px;">
+                    Total Petugas Internal
+                </div>
             </div>
         </div>
 
@@ -76,8 +98,13 @@
             </div>
             <div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Super Admin</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1.2;">{{ $totalSuperadmin }}</div>
-                <div style="font-size: 0.75rem; color: #7c3aed; font-weight: 500;">Akses Administrator</div>
+                <div style="line-height: 1.2;">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: var(--ink);">{{ $totalSuperadmin }}</span>
+                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); margin-left: 2px;">Orang</span>
+                </div>
+                <div style="font-size: 0.75rem; color: #7c3aed; font-weight: 500; margin-top: 3px;">
+                    Total Administrator
+                </div>
             </div>
         </div>
     </div>
@@ -86,16 +113,16 @@
     <div class="fade-up" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button type="button" id="tab-btn-all" onclick="switchTab('all')" style="padding: 10px 18px; border-radius: 8px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--primary); color: white;">
-                👥 Semua Pengguna ({{ $users->count() }})
+                👥 Semua Pengguna ({{ $users->count() }} Orang)
             </button>
             <button type="button" id="tab-btn-pelapor" onclick="switchTab('pelapor')" style="padding: 10px 18px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--paper-raised); color: var(--ink);">
-                🏢 Data Pelapor Koperasi ({{ $totalPelapor }})
+                🏢 Data Pelapor Koperasi ({{ $totalPelapor }} Orang)
                 @if($pelaporUnverified > 0)
                     <span style="background: #ef4444; color: white; padding: 2px 7px; border-radius: 12px; font-size: 0.72rem; margin-left: 6px;">{{ $pelaporUnverified }} Baru</span>
                 @endif
             </button>
             <button type="button" id="tab-btn-support" onclick="switchTab('support')" style="padding: 10px 18px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--paper-raised); color: var(--ink);">
-                🎧 Tim Support ({{ $totalSupport }})
+                🎧 Tim Support ({{ $totalSupport }} Orang)
             </button>
         </div>
 
@@ -207,7 +234,7 @@
                 <span style="font-size: 0.8rem; color: #047857;">Daftar perwakilan koperasi, kontak WhatsApp langsung, status verifikasi, dan histori aktivitas tiket.</span>
             </div>
             <span style="background: #dcfce7; color: #166534; font-weight: 700; font-size: 0.82rem; padding: 4px 12px; border-radius: 20px;">
-                {{ $totalPelapor }} Koperasi Mitra
+                {{ $totalPelapor }} Orang Pelapor ({{ $totalInstansi }} Koperasi Mitra)
             </span>
         </div>
         <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
