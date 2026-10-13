@@ -109,19 +109,50 @@
         </div>
     </div>
 
+    <style>
+        .tab-btn-custom {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab-btn-custom.active {
+            background: #1E4B8F !important;
+            color: #ffffff !important;
+            border: 1px solid #1E4B8F !important;
+            box-shadow: 0 2px 8px rgba(30, 75, 143, 0.35) !important;
+            font-weight: 700;
+        }
+        .tab-btn-custom:not(.active) {
+            background: var(--paper-raised, #ffffff) !important;
+            color: var(--ink, #1F2937) !important;
+            border: 1px solid var(--line, #DCE6F5) !important;
+        }
+        .tab-btn-custom:not(.active):hover {
+            background: var(--paper-sunken, #E7EEFA) !important;
+            border-color: #cbd5e1 !important;
+            color: #1E4B8F !important;
+        }
+    </style>
+
     {{-- Tabs Switcher Header --}}
     <div class="fade-up" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" id="tab-btn-all" onclick="switchTab('all')" style="padding: 10px 18px; border-radius: 8px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--primary); color: white;">
+            <button type="button" id="tab-btn-all" class="tab-btn-custom active" onclick="switchTab('all')" style="background: #1E4B8F; color: #ffffff; border: 1px solid #1E4B8F; box-shadow: 0 2px 8px rgba(30, 75, 143, 0.35);">
                 👥 Semua Pengguna ({{ $users->count() }} Orang)
             </button>
-            <button type="button" id="tab-btn-pelapor" onclick="switchTab('pelapor')" style="padding: 10px 18px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--paper-raised); color: var(--ink);">
+            <button type="button" id="tab-btn-pelapor" class="tab-btn-custom" onclick="switchTab('pelapor')">
                 🏢 Data Pelapor Koperasi ({{ $totalPelapor }} Orang)
                 @if($pelaporUnverified > 0)
                     <span style="background: #ef4444; color: white; padding: 2px 7px; border-radius: 12px; font-size: 0.72rem; margin-left: 6px;">{{ $pelaporUnverified }} Baru</span>
                 @endif
             </button>
-            <button type="button" id="tab-btn-support" onclick="switchTab('support')" style="padding: 10px 18px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; background: var(--paper-raised); color: var(--ink);">
+            <button type="button" id="tab-btn-support" class="tab-btn-custom" onclick="switchTab('support')">
                 🎧 Tim Support ({{ $totalSupport }} Orang)
             </button>
         </div>
@@ -747,18 +778,22 @@
             const content = document.getElementById('tab-content-' + t);
             if (t === tabKey) {
                 if (btn) {
-                    btn.style.background = 'var(--primary)';
-                    btn.style.color = 'white';
-                    btn.style.border = 'none';
+                    btn.classList.add('active');
+                    btn.style.setProperty('background', '#1E4B8F', 'important');
+                    btn.style.setProperty('color', '#ffffff', 'important');
+                    btn.style.setProperty('border', '1px solid #1E4B8F', 'important');
+                    btn.style.setProperty('box-shadow', '0 2px 8px rgba(30, 75, 143, 0.35)', 'important');
                 }
                 if (content) {
                     content.style.display = 'block';
                 }
             } else {
                 if (btn) {
-                    btn.style.background = 'var(--paper-raised)';
-                    btn.style.color = 'var(--ink)';
-                    btn.style.border = '1px solid var(--line)';
+                    btn.classList.remove('active');
+                    btn.style.setProperty('background', 'var(--paper-raised, #ffffff)', 'important');
+                    btn.style.setProperty('color', 'var(--ink, #1F2937)', 'important');
+                    btn.style.setProperty('border', '1px solid var(--line, #DCE6F5)', 'important');
+                    btn.style.setProperty('box-shadow', 'none', 'important');
                 }
                 if (content) {
                     content.style.display = 'none';
