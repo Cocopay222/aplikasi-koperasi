@@ -75,7 +75,7 @@ class TicketController extends Controller
         $lampiranPaths = [];
         if ($request->hasFile('lampiran')) {
             foreach ($request->file('lampiran') as $file) {
-                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
+                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public', self::safeFilename($file));
             }
         }
 
@@ -142,7 +142,7 @@ class TicketController extends Controller
 
             $lampiranPaths = [];
             foreach ($request->file('lampiran') as $file) {
-                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
+                $lampiranPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public', self::safeFilename($file));
             }
             $updateData['lampiran'] = count($lampiranPaths) > 0 ? $lampiranPaths : null;
         }
@@ -377,7 +377,7 @@ class TicketController extends Controller
             }
             $lampiranSupportPaths = [];
             foreach ($request->file('lampiran_support') as $file) {
-                $lampiranSupportPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public');
+                $lampiranSupportPaths[] = UploadedFile::storeUploadedFile($file, 'lampiran_tiket', 'public', self::safeFilename($file));
             }
             $data['lampiran_support'] = count($lampiranSupportPaths) > 0 ? $lampiranSupportPaths : null;
         }
@@ -447,5 +447,19 @@ class TicketController extends Controller
         }
 
         return back()->with('success', __('messages.ticket_updated'));
+    }
+
+    /**
+     * Buat nama file aman: {timestamp}_{nama_asli}, tanpa spasi/karakter berbahaya.
+     */
+    private static function safeFilename($file): string
+    {
+        $name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $ext = strtolower($file->getClientOriginalExtension() ?: $file->extension());
+        $name = preg_replace('/[^A-Za-z0-9._-]+/', '_', $name);
+        $name = trim($name, '._') ?: 'lampiran';
+        $prefix = time() . substr(str_replace('.', '', (string) microtime(true)), -4);
+
+        return $prefix . '_' . substr($name, 0, 100) . ($ext ? '.' . $ext : '');
     }
 }
