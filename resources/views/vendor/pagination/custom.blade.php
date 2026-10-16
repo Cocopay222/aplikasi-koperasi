@@ -27,7 +27,7 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li><span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: var(--primary); color: #fff; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(16, 185, 129,0.2);">{{ $page }}</span></li>
+                            <li><span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: var(--primary); color: #fff; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(104, 108, 157,0.2);">{{ $page }}</span></li>
                         @else
                             <li><a href="{{ $url }}" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none; background: var(--paper-raised); transition: all 0.2s;" onmouseover="this.style.background='var(--line)'" onmouseout="this.style.background='var(--paper-raised)'">{{ $page }}</a></li>
                         @endif

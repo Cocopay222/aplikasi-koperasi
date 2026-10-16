@@ -94,13 +94,13 @@
                         $stLower = strtolower($stVal);
                         $badgeBg = '#e2e8f0'; $badgeClr = '#475569';
                         if ($stLower === 'open') { $badgeBg = '#f1f5f9'; $badgeClr = '#475569'; }
-                        elseif ($stLower === 'proses') { $badgeBg = '#d1fae5'; $badgeClr = '#047857'; }
+                        elseif ($stLower === 'proses') { $badgeBg = '#e9eaf2'; $badgeClr = '#3c3f68'; }
                         elseif ($stLower === 'pending') { $badgeBg = '#fef08a'; $badgeClr = '#854d0e'; }
                         elseif ($stLower === 'done') { $badgeBg = '#dcfce3'; $badgeClr = '#166534'; }
                     @endphp
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 1rem 1.25rem; vertical-align: middle;">
-                            <div style="font-weight: 700; color: #059669; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">{{ $tkt->ticket_id }}</div>
+                            <div style="font-weight: 700; color: #4d5183; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">{{ $tkt->ticket_id }}</div>
                             <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600; margin-top: 2px;">{{ $tkt->pelapor->instansi->nama_instansi ?? __('messages.koperasi') ?? 'Koperasi' }}</div>
                             <div style="font-size: 0.78rem; color: var(--text-muted);">{{ __('messages.reporter') ?? 'Pelapor' }}: {{ $tkt->pelapor->nama ?? '-' }}</div>
                         </td>
@@ -130,7 +130,7 @@
                                     data-solusi="{{ $tkt->penyelesaian ?? '' }}"
                                     data-pencegahan="{{ $tkt->pencegahan ?? '' }}"
                                     onclick="openLogModalFromEl(this)"
-                                    style="background: #059669; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">
+                                    style="background: #4d5183; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">
                                 Detail
                             </button>
                         </td>
@@ -253,7 +253,7 @@
         let stLower = (status || '').toLowerCase();
         let badgeBg = '#e2e8f0', badgeClr = '#475569';
         if (stLower === 'open') { badgeBg = '#f1f5f9'; badgeClr = '#475569'; }
-        else if (stLower === 'proses') { badgeBg = '#d1fae5'; badgeClr = '#047857'; }
+        else if (stLower === 'proses') { badgeBg = '#e9eaf2'; badgeClr = '#3c3f68'; }
         else if (stLower === 'pending') { badgeBg = '#fef08a'; badgeClr = '#854d0e'; }
         else if (stLower === 'done') { badgeBg = '#dcfce3'; badgeClr = '#166534'; }
 

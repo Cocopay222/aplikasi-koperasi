@@ -55,7 +55,7 @@
         display: inline-block;
     }
     .badge-abu { background-color: #e2e8f0; color: #475569; }
-    .badge-biru { background-color: #d1fae5; color: #047857; }
+    .badge-biru { background-color: #e9eaf2; color: #3c3f68; }
     .badge-kuning { background-color: #fef08a; color: #854d0e; }
     .badge-oranye { background-color: #ffedd5; color: #c2410c; }
     .badge-merah { background-color: #fee2e2; color: #b91c1c; }
@@ -102,8 +102,8 @@
         color: #0f172a;
     }
     .md-tab-btn.active {
-        background: #ecfdf5;
-        color: #059669;
+        background: #f4f5fa;
+        color: #4d5183;
         position: relative;
     }
     .md-tab-btn.active::before {
@@ -114,7 +114,7 @@
         transform: translateY(-50%);
         width: 4px;
         height: 50%;
-        background: #059669;
+        background: #4d5183;
         border-radius: 0 4px 4px 0;
     }
     .tab-content {
@@ -259,9 +259,9 @@
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: #059669;
+        background: #4d5183;
         border: 2px solid #fff;
-        box-shadow: 0 0 0 1px #059669;
+        box-shadow: 0 0 0 1px #4d5183;
     }
     .timeline-time {
         font-size: 12px;
@@ -317,7 +317,7 @@
     }
     .progress-bar-fill {
         height: 100%;
-        background-color: #059669;
+        background-color: #4d5183;
         transition: width 0.5s ease-in-out;
     }
 
@@ -339,7 +339,7 @@
     .dark-mode .md-sidebar { box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
     .dark-mode .md-tab-btn { color: #94a3b8; }
     .dark-mode .md-tab-btn:hover { background: #334155; color: #f8fafc; }
-    .dark-mode .md-tab-btn.active { background: #0f172a; color: #34d399; }
+    .dark-mode .md-tab-btn.active { background: #0f172a; color: #8c90b6; }
 
     /* Responsive Form Grids */
     .grid-2-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -439,7 +439,7 @@
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="new-item-kategori" placeholder="{{ __('messages.kategori') }}" style="width: 110px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
                     <input type="text" id="new-item-nama" placeholder="{{ __('messages.nama_item_checklist') }}" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <button type="button" onclick="addCustomChecklist({{ $implementasi->id }})" style="background: #059669; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
+                    <button type="button" onclick="addCustomChecklist({{ $implementasi->id }})" style="background: #4d5183; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
                 </div>
             </div>
         </div>
@@ -474,7 +474,7 @@
                 <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">{{ __('messages.tambah_migrasi_kustom') }}</h5>
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="new-migrasi-nama" placeholder="{{ __('messages.nama_item_migrasi') }}" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <button type="button" onclick="addCustomMigrasi({{ $implementasi->id }})" style="background: #059669; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
+                    <button type="button" onclick="addCustomMigrasi({{ $implementasi->id }})" style="background: #4d5183; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
                 </div>
             </div>
         </div>
@@ -520,7 +520,7 @@
                         <option value="Running - Kemandirian">Kemandirian</option>
                     </select>
                     <input type="text" id="new-running-nama" placeholder="Nama Item Running Status..." style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <button type="button" onclick="addCustomRunning({{ $implementasi->id }})" style="background: #059669; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
+                    <button type="button" onclick="addCustomRunning({{ $implementasi->id }})" style="background: #4d5183; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
                 </div>
             </div>
         </div>
@@ -673,14 +673,14 @@
                     @endif
                 </div>
             </div>
-            <div class="summary-item" style="border-left: 3px solid #059669; background: var(--paper-raised, #fff);">
-                <div class="summary-label" style="color: #059669; font-weight: 700;">Masa Berlaku Tim Support</div>
+            <div class="summary-item" style="border-left: 3px solid #4d5183; background: var(--paper-raised, #fff);">
+                <div class="summary-label" style="color: #4d5183; font-weight: 700;">Masa Berlaku Tim Support</div>
                 <div class="summary-value" style="font-size: 13px;">
                     @if($implementasi->tanggal_mulai_support || $implementasi->tanggal_selesai_support)
                         <div style="font-weight: 600; color: #1e293b;">
                             {{ $implementasi->tanggal_mulai_support ? $implementasi->tanggal_mulai_support->format('d M Y') : 'Awal' }}
                             &nbsp;&rarr;&nbsp;
-                            <span style="color: #059669;">{{ $implementasi->tanggal_selesai_support ? $implementasi->tanggal_selesai_support->format('d M Y') : 'Selesai' }}</span>
+                            <span style="color: #4d5183;">{{ $implementasi->tanggal_selesai_support ? $implementasi->tanggal_selesai_support->format('d M Y') : 'Selesai' }}</span>
                         </div>
                     @endif
                     @if($implementasi->durasi_support)
@@ -697,7 +697,7 @@
                 <div class="summary-label">{{ __('messages.ringkasan_berita_acara') }}</div>
                 <div class="summary-value">
                     @if($implementasi->berita_acara)
-                        <a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank" style="color: #059669; text-decoration: underline; font-weight: 500;">Lihat PDF</a>
+                        <a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank" style="color: #4d5183; text-decoration: underline; font-weight: 500;">Lihat PDF</a>
                     @else
                         -
                     @endif
@@ -822,7 +822,7 @@
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                     @php
                                         $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done' || $chk->status == 'Migrasi Selesai' || $chk->status == 'Selesai');
-                                        $simpanStyle = "background: #059669; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
+                                        $simpanStyle = "background: #4d5183; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
                                         $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                         $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
@@ -905,7 +905,7 @@
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                     @php
                                         $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done' || $chk->status == 'Migrasi Selesai' || $chk->status == 'Selesai');
-                                        $simpanStyle = "background: #059669; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
+                                        $simpanStyle = "background: #4d5183; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
                                         $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                         $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
@@ -1007,7 +1007,7 @@
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_go_live') }}</h4>
-                <button type="submit" id="btn-submit-golive" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#10b981' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">{{ __('messages.simpan_perubahan') }}</button>
+                <button type="submit" id="btn-submit-golive" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#686c9d' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">{{ __('messages.simpan_perubahan') }}</button>
             </div>
             
             <div class="tab-pane-inner">
@@ -1206,7 +1206,7 @@
                         {{ __('messages.btn_edit') }}
                     </button>
                     <button type="button" id="btn-batal-followup" onclick="cancelEditFollowUp()" style="display: none; background-color: #94a3b8; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.btn_batal') }}</button>
-                    <button type="submit" id="btn-simpan-followup" style="display: none; background-color: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
+                    <button type="submit" id="btn-simpan-followup" style="display: none; background-color: #686c9d; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </div>
 
@@ -1247,8 +1247,8 @@
                         </div>
                         <div>
                             <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.status_tindakan') }}</div>
-                            <div style="font-size: 14px; color: #047857; font-weight: 600;">
-                                <span style="display: inline-block; padding: 4px 10px; background: #ecfdf5; border-radius: 6px;">{{ $implementasi->status_tindakan ?: '-' }}</span>
+                            <div style="font-size: 14px; color: #3c3f68; font-weight: 600;">
+                                <span style="display: inline-block; padding: 4px 10px; background: #f4f5fa; border-radius: 6px;">{{ $implementasi->status_tindakan ?: '-' }}</span>
                             </div>
                         </div>
                     </div>
@@ -1426,7 +1426,7 @@
                                     @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                         @php
                                             $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
-                                            $simpanStyle = "background: #059669; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer;";
+                                            $simpanStyle = "background: #4d5183; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer;";
                                             $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
                                             $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                         @endphp
@@ -1473,7 +1473,7 @@
                         @endif
                         @if($log->data_sebelum && $log->data_sesudah)
                             <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
-                                <strong>Status:</strong> <span style="text-decoration: line-through;">{{ is_array($log->data_sebelum) ? ($log->data_sebelum['status'] ?? '') : '' }}</span> &rarr; <span style="color:#059669;">{{ is_array($log->data_sesudah) ? ($log->data_sesudah['status'] ?? '') : '' }}</span>
+                                <strong>Status:</strong> <span style="text-decoration: line-through;">{{ is_array($log->data_sebelum) ? ($log->data_sebelum['status'] ?? '') : '' }}</span> &rarr; <span style="color:#4d5183;">{{ is_array($log->data_sesudah) ? ($log->data_sesudah['status'] ?? '') : '' }}</span>
                             </div>
                         @endif
                     </div>
@@ -1852,7 +1852,7 @@
                     const btnSubmit = document.getElementById('btn-submit-golive');
                     if (btnSubmit) {
                         btnSubmit.disabled = !data.can_go_live;
-                        btnSubmit.style.backgroundColor = data.can_go_live ? '#10b981' : '#94a3b8';
+                        btnSubmit.style.backgroundColor = data.can_go_live ? '#686c9d' : '#94a3b8';
                         btnSubmit.style.cursor = data.can_go_live ? 'pointer' : 'not-allowed';
                     }
                 }
@@ -1908,7 +1908,7 @@
                                     <div style="font-weight: 600; font-size: 14px; color: #1e293b;">
                                         {{ $fu->jenis_tindakan ?? 'Update Aktivitas' }}
                                     </div>
-                                    <span style="font-size: 11px; padding: 2px 6px; background: #d1fae5; color: #047857; border-radius: 4px; font-weight: 600;">
+                                    <span style="font-size: 11px; padding: 2px 6px; background: #e9eaf2; color: #3c3f68; border-radius: 4px; font-weight: 600;">
                                         {{ $fu->status_tindakan }}
                                     </span>
                                 </div>

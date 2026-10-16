@@ -6,7 +6,7 @@
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; margin: 0;">
     <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h2 style="color: #059669; margin-top: 0;">Halo,</h2>
+        <h2 style="color: #4d5183; margin-top: 0;">Halo,</h2>
         <p style="color: #333; line-height: 1.6;">
             Anda menerima email ini karena kami menerima permintaan pengaturan ulang kata sandi untuk akun Anda.
         </p>
@@ -15,7 +15,7 @@
         <div style="text-align: center; margin: 30px 0;">
             <a href="{{ $resetUrl }}"
                target="_blank"
-               style="background-color: #059669; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; font-size: 16px; letter-spacing: 0.5px;">
+               style="background-color: #4d5183; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; font-size: 16px; letter-spacing: 0.5px;">
                 🔑 Atur Ulang Kata Sandi
             </a>
         </div>
@@ -35,7 +35,7 @@
             Salin link di bawah ini, lalu buka browser Chrome di HP Anda dan tempel di address bar:
         </p>
         <div style="background-color: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 6px; padding: 12px; word-break: break-all; font-size: 13px;">
-            <a href="{{ $resetUrl }}" style="color: #059669; text-decoration: none;">{{ $resetUrl }}</a>
+            <a href="{{ $resetUrl }}" style="color: #4d5183; text-decoration: none;">{{ $resetUrl }}</a>
         </div>
     </div>
 </body>

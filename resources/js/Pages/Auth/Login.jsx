@@ -241,9 +241,9 @@ export default function Login({ errors }) {
                                             type="submit" 
                                             className="btn" 
                                             disabled={processing}
-                                            style={{ width: '100%', justifyContent: 'center', background: '#059669', border: 'none', color: 'white', padding: '11px 14px', borderRadius: '10px', fontSize: '13px', fontWeight: 600, boxShadow: '0 4px 14px rgba(5, 150, 105, 0.35)', transition: 'all 0.2s', cursor: processing ? 'not-allowed' : 'pointer', opacity: processing ? 0.7 : 1 }}
-                                            onMouseOver={e => !processing && (e.currentTarget.style.transform = 'translateY(-2px)', e.currentTarget.style.background = '#047857', e.currentTarget.style.boxShadow = '0 6px 20px rgba(5, 150, 105, 0.45)')} 
-                                            onMouseOut={e => !processing && (e.currentTarget.style.transform = 'translateY(0)', e.currentTarget.style.background = '#059669', e.currentTarget.style.boxShadow = '0 4px 14px rgba(5, 150, 105, 0.35)')}
+                                            style={{ width: '100%', justifyContent: 'center', background: '#4d5183', border: 'none', color: 'white', padding: '11px 14px', borderRadius: '10px', fontSize: '13px', fontWeight: 600, boxShadow: '0 4px 14px rgba(77, 81, 131, 0.35)', transition: 'all 0.2s', cursor: processing ? 'not-allowed' : 'pointer', opacity: processing ? 0.7 : 1 }}
+                                            onMouseOver={e => !processing && (e.currentTarget.style.transform = 'translateY(-2px)', e.currentTarget.style.background = '#3c3f68', e.currentTarget.style.boxShadow = '0 6px 20px rgba(77, 81, 131, 0.45)')} 
+                                            onMouseOut={e => !processing && (e.currentTarget.style.transform = 'translateY(0)', e.currentTarget.style.background = '#4d5183', e.currentTarget.style.boxShadow = '0 4px 14px rgba(77, 81, 131, 0.35)')}
                                         >
                                             {processing ? 'Loading...' : 'Masuk ke Dashboard \u2192'}
                                         </button>

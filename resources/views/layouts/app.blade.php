@@ -394,16 +394,16 @@
     </div>
     <div class="mp-body">
         <a href="{{ route('support.recap.diagram') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
-            <span class="sub-dot" style="width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span> {{ __('messages.recap_diagram') }}
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #686c9d; border-radius: 50%;"></span> {{ __('messages.recap_diagram') }}
         </a>
         <a href="{{ route('support.recap.table') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
-            <span class="sub-dot" style="width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span> {{ __('messages.recap_support') }}
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #686c9d; border-radius: 50%;"></span> {{ __('messages.recap_support') }}
         </a>
         <a href="{{ route('support.recap.history-pic') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
-            <span class="sub-dot" style="width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span> {{ __('messages.recap_history_pic') }}
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #686c9d; border-radius: 50%;"></span> {{ __('messages.recap_history_pic') }}
         </a>
         <a href="{{ route('support.recap.template-surat') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
-            <span class="sub-dot" style="width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span> {{ __('messages.recap_template_surat') }}
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #686c9d; border-radius: 50%;"></span> {{ __('messages.recap_template_surat') }}
         </a>
     </div>
 </div>
@@ -567,7 +567,7 @@
             createFilter: function(input) { return input.trim().length >= 1; },
             render: {
                 option_create: function(data, escape) {
-                    return '<div class="create" style="padding: 10px 14px; background: #ecfdf5; color: #059669; font-weight: 600; cursor: pointer; border-top: 1px dashed #a7f3d0;">+ Tambah "<strong>' + escape(data.input) + '</strong>" & Lengkapi Detail...</div>';
+                    return '<div class="create" style="padding: 10px 14px; background: #f4f5fa; color: #4d5183; font-weight: 600; cursor: pointer; border-top: 1px dashed #d5d7e6;">+ Tambah "<strong>' + escape(data.input) + '</strong>" & Lengkapi Detail...</div>';
                 }
             },
             sortField: { field: "text", direction: "asc" },
@@ -802,13 +802,13 @@
             docContainer.style.cssText = 'display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 24px; box-sizing: border-box; text-align: center;';
             
             docContainer.innerHTML = `
-                <div style="background: #ffffff; border: 1.5px dashed #10b981; border-radius: 16px; padding: 32px 24px; max-width: 480px; width: 100%; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1);">
-                    <div style="width: 64px; height: 64px; background: #d1fae5; color: #059669; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+                <div style="background: #ffffff; border: 1.5px dashed #686c9d; border-radius: 16px; padding: 32px 24px; max-width: 480px; width: 100%; box-shadow: 0 10px 25px -5px rgba(104, 108, 157, 0.1);">
+                    <div style="width: 64px; height: 64px; background: #e9eaf2; color: #4d5183; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                     </div>
                     <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #1e293b; font-weight: 700;">{{ __("messages.dokumen") ?? "Dokumen" }} ${ext.toUpperCase()}</h4>
                     <p style="margin: 0 0 20px 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; word-break: break-all;">${originalName}</p>
-                    <a href="${url}" target="_blank" download="${originalName}" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);">
+                    <a href="${url}" target="_blank" download="${originalName}" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%; box-shadow: 0 4px 12px rgba(77, 81, 131, 0.25);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         {{ __("messages.unduh_buka_dokumen") ?? "Unduh / Buka Dokumen" }}
                     </a>
@@ -873,7 +873,7 @@
             </div>
             <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line, #e2e8f0); padding-top: 16px;">
                 <button type="button" class="btn btn-secondary" onclick="document.getElementById('modalTambahKoperasiCepat').style.display='none'" style="padding: 9px 18px; border-radius: 8px; font-weight: 600;">Batal</button>
-                <button type="submit" id="btnSubmitKoperasiCepat" class="btn btn-primary" style="padding: 9px 18px; border-radius: 8px; font-weight: 600; background: #059669; color: white; border: none; cursor: pointer;">Simpan Koperasi</button>
+                <button type="submit" id="btnSubmitKoperasiCepat" class="btn btn-primary" style="padding: 9px 18px; border-radius: 8px; font-weight: 600; background: #4d5183; color: white; border: none; cursor: pointer;">Simpan Koperasi</button>
             </div>
         </form>
     </div>

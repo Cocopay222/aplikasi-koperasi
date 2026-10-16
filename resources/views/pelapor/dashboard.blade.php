@@ -216,7 +216,7 @@
         </div>
         <div class="modal-body" style="padding: 24px;">
             <div style="margin-bottom: 24px;">
-                <a href="{{ route('pelapor.tickets.dokumen', $t->ticket_id) }}" class="btn btn-ghost" style="display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #10b981; color: #047857; background: #ecfdf5; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%;">
+                <a href="{{ route('pelapor.tickets.dokumen', $t->ticket_id) }}" class="btn btn-ghost" style="display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #686c9d; color: #3c3f68; background: #f4f5fa; padding: 10px 16px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     {{ __('messages.open_history_letter_document') }}
                 </a>
@@ -240,10 +240,10 @@
             <div style="margin-bottom: 20px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4d5183" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         <span style="font-size: 0.8rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.5px;">Target SLA Layanan</span>
                     </div>
-                    <span style="font-size: 0.8rem; font-weight: 600; color: #059669; background: rgba(5, 150, 105, 0.1); padding: 2px 8px; border-radius: 6px;">Target: {{ $targetSla }} Jam</span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #4d5183; background: rgba(77, 81, 131, 0.1); padding: 2px 8px; border-radius: 6px;">Target: {{ $targetSla }} Jam</span>
                 </div>
                 @if($isDone)
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.85rem;">
@@ -409,7 +409,7 @@
                 @endphp
                 <div style="margin-bottom: 24px;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Laporan Template</div>
-                    <button type="button" onclick="openUniversalPreview('{{ $tplUrl }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ addslashes(basename($t->template_laporan)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #10b981; color: #047857; background: #ecfdf5; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;">
+                    <button type="button" onclick="openUniversalPreview('{{ $tplUrl }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ addslashes(basename($t->template_laporan)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #686c9d; color: #3c3f68; background: #f4f5fa; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         <span>{{ __('messages.lihat') ?? 'Lihat' }} {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }} ({{ strtoupper(pathinfo($t->template_laporan, PATHINFO_EXTENSION)) }})</span>
                     </button>
@@ -543,11 +543,11 @@
                         @endphp
                         <div style="display: flex; flex-direction: column; align-items: {{ $isMe ? 'flex-end' : 'flex-start' }};">
                             <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 0.72rem; color: var(--text-muted);">
-                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#059669' : 'var(--ink)') }};">
+                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#4d5183' : 'var(--ink)') }};">
                                     {{ $isMe ? 'Anda' : $comment->user?->nama }}
                                 </span>
                                 @if($isSupport)
-                                    <span style="background: rgba(5, 150, 105, 0.12); color: #059669; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
+                                    <span style="background: rgba(77, 81, 131, 0.12); color: #4d5183; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
                                 @endif
                                 <span>&middot; {{ $comment->created_at->diffForHumans() }}</span>
                             </div>
@@ -846,7 +846,7 @@ function selectUrgensi(label, val) {
         l.style.background = 'var(--paper)';
     });
     label.style.borderColor = val === 'Tinggi' ? '#dc2626' : (val === 'Sedang' ? '#f59e0b' : '#0284c7');
-    label.style.background = val === 'Tinggi' ? '#fef2f2' : (val === 'Sedang' ? '#fffbeb' : '#ecfdf5');
+    label.style.background = val === 'Tinggi' ? '#fef2f2' : (val === 'Sedang' ? '#fffbeb' : '#f4f5fa');
     const radio = label.querySelector('input[type="radio"]');
     if (radio) radio.checked = true;
 }

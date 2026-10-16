@@ -212,7 +212,7 @@
                 {{ $t->updated_at->format('d M Y') }}
             </td>
             <td style="display: flex; gap: 6px; justify-content: flex-end;">
-                <a href="{{ route('support.tickets.dokumen', $t->ticket_id) }}" class="btn btn-ghost btn-sm" style="padding: 6px 10px; color: #10b981; border: 1px solid #a7f3d0; background: #ecfdf5;" title="Lihat Riwayat Dokumen">
+                <a href="{{ route('support.tickets.dokumen', $t->ticket_id) }}" class="btn btn-ghost btn-sm" style="padding: 6px 10px; color: #686c9d; border: 1px solid #d5d7e6; background: #f4f5fa;" title="Lihat Riwayat Dokumen">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 </a>
                 <button class="btn btn-primary btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">
@@ -250,7 +250,7 @@
         <div class="modal-body" style="padding: 24px;">
             <!-- Informasi Waktu -->
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
-                <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #047857; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; background: #f4f5fa; color: #3c3f68; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     {{ __('messages.disubmit') }} {{ $t->tanggal_input->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
                 </div>
@@ -338,7 +338,7 @@
                 @endphp
                 <div style="margin-bottom: 24px;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Laporan Template</div>
-                    <button type="button" onclick="openUniversalPreview('{{ $tplUrl }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ addslashes(basename($t->template_laporan)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #10b981; color: #047857; background: #ecfdf5; padding: 8px 14px; border-radius: 6px; font-weight: 600; width: fit-content; cursor: pointer;">
+                    <button type="button" onclick="openUniversalPreview('{{ $tplUrl }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ addslashes(basename($t->template_laporan)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #686c9d; color: #3c3f68; background: #f4f5fa; padding: 8px 14px; border-radius: 6px; font-weight: 600; width: fit-content; cursor: pointer;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         <span>{{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}</span>
                     </button>
@@ -484,7 +484,7 @@
                             ⚡ Urgensi: {{ $mUrgensi }}
                         </span>
                     </div>
-                    <span style="font-size: 0.8rem; font-weight: 600; color: #059669; background: rgba(5, 150, 105, 0.1); padding: 2px 8px; border-radius: 6px;">Target SLA: {{ $targetSla }} Jam</span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: #4d5183; background: rgba(77, 81, 131, 0.1); padding: 2px 8px; border-radius: 6px;">Target SLA: {{ $targetSla }} Jam</span>
                 </div>
                 @if($isDone)
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 0.85rem;">
@@ -549,13 +549,13 @@
                         @endphp
                         <div style="display: flex; flex-direction: column; align-items: {{ $isMe ? 'flex-end' : 'flex-start' }};">
                             <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 0.72rem; color: var(--text-muted);">
-                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#059669' : 'var(--ink)') }};">
+                                <span style="font-weight: 600; color: {{ $isMe ? 'var(--primary)' : ($isSupport ? '#4d5183' : 'var(--ink)') }};">
                                     {{ $isMe ? 'Anda (Support)' : $comment->user?->nama }}
                                 </span>
                                 @if(!$isSupport)
                                     <span style="background: rgba(16, 185, 129, 0.12); color: #059669; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">PELAPOR</span>
                                 @else
-                                    <span style="background: rgba(5, 150, 105, 0.12); color: #059669; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
+                                    <span style="background: rgba(77, 81, 131, 0.12); color: #4d5183; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">SUPPORT</span>
                                 @endif
                                 <span>&middot; {{ $comment->created_at->diffForHumans() }}</span>
                             </div>
