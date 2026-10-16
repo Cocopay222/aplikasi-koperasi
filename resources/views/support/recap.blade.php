@@ -116,14 +116,14 @@
                 @endforeach
                 
                 {{-- Total Row --}}
-                <tr style="background: #1e40af; color: #fff;">
+                <tr style="background: #065f46; color: #fff;">
                     <td style="padding: 1rem 1.5rem; font-weight: 600; font-size: 0.9rem;">Total</td>
                     @for($m = 1; $m <= 12; $m++)
                         <td style="padding: 1rem 0.5rem; text-align: center; font-weight: 600; font-size: 0.9rem;">
                             {{ $colTotals[$m] > 0 ? $colTotals[$m] : '0' }}
                         </td>
                     @endfor
-                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; font-size: 0.9rem; background: #1e3a8a;">
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; font-size: 0.9rem; background: #064e3b;">
                         {{ $grandTotal }}
                     </td>
                 </tr>

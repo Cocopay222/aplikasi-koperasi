@@ -51,7 +51,7 @@
                     </select>
                 </form>
                 
-                <div style="background: #1e3a8a; color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap;">
+                <div style="background: #064e3b; color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap;">
                     {{ __('messages.jumlah_data') }}: {{ count($tickets) }}
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <div style="overflow-x: auto; border: 1px solid var(--line); border-radius: 8px;">
             <table id="recap-table" style="width: 100%; border-collapse: collapse; min-width: 1500px; font-size: 0.85rem;">
                 <thead>
-                    <tr style="background: #1e3a8a; color: white;">
+                    <tr style="background: #064e3b; color: white;">
                         <th style="padding: 12px 16px; text-align: center; font-weight: 600; text-transform: uppercase;">{{ __('messages.no') }}</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">{{ __('messages.nama_koperasi') }}</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">{{ __('messages.no_telepon') }}</th>
@@ -137,7 +137,7 @@
                         
                         <td style="padding: 12px 16px;">
                             @if($t->link_ticket)
-                                <a href="{{ $t->link_ticket }}" target="_blank" style="color: #3b82f6; text-decoration: none;">{{ $t->link_ticket }}</a>
+                                <a href="{{ $t->link_ticket }}" target="_blank" style="color: #10b981; text-decoration: none;">{{ $t->link_ticket }}</a>
                             @else
                                 <span style="color: var(--text-muted);">-</span>
                             @endif

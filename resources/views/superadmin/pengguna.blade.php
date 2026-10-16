@@ -34,12 +34,12 @@
     @endif
 
     {{-- Info Penjelasan Total Orang Terdaftar --}}
-    <div class="fade-up" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.18); border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; font-size: 0.82rem; color: var(--ink-soft); flex-wrap: wrap;">
+    <div class="fade-up" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.18); border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; font-size: 0.82rem; color: var(--ink-soft); flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 1rem;">ℹ️</span>
             <span>Data statistik di bawah ini menghitung <strong>total jumlah orang / akun pengguna yang telah terdaftar</strong> di database sistem (bukan dihitung dari sesi login/online).</span>
         </div>
-        <span style="font-weight: 700; color: #2563eb; font-size: 0.82rem; white-space: nowrap;">Total Keseluruhan: {{ $users->count() }} Orang</span>
+        <span style="font-weight: 700; color: #059669; font-size: 0.82rem; white-space: nowrap;">Total Keseluruhan: {{ $users->count() }} Orang</span>
     </div>
 
     {{-- Summary Statistics Cards --}}
@@ -90,7 +90,7 @@
         </div>
 
         <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
-            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.14) 0%, rgba(37, 99, 235, 0.22) 100%); border: 1px solid rgba(59, 130, 246, 0.25); color: #2563eb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);">
+            <div style="width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.22) 100%); border: 1px solid rgba(16, 185, 129, 0.25); color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
                     <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
@@ -102,7 +102,7 @@
                     <span style="font-size: 1.5rem; font-weight: 700; color: var(--ink);">{{ $totalSupport }}</span>
                     <span style="font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); margin-left: 2px;">Orang</span>
                 </div>
-                <div style="font-size: 0.75rem; color: #2563eb; font-weight: 500; margin-top: 3px;">
+                <div style="font-size: 0.75rem; color: #059669; font-weight: 500; margin-top: 3px;">
                     Total Petugas Internal
                 </div>
             </div>
@@ -141,28 +141,28 @@
             gap: 6px;
         }
         .tab-btn-custom.active {
-            background: #1E4B8F !important;
+            background: #059669 !important;
             color: #ffffff !important;
-            border: 1px solid #1E4B8F !important;
-            box-shadow: 0 2px 8px rgba(30, 75, 143, 0.35) !important;
+            border: 1px solid #059669 !important;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.35) !important;
             font-weight: 700;
         }
         .tab-btn-custom:not(.active) {
             background: var(--paper-raised, #ffffff) !important;
             color: var(--ink, #1F2937) !important;
-            border: 1px solid var(--line, #DCE6F5) !important;
+            border: 1px solid var(--line, #D3E9DF) !important;
         }
         .tab-btn-custom:not(.active):hover {
-            background: var(--paper-sunken, #E7EEFA) !important;
+            background: var(--paper-sunken, #E3F2EB) !important;
             border-color: #cbd5e1 !important;
-            color: #1E4B8F !important;
+            color: #059669 !important;
         }
     </style>
 
     {{-- Tabs Switcher Header --}}
     <div class="fade-up" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" id="tab-btn-all" class="tab-btn-custom active" onclick="switchTab('all')" style="background: #1E4B8F; color: #ffffff; border: 1px solid #1E4B8F; box-shadow: 0 2px 8px rgba(30, 75, 143, 0.35);">
+            <button type="button" id="tab-btn-all" class="tab-btn-custom active" onclick="switchTab('all')" style="background: #059669; color: #ffffff; border: 1px solid #059669; box-shadow: 0 2px 8px rgba(5, 150, 105, 0.35);">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span>Semua Pengguna ({{ $users->count() }} Orang)</span>
             </button>
@@ -225,7 +225,7 @@
                             @if($user->role === \App\Enums\UserRole::SUPERADMIN)
                                 <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Super Admin</span>
                             @elseif($user->role === \App\Enums\UserRole::SUPPORT)
-                                <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Support</span>
+                                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Support</span>
                             @else
                                 <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Pelapor</span>
                             @endif
@@ -426,15 +426,15 @@
 
     {{-- TAB 3: TIM SUPPORT --}}
     <div id="tab-content-support" class="glass-panel fade-up" style="padding: 0; overflow: hidden; margin-bottom: 24px; display: none;">
-        <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: #eff6ff; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #2563eb;">
+        <div style="padding: 16px 24px; border-bottom: 1px solid var(--line); background: #ecfdf5; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #059669;">
             <div>
-                <h3 style="font-size: 1rem; font-weight: 700; color: #1e40af; margin: 0; display: flex; align-items: center; gap: 8px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb; flex-shrink: 0;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+                <h3 style="font-size: 1rem; font-weight: 700; color: #065f46; margin: 0; display: flex; align-items: center; gap: 8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #059669; flex-shrink: 0;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                     <span>Manajemen Tim Support Internal</span>
                 </h3>
-                <span style="font-size: 0.8rem; color: #1d4ed8;">Daftar staf teknis internal penanganan tiket kendala koperasi.</span>
+                <span style="font-size: 0.8rem; color: #047857;">Daftar staf teknis internal penanganan tiket kendala koperasi.</span>
             </div>
-            <span style="background: #dbeafe; color: #1e40af; font-weight: 700; font-size: 0.82rem; padding: 4px 12px; border-radius: 20px;">
+            <span style="background: #d1fae5; color: #065f46; font-weight: 700; font-size: 0.82rem; padding: 4px 12px; border-radius: 20px;">
                 {{ $totalSupport }} Staf Support
             </span>
         </div>
@@ -454,12 +454,12 @@
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 600;">
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(59, 130, 246, 0.15); color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700;">
+                                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); color: #059669; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700;">
                                     {{ strtoupper(substr($user->nama, 0, 2)) }}
                                 </div>
                                 <div>
                                     <div style="font-weight: 700;">{{ $user->nama }}</div>
-                                    <div style="font-size: 0.75rem; color: #2563eb; font-weight: 600;">Staff Support Pelayanan</div>
+                                    <div style="font-size: 0.75rem; color: #059669; font-weight: 600;">Staff Support Pelayanan</div>
                                 </div>
                             </div>
                         </td>
@@ -804,10 +804,10 @@
             if (t === tabKey) {
                 if (btn) {
                     btn.classList.add('active');
-                    btn.style.setProperty('background', '#1E4B8F', 'important');
+                    btn.style.setProperty('background', '#059669', 'important');
                     btn.style.setProperty('color', '#ffffff', 'important');
-                    btn.style.setProperty('border', '1px solid #1E4B8F', 'important');
-                    btn.style.setProperty('box-shadow', '0 2px 8px rgba(30, 75, 143, 0.35)', 'important');
+                    btn.style.setProperty('border', '1px solid #059669', 'important');
+                    btn.style.setProperty('box-shadow', '0 2px 8px rgba(5, 150, 105, 0.35)', 'important');
                 }
                 if (content) {
                     content.style.display = 'block';
@@ -817,7 +817,7 @@
                     btn.classList.remove('active');
                     btn.style.setProperty('background', 'var(--paper-raised, #ffffff)', 'important');
                     btn.style.setProperty('color', 'var(--ink, #1F2937)', 'important');
-                    btn.style.setProperty('border', '1px solid var(--line, #DCE6F5)', 'important');
+                    btn.style.setProperty('border', '1px solid var(--line, #D3E9DF)', 'important');
                     btn.style.setProperty('box-shadow', 'none', 'important');
                 }
                 if (content) {

@@ -79,7 +79,7 @@
     }
     
     .badge-abu { background-color: #e2e8f0; color: #475569; }
-    .badge-biru { background-color: #dbeafe; color: #1d4ed8; }
+    .badge-biru { background-color: #d1fae5; color: #047857; }
     .badge-kuning { background-color: #fef08a; color: #854d0e; }
     .badge-oranye { background-color: #ffedd5; color: #c2410c; }
     .badge-merah { background-color: #fee2e2; color: #b91c1c; }
@@ -103,7 +103,7 @@
     
     .btn-action {
         padding: 8px 16px;
-        background-color: #2563eb;
+        background-color: #059669;
         color: white;
         text-decoration: none;
         border-radius: 6px;
@@ -115,7 +115,7 @@
     }
     
     .btn-action:hover {
-        background-color: #1d4ed8;
+        background-color: #047857;
     }
     
     .btn-action:active {
@@ -170,7 +170,7 @@
     }
     
     .dark-mode .badge-abu { background-color: #334155; color: #cbd5e1; }
-    .dark-mode .badge-biru { background-color: #1e3a8a; color: #bfdbfe; }
+    .dark-mode .badge-biru { background-color: #064e3b; color: #a7f3d0; }
     .dark-mode .badge-kuning { background-color: #713f12; color: #fef08a; }
     .dark-mode .badge-oranye { background-color: #7c2d12; color: #ffedd5; }
     .dark-mode .badge-merah { background-color: #7f1d1d; color: #fecaca; }
@@ -481,7 +481,7 @@
     .btn-close-modal { background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b; }
     .btn-secondary { background: #e2e8f0; color: #475569; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;}
     .dark-mode .btn-secondary { background: #334155; color: #cbd5e1; }
-    .btn-primary { background: #2563eb; color: #fff; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;}
+    .btn-primary { background: #059669; color: #fff; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;}
     
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 </style>
@@ -595,7 +595,7 @@
 
                 <div class="form-group" style="background: var(--paper-sunken, #f8fafc); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 15px;">
                     <label class="form-label" style="font-weight: 600; color: #1e293b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         <span>Masa Berlaku Tim Support</span>
                     </label>
                     <div class="grid-2">

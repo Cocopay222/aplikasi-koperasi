@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('page_title', __('messages.profil_koperasi'))
 @section('page_subtitle', 'SupportFlow')
@@ -61,7 +61,7 @@
 
             
             <!-- KARTU IDENTITAS ANGGOTA DIGITAL -->
-            <div id="kartu-identitas" style="margin-bottom: 32px; background: linear-gradient(135deg, #1e3a8a, #1e40af); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);">
+            <div id="kartu-identitas" style="margin-bottom: 32px; background: linear-gradient(135deg, #064e3b, #065f46); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);">
                 <div style="padding: 24px; position: relative; color: white;">
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
                         <div style="display: flex; align-items: center; gap: 20px;">

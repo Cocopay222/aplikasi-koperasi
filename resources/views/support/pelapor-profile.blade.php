@@ -31,7 +31,7 @@
                             $nameParts = explode(' ', $user->nama);
                             $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
                         @endphp
-                        <div style="width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 700; border: 4px solid var(--paper-sunken); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <div style="width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #064e3b, #10b981); color: white; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 700; border: 4px solid var(--paper-sunken); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             {{ $initials }}
                         </div>
                     @endif
