@@ -1,11 +1,27 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M176 48 H 80 C 53.4903 48 32 69.4903 32 96 C 32 122.51 53.4903 144 80 144 H 176 C 202.51 144 224 165.49 224 192 C 224 218.51 202.51 240 176 240 H 80" stroke="url(#grad1)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
-  
   <defs>
-    <linearGradient id="grad1" x1="32" y1="48" x2="224" y2="240" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0EA5E9"/>
-      <stop offset="0.5" stop-color="#3B82F6"/>
-      <stop offset="1" stop-color="#4F46E5"/>
+    <!-- Gradien pita atas: Merah Koral / Crimson beralih ke Biru di bagian tengah -->
+    <linearGradient id="grad-top" x1="176" y1="48" x2="110" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF4D4D"/>
+      <stop offset="30%" stop-color="#FF385C"/>
+      <stop offset="65%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    
+    <!-- Gradien pita bawah: Biru Royal beralih ke Sian / Toska Terang di bagian bawah -->
+    <linearGradient id="grad-bot" x1="110" y1="138" x2="80" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="35%" stop-color="#1D4ED8"/>
+      <stop offset="70%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
     </linearGradient>
   </defs>
+  
+  <!-- Pita loop bawah (Biru -> Sian) -->
+  <path d="M 105 144 H 176 C 202.51 144 224 165.49 224 192 C 224 218.51 202.51 240 176 240 H 80" 
+        stroke="url(#grad-bot)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+        
+  <!-- Pita loop atas (Merah -> Biru yang menumpuk halus di tengah) -->
+  <path d="M 176 48 H 80 C 53.4903 48 32 69.4903 32 96 C 32 122.51 53.4903 144 80 144 H 135" 
+        stroke="url(#grad-top)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
