@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('page_title', 'Profil Saya')
 @section('page_subtitle', 'SupportFlow')
@@ -192,7 +192,7 @@
                         </div>
                         <div class="field">
                             <label>{{ __('messages.nik_id_agen') }}</label>
-                            <input type="text" name="nik" value="{{ Auth::user()->nik }}" placeholder="Contoh: SKK-EMP-0417" style="background: var(--paper-sunken);">
+                            <input type="text" name="nik" value="{{ Auth::user()->nik }}" placeholder="Contoh: SPR-EMP-0417" style="background: var(--paper-sunken);">
                         </div>
                     </div>
 

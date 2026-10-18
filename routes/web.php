@@ -26,11 +26,12 @@ Route::get('/download-template/{filename}', function ($filename) {
 
 // ROUTE SEMENTARA UNTUK RESET PASSWORD ADMIN
 Route::get('/reset-admin-password', function () {
-    $user = \App\Models\User::where('email', 'support@skk.co.id')->first();
+    $user = \App\Models\User::where('email', 'support@spr.co.id')->orWhere('email', 'support@skk.co.id')->first();
     if ($user) {
         $user->password = \Illuminate\Support\Facades\Hash::make('password123');
+        $user->email = 'support@spr.co.id';
         $user->save();
-        return "Berhasil mereset password support@skk.co.id menjadi: <b>password123</b><br><a href='/login'>Kembali ke Login</a>";
+        return "Berhasil mereset password support@spr.co.id menjadi: <b>password123</b><br><a href='/login'>Kembali ke Login</a>";
     }
     return "User tidak ditemukan.";
 });

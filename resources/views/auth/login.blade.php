@@ -143,7 +143,7 @@
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
-                                    <input type="email" name="email" placeholder="support@skk.co.id" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1));" required>
+                                    <input type="email" name="email" placeholder="support@spr.co.id" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1));" required>
                                 </div>
                             </div>
                             <div class="field">

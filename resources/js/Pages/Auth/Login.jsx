@@ -175,7 +175,7 @@ export default function Login({ errors }) {
                                                 <input 
                                                     type="email" 
                                                     name="email" 
-                                                    placeholder="support@skk.co.id" 
+                                                    placeholder="support@spr.co.id" 
                                                     style={{ paddingLeft: '42px', fontSize: 'calc(13px * var(--text-scale, 1))' }} 
                                                     required 
                                                     value={data.email}

@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
 
         // Support User (Admin)
         User::updateOrCreate(
-            ['email' => 'support@skk.co.id'],
+            ['email' => 'support@spr.co.id'],
             [
                 'nama' => 'Admin Support',
                 'password' => Hash::make('password123'),
