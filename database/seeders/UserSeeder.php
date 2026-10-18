@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
         // Super Admin
         User::updateOrCreate(
-            ['email' => 'superadmin@saktidesk.com'],
+            ['email' => 'superadmin@superdesk.com'],
             [
                 'nama' => 'Super Admin Radith',
                 'password' => Hash::make('password123'),

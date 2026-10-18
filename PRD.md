@@ -1,13 +1,13 @@
-﻿# Product Requirements Document (PRD)
+# Product Requirements Document (PRD)
 **Project Name:** SupportFlow  
-**Client / Owner:** PT Sakti Kinerja Kolaborasindo  
+**Client / Owner:** PT Super Kinerja Kolaborasindo  
 **Author:** Muhammad Radith Nurmansyah (NIM: 103012400226)  
 **Document Status:** Draft / Ready for Development  
 
 ---
 
 ## 1. Overview
-**SupportFlow** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Sakti Kinerja Kolaborasindo (seperti SAKTI.Link, SiCUNDO, dan SAKTI Online). 
+**SupportFlow** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Super Kinerja Kolaborasindo (seperti Super.Link, SiCUNDO, dan Super Online). 
 
 Tujuan utama sistem ini adalah menjembatani pelaporan kendala dari instansi mitra (Koperasi) ke tim *Support Engineer*, memastikan pelacakan siklus hidup tiket secara *real-time*, serta mengotomatisasi rekapitulasi analitik bulanan dan klasifikasi *Knowledge Base* (Smart FAQ).
 
@@ -42,7 +42,7 @@ Sistem ini menggunakan otentikasi berbasis peran (*Role-Based Access Control* / 
 * **FR-09 (Knowledge Base / FAQ):** Terdapat *toggle* boolean `is_faq`. Jika diatur ke `True`, deskripsi dan penyelesaian tiket akan masuk ke basis data *Smart FAQ* yang akan direkomendasikan kepada Pelapor saat mereka mengetik kendala serupa.
 
 ### Epic 4: Master Data (D2)
-* **FR-11 (Master Aplikasi):** CRUD data aplikasi (SAKTI.Link, SiCUNDO, dll) beserta status aktifnya.
+* **FR-11 (Master Aplikasi):** CRUD data aplikasi (Super.Link, SiCUNDO, dll) beserta status aktifnya.
 * **FR-12 (Master Kategori):** CRUD data kategori tiket (Bug, SOP, Data, dll) untuk keperluan klasifikasi analitik akhir.
 
 ### Epic 5: Reporting & Analytics (FR-10)

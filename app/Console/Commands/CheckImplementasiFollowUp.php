@@ -22,10 +22,10 @@ class CheckImplementasiFollowUp extends Command
         foreach ($implementasis as $impl) {
             $namaKoperasi = $impl->instansi->nama_instansi ?? 'Koperasi ' . $impl->id;
             
-            // Tentukan penerima notifikasi (PIC PT SAKTI)
+            // Tentukan penerima notifikasi (PIC PT SUPER)
             $usersToNotify = collect();
-            if ($impl->pic_sakti_id) {
-                $user = User::find($impl->pic_sakti_id);
+            if ($impl->pic_super_id) {
+                $user = User::find($impl->pic_super_id);
                 if ($user) $usersToNotify->push($user);
             }
             if ($usersToNotify->isEmpty()) {

@@ -1,4 +1,4 @@
-﻿# SupportFlow
+# SupportFlow
 
 <div align="center">
 
@@ -138,8 +138,8 @@ Sebelum memulai, pastikan Anda memiliki:
 ### 1ï¸. Clone Repositori
 
 ```bash
-git clone https://github.com/Radithb/SAKTI-Desk.git
-cd SAKTI-Desk
+git clone https://github.com/Cocopay222/aplikasi-koperasi.git
+cd aplikasi-koperasi
 ```
 
 ### 2ï¸. Install Dependensi
@@ -241,7 +241,7 @@ MAIL_FROM_ADDRESS=noreply@example.com
 ### Struktur Direktori
 
 ```
-SAKTI-Desk/
+aplikasi-koperasi/
 â”œâ”€â”€ app/
 â”‚   â”œâ”€â”€ Http/
 â”‚   â”‚   â”œâ”€â”€ Controllers/
@@ -310,7 +310,7 @@ test: Add tests
 
 ## Lapor Bug
 
-Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/SAKTI-Desk/issues) dengan detail:
+Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Cocopay222/aplikasi-koperasi/issues) dengan detail:
 
 - Deskripsi bug
 - Langkah-langkah reproduksi
@@ -325,14 +325,14 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 ## Kontak & Support
 
 - **Email**: [mradithn@gmail.com]
-- **GitHub Issues**: [Report an Issue](https://github.com/Radithb/SAKTI-Desk/issues)
-- **Discussions**: [Join Discussion](https://github.com/Radithb/SAKTI-Desk/discussions)
+- **GitHub Issues**: [Report an Issue](https://github.com/Cocopay222/aplikasi-koperasi/issues)
+- **Discussions**: [Join Discussion](https://github.com/Cocopay222/aplikasi-koperasi/discussions)
 
 ---
 
 <div align="center">
 
-**[kembali ke atas](#-SAKTI-Desk)**
+**[kembali ke atas](#supportflow)**
 
 Dibuat dengan â¤ï¸ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
 

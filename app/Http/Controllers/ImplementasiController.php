@@ -20,7 +20,7 @@ class ImplementasiController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'aplikasis', 'picSakti'])
+        $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'aplikasis', 'picSuper'])
             ->orderBy('updated_at', 'desc');
 
         if (Auth::user()->role === UserRole::PELAPOR) {
@@ -55,7 +55,7 @@ class ImplementasiController extends Controller
             'instansi', 
             'aplikasi', 
             'aplikasis',
-            'picSakti', 
+            'picSuper', 
             'checklists' => function($q) {
                 $q->orderBy('kategori', 'asc')->orderBy('id', 'asc');
             }, 

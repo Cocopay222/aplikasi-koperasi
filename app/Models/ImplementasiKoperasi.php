@@ -21,7 +21,7 @@ class ImplementasiKoperasi extends Model
         'metode_pelatihan',
         'berita_acara',
         'nama_trainer',
-        'pic_sakti_id',
+        'pic_super_id',
         'anggota_hadir',
         'pic_koperasi',
         'kontak_pic',
@@ -91,9 +91,9 @@ class ImplementasiKoperasi extends Model
         return $this->belongsToMany(MasterAplikasi::class, 'aplikasi_implementasi', 'implementasi_id', 'aplikasi_id');
     }
 
-    public function picSakti()
+    public function picSuper()
     {
-        return $this->belongsTo(User::class, 'pic_sakti_id', 'user_id');
+        return $this->belongsTo(User::class, 'pic_super_id', 'user_id');
     }
 
     public function checklists()

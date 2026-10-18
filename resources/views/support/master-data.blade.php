@@ -724,7 +724,7 @@
                 <div class="modal-body">
                     <div class="field">
                         <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
-                        <input type="text" name="nama_aplikasi" id="add_nama_aplikasi" required placeholder="{{ __('messages.contoh_sakti') }}">
+                        <input type="text" name="nama_aplikasi" id="add_nama_aplikasi" required placeholder="{{ __('messages.contoh_super') }}">
                     </div>
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
@@ -804,7 +804,7 @@
                 <div class="modal-body">
                     <div class="field">
                         <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
-                        <input type="text" name="nama_aplikasi" required value="{{ $app->nama_aplikasi }}" placeholder="{{ __('messages.contoh_sakti') }}">
+                        <input type="text" name="nama_aplikasi" required value="{{ $app->nama_aplikasi }}" placeholder="{{ __('messages.contoh_super') }}">
                     </div>
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
@@ -1158,8 +1158,8 @@
                     const passInput = document.getElementById('add_password');
                     
                     if (linkInput && !linkInput.value) linkInput.value = 'https://apps.laci.online/';
-                    if (userInput && !userInput.value) userInput.value = 'demosakti';
-                    if (passInput && !passInput.value) passInput.value = 'demosakti';
+                    if (userInput && !userInput.value) userInput.value = 'demosuper';
+                    if (passInput && !passInput.value) passInput.value = 'demosuper';
                 }
             });
         }

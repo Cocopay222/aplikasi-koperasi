@@ -49,8 +49,8 @@ Route::get('/generate-running-checklists', function () {
         ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Laporan dapat ditampilkan dengan normal'],
         ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Cetak/export laporan berjalan normal'],
         ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Tidak terdapat kendala yang menghambat operasional koperasi'],
-        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Sakti sudah digunakan sebagai aplikasi operasional utama'],
-        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan Sakti'],
+        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Super sudah digunakan sebagai aplikasi operasional utama'],
+        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan Super'],
         ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
         ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi anggota sudah berjalan'],
         ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi simpanan sudah berjalan'],
@@ -58,17 +58,19 @@ Route::get('/generate-running-checklists', function () {
         ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi angsuran sudah berjalan'],
         ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi kas sudah berjalan'],
         ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan sudah digunakan oleh koperasi'],
-        ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan Sakti menjadi acuan operasional'],
+        ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan Super menjadi acuan operasional'],
         ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan transaksi tanpa bantuan Support'],
         ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan pengecekan/koreksi sederhana sendiri'],
-        ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional Sakti']
+        ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional Super']
     ];
     
-    // Auto rename SAS to Sakti for existing DB records
+    // Auto rename SAS/Sakti to Super for existing DB records
     $renamedCount = 0;
-    \App\Models\ImplementasiChecklist::where('nama_item', 'like', '%SAS%')->get()->each(function($chk) use (&$renamedCount) {
+    \App\Models\ImplementasiChecklist::where('nama_item', 'like', '%SAS%')
+        ->orWhere('nama_item', 'like', '%Sakti%')
+        ->get()->each(function($chk) use (&$renamedCount) {
         $chk->update([
-            'nama_item' => str_replace('SAS', 'Sakti', $chk->nama_item)
+            'nama_item' => str_replace(['SAS', 'Sakti'], 'Super', $chk->nama_item)
         ]);
         $renamedCount++;
     });
@@ -92,7 +94,7 @@ Route::get('/generate-running-checklists', function () {
         }
         $impl->updateProgres();
     }
-    return "Selesai! Berhasil menambahkan {$totalAdded} item baru, memperbarui {$renamedCount} teks SAS menjadi Sakti, dan menghitung ulang seluruh persentase progres!<br><a href='/'>Kembali ke Aplikasi</a>";
+    return "Selesai! Berhasil menambahkan {$totalAdded} item baru, memperbarui {$renamedCount} teks SAS/Sakti menjadi Super, dan menghitung ulang seluruh persentase progres!<br><a href='/'>Kembali ke Aplikasi</a>";
 });
 
 // ROUTE SEMENTARA UNTUK MIGRASI DATABASE (InfinityFree)

@@ -1018,7 +1018,7 @@
                         <input type="text" class="form-control" value="{{ $implementasi->aplikasis && $implementasi->aplikasis->count() > 0 ? $implementasi->aplikasis->pluck('nama_aplikasi')->join(', ') : ($implementasi->aplikasi->nama_aplikasi ?? '-') }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_sakti') }}</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_super') }}</label>
                         <input type="text" class="form-control" value="{{ $implementasi->nama_trainer ?? '-' }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
                     </div>
                     <div>
