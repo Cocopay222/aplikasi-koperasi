@@ -82,6 +82,421 @@
         .animate-fade-out {
             animation: modalAlertFadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
         }
+
+        /* ================= NOTIFICATION CENTER MODERN STYLING ================= */
+        .notification-dropdown {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .notif-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--paper-raised);
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            padding: 0;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+        .notif-btn:hover {
+            background: var(--paper-sunken);
+            border-color: var(--brand-primary);
+            transform: translateY(-1px);
+            color: var(--brand-primary);
+            box-shadow: 0 4px 10px rgba(77, 81, 131, 0.12);
+        }
+        .notif-btn.is-active {
+            background: var(--brand-primary-soft);
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(77, 81, 131, 0.15);
+        }
+
+        .notif-badge-wrap {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .notif-badge-ping {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 999px;
+            background: #ef4444;
+            opacity: 0.75;
+            animation: notifPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes notifPing {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        .notif-badge-num {
+            position: relative;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #ffffff;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--paper-raised);
+            box-shadow: 0 2px 5px rgba(239, 68, 68, 0.4);
+            line-height: 1;
+        }
+
+        /* Dropdown Window */
+        .notif-dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 10px);
+            width: 390px;
+            max-width: calc(100vw - 28px);
+            background: var(--paper-raised);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.22), 0 8px 18px -4px rgba(15, 23, 42, 0.08);
+            z-index: 1000;
+            overflow: hidden;
+            display: none;
+            transform-origin: top right;
+            animation: notifMenuEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .notif-dropdown-menu.show {
+            display: block !important;
+        }
+        @keyframes notifMenuEnter {
+            from {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Header */
+        .notif-head {
+            padding: 16px 18px 12px 18px;
+            border-bottom: 1px solid var(--line);
+            background: var(--paper-raised);
+        }
+        .notif-head-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notif-head-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .notif-head-title h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.2px;
+        }
+        .notif-counter-pill {
+            background: var(--brand-primary-soft);
+            color: var(--brand-primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            line-height: 1.4;
+            border: 1px solid rgba(77, 81, 131, 0.15);
+        }
+        .notif-mark-all-btn {
+            background: var(--paper-sunken);
+            border: 1px solid transparent;
+            color: var(--ink-soft);
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.18s ease;
+        }
+        .notif-mark-all-btn:hover {
+            background: var(--brand-primary-soft);
+            color: var(--brand-primary);
+            border-color: rgba(77, 81, 131, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Tabs */
+        .notif-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--paper-sunken);
+            padding: 3px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+        .notif-tab {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-soft);
+            cursor: pointer;
+            transition: all 0.18s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .notif-tab:hover {
+            color: var(--ink);
+        }
+        .notif-tab.active {
+            background: var(--paper-raised);
+            color: var(--brand-primary);
+            font-weight: 700;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .notif-tab-badge {
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: rgba(77, 81, 131, 0.1);
+            color: inherit;
+        }
+
+        /* List Items */
+        .notif-list {
+            max-height: 380px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+        .notif-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .notif-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .notif-list::-webkit-scrollbar-thumb {
+            background: var(--line);
+            border-radius: 999px;
+        }
+
+        .notif-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--line);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.18s ease;
+            position: relative;
+            border-left: 3.5px solid transparent;
+        }
+        .notif-item:last-child {
+            border-bottom: none;
+        }
+        .notif-item.is-unread {
+            background: rgba(77, 81, 131, 0.035);
+            border-left-color: var(--brand-primary);
+        }
+        html.dark-mode .notif-item.is-unread {
+            background: rgba(132, 137, 190, 0.08);
+        }
+        .notif-item:hover {
+            background: var(--paper-sunken) !important;
+            transform: translateX(2px);
+        }
+
+        /* Icon Avatar */
+        .notif-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .notif-icon-doc {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+        html.dark-mode .notif-icon-doc {
+            background: rgba(37, 99, 235, 0.18);
+            color: #93c5fd;
+        }
+        .notif-icon-followup {
+            background: #fffbeb;
+            color: #d97706;
+        }
+        html.dark-mode .notif-icon-followup {
+            background: rgba(217, 119, 6, 0.18);
+            color: #fcd34d;
+        }
+        .notif-icon-ticket {
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+        html.dark-mode .notif-icon-ticket {
+            background: rgba(124, 58, 237, 0.18);
+            color: #c4b5fd;
+        }
+
+        /* Content */
+        .notif-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .notif-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .notif-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+        .notif-unread-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--brand-primary);
+            flex-shrink: 0;
+            box-shadow: 0 0 0 2px var(--brand-primary-soft);
+        }
+        .notif-msg {
+            font-size: 12px;
+            color: var(--ink-soft);
+            line-height: 1.45;
+            margin: 0;
+            word-break: break-word;
+        }
+        .notif-ticket-code {
+            display: inline-block;
+            padding: 0 5px;
+            background: var(--brand-primary-soft);
+            color: var(--brand-primary);
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        .notif-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--ink-soft);
+        }
+        .notif-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.85;
+        }
+        .notif-action-hint {
+            font-size: 11px;
+            color: var(--brand-primary);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.15s ease;
+        }
+        .notif-item:hover .notif-action-hint {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Empty State */
+        .notif-empty {
+            padding: 42px 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .notif-empty-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--paper-sunken);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: var(--brand-primary);
+        }
+        .notif-empty-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 0 4px 0;
+        }
+        .notif-empty-desc {
+            font-size: 12px;
+            color: var(--ink-soft);
+            line-height: 1.4;
+            margin: 0;
+            max-width: 260px;
+        }
+
+        /* Footer */
+        .notif-footer {
+            padding: 10px 16px;
+            background: var(--paper-sunken);
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--ink-soft);
+        }
+
+        @media (max-width: 640px) {
+            .notif-dropdown-menu {
+                position: fixed;
+                top: 64px;
+                left: 12px;
+                right: 12px;
+                width: auto;
+                max-width: none;
+            }
+        }
     </style>
     <script>
         // Apply personalization before page render to prevent FOUC
@@ -243,34 +658,110 @@
                 <div class="notification-dropdown" style="position: relative; margin-right: 15px;">
                     @php
                         $unreadCount = Auth::user()->unreadNotifications->count();
+                        $userNotifications = Auth::user()->notifications()->take(15)->get();
                     @endphp
-                    <button class="notif-btn" onclick="toggleNotifDropdown(event)" style="background: none; border: none; cursor: pointer; position: relative; padding: 5px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <button class="notif-btn" id="notif-trigger-btn" onclick="toggleNotifDropdown(event)" aria-label="Notifikasi" title="Notifikasi">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
                         @if($unreadCount > 0)
-                            <span style="position: absolute; top: 0; right: 0; background: #ef4444; color: white; border-radius: 50%; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                            <div class="notif-badge-wrap">
+                                <span class="notif-badge-ping"></span>
+                                <span class="notif-badge-num">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                            </div>
                         @endif
                     </button>
                     
-                    <div id="notif-dropdown-menu" style="display: none; position: absolute; right: 0; top: 40px; width: 320px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); z-index: 50;">
-                        <div style="padding: 12px 15px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
-                            <strong style="font-size: 14px; color: var(--ink);">{{ __('messages.notifikasi_title') }}</strong>
-                            @if($unreadCount > 0)
-                                <form action="{{ route('notifications.markAllRead') }}" method="POST" style="margin: 0;">
-                                    @csrf
-                                    <button type="submit" style="background: none; border: none; color: var(--brand-primary); font-size: 12px; cursor: pointer; padding: 0;">{{ __('messages.mark_all_read') }}</button>
-                                </form>
-                            @endif
+                    <div id="notif-dropdown-menu" class="notif-dropdown-menu">
+                        <div class="notif-head">
+                            <div class="notif-head-top">
+                                <div class="notif-head-title">
+                                    <h4>{{ __('messages.notifikasi_title') }}</h4>
+                                    @if($unreadCount > 0)
+                                        <span class="notif-counter-pill">{{ $unreadCount }} {{ __('messages.notif_baru') }}</span>
+                                    @endif
+                                </div>
+                                @if($unreadCount > 0)
+                                    <form action="{{ route('notifications.markAllRead') }}" method="POST" style="margin: 0;">
+                                        @csrf
+                                        <button type="submit" class="notif-mark-all-btn">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            {{ __('messages.mark_all_read') }}
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+
+                            <div class="notif-tabs">
+                                <button type="button" class="notif-tab active" id="notif-tab-all" onclick="switchNotifTab('all')">
+                                    {{ __('messages.notif_semua') }}
+                                    <span class="notif-tab-badge">{{ $userNotifications->count() }}</span>
+                                </button>
+                                <button type="button" class="notif-tab" id="notif-tab-unread" onclick="switchNotifTab('unread')">
+                                    {{ __('messages.notif_belum_dibaca') }}
+                                    <span class="notif-tab-badge">{{ $unreadCount }}</span>
+                                </button>
+                            </div>
                         </div>
-                        <div style="max-height: 300px; overflow-y: auto;">
-                            @forelse(Auth::user()->unreadNotifications as $notification)
-                                <a href="{{ route('notifications.read', $notification->id) }}" style="display: block; padding: 12px 15px; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: background 0.2s;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='transparent'">
-                                    <div style="font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px;">{{ $notification->data['title'] ?? 'Pengingat' }}</div>
-                                    <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.4;">{{ $notification->data['message'] ?? '' }}</div>
-                                    <div style="font-size: 11px; color: var(--ink-soft); margin-top: 6px;">{{ $notification->created_at->diffForHumans() }}</div>
+
+                        <div class="notif-list" id="notif-list-container">
+                            @forelse($userNotifications as $notification)
+                                @php
+                                    $isUnread = $notification->read_at === null;
+                                    $title = $notification->data['title'] ?? 'Pemberitahuan';
+                                    $msg = $notification->data['message'] ?? '';
+                                    $isDoc = str_contains(strtolower($title), 'dokumen') || isset($notification->data['url']);
+                                    $isFollowUp = str_contains(strtolower($title), 'follow') || str_contains(strtolower($title), 'pengingat') || isset($notification->data['implementasi_id']);
+                                @endphp
+                                <a href="{{ route('notifications.read', $notification->id) }}" class="notif-item {{ $isUnread ? 'is-unread' : 'is-read' }}" data-is-unread="{{ $isUnread ? '1' : '0' }}">
+                                    <div class="notif-icon-box {{ $isDoc ? 'notif-icon-doc' : ($isFollowUp ? 'notif-icon-followup' : 'notif-icon-ticket') }}">
+                                        @if($isDoc)
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                        @elseif($isFollowUp)
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                        @else
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                        @endif
+                                    </div>
+                                    <div class="notif-content">
+                                        <div class="notif-title-row">
+                                            <h5 class="notif-title">{{ $title }}</h5>
+                                            @if($isUnread)
+                                                <span class="notif-unread-dot" title="Belum dibaca"></span>
+                                            @endif
+                                        </div>
+                                        <p class="notif-msg">{!! preg_replace('/(#TKT-[A-Za-z0-9]+)/', '<span class="notif-ticket-code">$1</span>', e($msg)) !!}</p>
+                                        <div class="notif-meta">
+                                            <span class="notif-time">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                                {{ $notification->created_at->diffForHumans() }}
+                                            </span>
+                                            <span class="notif-action-hint">Lihat detail →</span>
+                                        </div>
+                                    </div>
                                 </a>
                             @empty
-                                <div style="padding: 20px; text-align: center; color: var(--ink-soft); font-size: 13px;">{{ __('messages.no_new_notif') }}</div>
+                                <div class="notif-empty" id="notif-empty-state">
+                                    <div class="notif-empty-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                    </div>
+                                    <h5 class="notif-empty-title">{{ __('messages.no_new_notif') }}</h5>
+                                    <p class="notif-empty-desc">{{ __('messages.notif_empty_desc') }}</p>
+                                </div>
                             @endforelse
+                            <div class="notif-empty" id="notif-tab-empty" style="display: none;">
+                                <div class="notif-empty-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                                </div>
+                                <h5 class="notif-empty-title">{{ __('messages.no_new_notif') }}</h5>
+                                <p class="notif-empty-desc">{{ __('messages.notif_empty_desc') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="notif-footer">
+                            <span>{{ __('messages.notif_terkini') }}</span>
+                            <span style="font-weight: 600; color: var(--brand-primary);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 2px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Terhubung</span>
                         </div>
                     </div>
                 </div>
@@ -293,7 +784,19 @@
             <strong>@yield('page_title', 'Dashboard')</strong> / @yield('page_subtitle', 'SupportFlow')
         </div>
     </div>
-    <div class="m-right">
+    <div class="m-right" style="display: flex; align-items: center; gap: 8px;">
+        <button class="notif-btn" onclick="toggleNotifDropdown(event)" aria-label="Notifikasi" title="Notifikasi" style="width: 34px; height: 34px;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            @if(isset($unreadCount) && $unreadCount > 0)
+                <div class="notif-badge-wrap">
+                    <span class="notif-badge-ping"></span>
+                    <span class="notif-badge-num" style="min-width: 15px; height: 15px; font-size: 9px;">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                </div>
+            @endif
+        </button>
         <button class="m-avatar" onclick="toggleMobileProfile(event)">
             @if(Auth::check() && Auth::user()->avatar)
                 <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="">
@@ -533,17 +1036,61 @@
     }
 
     function toggleNotifDropdown(e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const menu = document.getElementById('notif-dropdown-menu');
-        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        const btns = document.querySelectorAll('.notif-btn');
+        if (!menu) return;
+        const isShown = menu.classList.contains('show');
+        if (isShown) {
+            menu.classList.remove('show');
+            btns.forEach(b => b.classList.remove('is-active'));
+        } else {
+            menu.classList.add('show');
+            btns.forEach(b => b.classList.add('is-active'));
+        }
+    }
+
+    function switchNotifTab(tab) {
+        const tabAll = document.getElementById('notif-tab-all');
+        const tabUnread = document.getElementById('notif-tab-unread');
+        const items = document.querySelectorAll('.notif-item');
+        const tabEmpty = document.getElementById('notif-tab-empty');
+        const emptyState = document.getElementById('notif-empty-state');
+
+        if (tab === 'all') {
+            if (tabAll) tabAll.classList.add('active');
+            if (tabUnread) tabUnread.classList.remove('active');
+            let visibleCount = 0;
+            items.forEach(item => {
+                item.style.display = 'flex';
+                visibleCount++;
+            });
+            if (tabEmpty) tabEmpty.style.display = 'none';
+            if (emptyState) emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+        } else if (tab === 'unread') {
+            if (tabUnread) tabUnread.classList.add('active');
+            if (tabAll) tabAll.classList.remove('active');
+            let visibleCount = 0;
+            items.forEach(item => {
+                if (item.getAttribute('data-is-unread') === '1') {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            if (tabEmpty) tabEmpty.style.display = visibleCount === 0 ? 'flex' : 'none';
+            if (emptyState) emptyState.style.display = 'none';
+        }
     }
 
     document.addEventListener('click', function(e) {
         const notifMenu = document.getElementById('notif-dropdown-menu');
-        const notifBtn = document.querySelector('.notif-btn');
-        if (notifMenu && notifBtn) {
-            if (!notifMenu.contains(e.target) && !notifBtn.contains(e.target)) {
-                notifMenu.style.display = 'none';
+        const isNotifBtn = e.target.closest('.notif-btn');
+        if (notifMenu) {
+            if (!notifMenu.contains(e.target) && !isNotifBtn) {
+                notifMenu.classList.remove('show');
+                document.querySelectorAll('.notif-btn').forEach(b => b.classList.remove('is-active'));
             }
         }
     });
