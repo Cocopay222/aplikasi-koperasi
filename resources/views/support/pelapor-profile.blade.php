@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', __('messages.profil_lengkap_pelapor'))
-@section('page_subtitle', 'internal.ptskk.id')
+@section('page_subtitle', 'internal.ptspr.id')
 
 @section('content')
 <div class="pelapor-panel">

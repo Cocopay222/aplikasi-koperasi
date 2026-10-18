@@ -30,7 +30,7 @@
 <div class="content-wrap" id="actual-content" style="display: none;">
 
 @section('page_title', 'Diagram Rekap')
-@section('page_subtitle', 'internal.ptskk.id')
+@section('page_subtitle', 'internal.ptspr.id')
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
     <div>

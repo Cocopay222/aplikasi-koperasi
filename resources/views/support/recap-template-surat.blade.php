@@ -7,7 +7,7 @@
 <div class="content-wrap" id="actual-content">
 
 @section('page_title', __('messages.recap_template_surat'))
-@section('page_subtitle', 'internal.ptskk.id')
+@section('page_subtitle', 'internal.ptspr.id')
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2rem;">
     <div>

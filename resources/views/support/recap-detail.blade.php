@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', __('messages.laporan_detail_support_title'))
-@section('page_subtitle', 'internal.ptskk.id')
+@section('page_subtitle', 'internal.ptspr.id')
 
 @section('content')
 <div class="pelapor-panel">

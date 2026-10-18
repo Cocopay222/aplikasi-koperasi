@@ -17,7 +17,7 @@ Sistem ini menggunakan otentikasi berbasis peran (*Role-Based Access Control* / 
 1. **Pelapor (Mitra / Instansi)**
    * **Deskripsi:** Perwakilan dari koperasi atau instansi (misal: PIC Koperasi Kredit Sejahtera).
    * **Goals:** Melaporkan *bug* atau kendala, melacak status tiket, dan memberikan data tambahan (lampiran/bukti) jika diminta.
-2. **Tim Support (Internal PT SKK)**
+2. **Tim Support (Internal PT SPR)**
    * **Deskripsi:** *Support Engineer* yang bertanggung jawab menyelesaikan kendala.
    * **Goals:** Meninjau tiket, menugaskan PIC, memperbarui status resolusi, mengkategorikan tiket untuk analitik, dan membangun FAQ.
 

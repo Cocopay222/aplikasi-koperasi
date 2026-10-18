@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Master Data')
-@section('page_subtitle', 'internal.ptskk.id')
+@section('page_subtitle', 'internal.ptspr.id')
 
 @section('content')
 <style>
