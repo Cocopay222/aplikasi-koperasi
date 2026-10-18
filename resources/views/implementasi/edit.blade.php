@@ -35,7 +35,7 @@
         font-size: 14px;
         transition: border-color 0.2s;
     }
-    .form-control:focus { outline: none; border-color: #4d5183; }
+    .form-control:focus { outline: none; border-color: #5F9EA0; }
     .dark-mode .form-control {
         background: #0f172a;
         border-color: #334155;
@@ -44,7 +44,7 @@
     
     .btn-secondary { background: #e2e8f0; color: #475569; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; text-decoration: none; display: inline-block;}
     .dark-mode .btn-secondary { background: #334155; color: #cbd5e1; }
-    .btn-primary { background: #4d5183; color: #fff; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500;}
+    .btn-primary { background: #5F9EA0; color: #fff; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500;}
     
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     
@@ -137,7 +137,7 @@
 
         <div class="form-group" style="background: var(--paper-sunken, #f8fafc); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 20px;">
             <label class="form-label" style="font-weight: 600; color: #1e293b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4d5183" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5F9EA0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 <span>Masa Berlaku Tim Support</span>
             </label>
             <div class="grid-2">

@@ -21,7 +21,7 @@
         </div>
 
         {{-- Eyebrow --}}
-        <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #4d5183; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #5F9EA0; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
             RESET KATA SANDI
         </div>
 
@@ -61,7 +61,7 @@
                 <input type="password" name="password_confirmation" placeholder="Ulangi kata sandi baru" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none;" required>
             </div>
 
-            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #4d5183; border: none; color: white; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(77, 81, 131, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='#3c3f68'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#4d5183'; this.style.transform='translateY(0)';">
+            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #5F9EA0; border: none; color: white; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(95, 158, 160, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='#477678'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#5F9EA0'; this.style.transform='translateY(0)';">
                 Simpan Kata Sandi Baru
             </button>
         </form>

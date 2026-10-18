@@ -376,7 +376,7 @@
                             <tr style="border-bottom: 1px solid var(--line);">
                                 <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 500;">{{ $kategori->nama_kategori }}</td>
                                 <td style="padding: 1.25rem 1.5rem; text-align: center;">
-                                    <span style="background: rgba(77, 81, 131, 0.1); color: #4d5183; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ $kategori->sla_jam ?? 24 }} jam</span>
+                                    <span style="background: rgba(95, 158, 160, 0.15); color: #5F9EA0; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ $kategori->sla_jam ?? 24 }} jam</span>
                                 </td>
                                 <td style="padding: 1.25rem 1.5rem; text-align: right;">
                                     <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
@@ -652,7 +652,7 @@
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                             @if($faq->visibility === 'public')
-                                                <span style="background: #e9eaf2; color: #4d5183; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ __('messages.public') }}</span>
+                                                <span style="background: #eef6f6; color: #5F9EA0; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ __('messages.public') }}</span>
                                             @else
                                                 <span style="background: #fef3c7; color: #d97706; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ __('messages.internal') }}</span>
                                             @endif

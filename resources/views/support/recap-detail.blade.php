@@ -137,7 +137,7 @@
                         
                         <td style="padding: 12px 16px;">
                             @if($t->link_ticket)
-                                <a href="{{ $t->link_ticket }}" target="_blank" style="color: #686c9d; text-decoration: none;">{{ $t->link_ticket }}</a>
+                                <a href="{{ $t->link_ticket }}" target="_blank" style="color: #5F9EA0; text-decoration: none;">{{ $t->link_ticket }}</a>
                             @else
                                 <span style="color: var(--text-muted);">-</span>
                             @endif

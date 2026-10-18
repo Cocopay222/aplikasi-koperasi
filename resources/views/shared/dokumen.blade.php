@@ -90,7 +90,7 @@
         
         <!-- STEP 1: Pelaporan Awal -->
         <div style="margin-bottom: 32px; position: relative;">
-            <div class="doc-step-dot" style="position: absolute; left: -29px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #686c9d;"></div>
+            <div class="doc-step-dot" style="position: absolute; left: -29px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #5F9EA0;"></div>
             <div class="doc-step-card">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
                     <div>
