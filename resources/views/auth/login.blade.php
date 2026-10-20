@@ -96,7 +96,7 @@
                 <div class="login-text-content" style="position: relative; z-index: 10;">
                     <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; font-size: calc(12px * var(--text-scale, 1)); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">{{ __('messages.portal_layanan_pengguna_caps') ?? 'PORTAL LAYANAN PENGGUNA' }}</p>
                     <h1 style="margin-top: 0;">{{ __('messages.portal_layanan_pengguna_aplikasi_super') ?? 'Portal Layanan Pengguna Aplikasi SUPER' }}</h1>
-                    <p class="desc" style="margin-bottom: 0;">
+                    <p class="desc" style="margin-bottom: 0; color: #ffffff; opacity: 1; font-weight: 500; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);">
                         {{ __('messages.desc_portal_layanan') ?? 'Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SUPER. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.' }}
                     </p>
                     {{-- Teks singkat khusus mobile --}}
@@ -104,7 +104,7 @@
                 </div>
 
                 {{-- Footer Info --}}
-                <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
+                <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.75); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
                     <span>&copy; SupportFlow</span>
                     <span>&bull;</span>
                     <span>{{ __('messages.portal_pelaporan_mitra') ?? 'Portal Pelaporan Mitra' }}</span>

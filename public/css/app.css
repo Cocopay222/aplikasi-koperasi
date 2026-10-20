@@ -919,7 +919,10 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .login-split-left p.desc {
     font-size: calc(14px * var(--text-scale, 1));
     line-height: 1.7;
-    color: #94a3b8;
+    color: #ffffff;
+    opacity: 0.95;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
     max-width: 500px;
     margin-bottom: 32px;
     position: relative;

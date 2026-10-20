@@ -130,14 +130,14 @@ export default function Login({ errors }) {
                             <div className="login-text-content" style={{ position: 'relative', zIndex: 10 }}>
                                 <p style={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '8px', fontSize: 'calc(12px * var(--text-scale, 1))', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>PORTAL LAYANAN PENGGUNA</p>
                                 <h1 style={{ marginTop: 0 }}>Portal Layanan Pengguna Aplikasi SUPER</h1>
-                                <p className="desc" style={{ marginBottom: 0 }}>
+                                <p className="desc" style={{ marginBottom: 0, color: '#ffffff', opacity: 0.95, fontWeight: 500, textShadow: '0 1px 3px rgba(0, 0, 0, 0.25)' }}>
                                     Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SUPER. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.
                                 </p>
                                 <p className="desc-mobile" style={{ display: 'none' }}>Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.</p>
                             </div>
 
                             {/* Footer Info */}
-                            <div style={{ marginTop: 'auto', position: 'relative', zIndex: 10, fontSize: '11px', color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '24px' }}>
+                            <div style={{ marginTop: 'auto', position: 'relative', zIndex: 10, fontSize: '11px', color: 'rgba(255, 255, 255, 0.75)', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '24px' }}>
                                 <span>&copy; SupportFlow</span>
                                 <span>&bull;</span>
                                 <span>Portal Pelaporan Mitra</span>
