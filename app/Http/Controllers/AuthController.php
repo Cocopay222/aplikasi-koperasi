@@ -45,12 +45,28 @@ class AuthController extends Controller
 
                 $request->session()->regenerate();
 
-                if (in_array(Auth::user()->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])) {
-                    $url = redirect()->intended('/support/dashboard')->getTargetUrl();
-                    return inertia()->location($url);
+                $user = Auth::user();
+                $roleLabel = match ($user->role) {
+                    UserRole::SUPERADMIN => 'Super Admin',
+                    UserRole::SUPPORT => 'Tim Support',
+                    UserRole::PELAPOR => 'Pelapor',
+                    default => 'Pengguna'
+                };
+
+                $userName = $user->nama ?? 'Pengguna';
+                $successMessage = "Berhasil login sebagai {$roleLabel}! Selamat datang, {$userName}.";
+
+                $request->session()->flash('success', $successMessage);
+
+                $targetUrl = in_array($user->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])
+                    ? redirect()->intended('/support/dashboard')->getTargetUrl()
+                    : redirect()->intended('/pelapor/dashboard')->getTargetUrl();
+
+                if ($request->header('X-Inertia')) {
+                    return inertia()->location($targetUrl);
                 }
-                $url = redirect()->intended('/pelapor/dashboard')->getTargetUrl();
-                return inertia()->location($url);
+
+                return redirect()->to($targetUrl)->with('success', $successMessage);
             }
         } catch (\Exception $e) {
             dd("DATABASE ERROR CAUGHT: " . $e->getMessage() . " | Connection Config: " . json_encode(config('database.connections.' . config('database.default'))));

@@ -1426,11 +1426,37 @@
     </div>
 </div>
 <!-- Global Toast Notification (Hijau Terang di Sekitar Top Modal) -->
-<div id="globalToast" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-10px); z-index: 99999999; background: #10b981; color: #ffffff; padding: 12px 24px; border-radius: 30px; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45); align-items: center; gap: 10px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.9rem; font-weight: 600;">
+<div id="globalToast" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-10px); z-index: 99999999; background: #10b981; color: #ffffff; padding: 12px 24px; border-radius: 30px; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45); align-items: center; gap: 10px; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); font-size: 0.9rem; font-weight: 600; opacity: 0;">
     <div id="globalToastIcon" style="display: flex; align-items: center; justify-content: center; color: #ffffff;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
     </div>
     <span id="globalToastMessage">Berhasil disimpan!</span>
 </div>
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toast = document.getElementById('globalToast');
+        const msg = document.getElementById('globalToastMessage');
+        if (toast && msg) {
+            msg.textContent = @json(session('success'));
+            toast.style.display = 'flex';
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateX(-50%) translateY(0)';
+                }, 100);
+            });
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(-10px)';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 400);
+            }, 4500);
+        }
+    });
+</script>
+@endif
 </body>
 </html>
