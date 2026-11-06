@@ -15,15 +15,6 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-// Route download template via PHP (bypass InfinityFree static file blocking)
-Route::get('/download-template/{filename}', function ($filename) {
-    $path = public_path('templates/' . $filename);
-    if (!file_exists($path)) {
-        abort(404, 'File template tidak ditemukan.');
-    }
-    return response()->download($path, $filename);
-})->where('filename', '.*')->name('download.template');
-
 // ROUTE SEMENTARA UNTUK RESET PASSWORD ADMIN
 Route::get('/reset-admin-password', function () {
     $user = \App\Models\User::where('email', 'support@spr.co.id')->orWhere('email', 'support@skk.co.id')->first();
@@ -689,27 +680,4 @@ Route::middleware(['auth', IsSuperAdmin::class])->prefix('superadmin')->name('su
     Route::put('/pengguna/{user}', [SuperAdminController::class, 'updatePengguna'])->name('pengguna.update');
     Route::delete('/pengguna/{user}', [SuperAdminController::class, 'destroyPengguna'])->name('pengguna.destroy');
 });
-
-// Route fallback for /storage/{path}
-Route::get('/storage/{path}', function ($path) {
-    $cleanPath = ltrim($path, '/');
-    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($cleanPath)) {
-        return \Illuminate\Support\Facades\Storage::disk('public')->response($cleanPath);
-    }
-    
-    $file = \App\Models\UploadedFile::where('path', $cleanPath)
-        ->orWhere('path', 'like', "%$cleanPath")
-        ->first();
-        
-    if ($file && !empty($file->content)) {
-        $binary = base64_decode($file->content);
-        return response($binary, 200, [
-            'Content-Type' => $file->mime_type ?: 'application/octet-stream',
-            'Content-Disposition' => 'inline; filename="' . ($file->original_name ?: basename($cleanPath)) . '"',
-            'Cache-Control' => 'public, max-age=31536000',
-        ]);
-    }
-
-    abort(404);
-})->where('path', '.*')->name('storage.fallback');
 

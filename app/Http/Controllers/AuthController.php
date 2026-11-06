@@ -20,6 +20,16 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
+        // Mendukung request Inertia jika dipanggil dari frontend Inertia
+        if (request()->header('X-Inertia')) {
+            return \Inertia\Inertia::render('Auth/Login');
+        }
+
+        // Render Blade template login.blade.php (konsisten dengan arsitektur Blade aplikasi)
+        if (view()->exists('auth.login')) {
+            return view('auth.login');
+        }
+
         return \Inertia\Inertia::render('Auth/Login');
     }
 
@@ -69,7 +79,10 @@ class AuthController extends Controller
                 return redirect()->to($targetUrl)->with('success', $successMessage);
             }
         } catch (\Exception $e) {
-            dd("DATABASE ERROR CAUGHT: " . $e->getMessage() . " | Connection Config: " . json_encode(config('database.connections.' . config('database.default'))));
+            \Log::error('Login database connection error: ' . $e->getMessage());
+            return back()->withErrors([
+                'email' => 'Terjadi kendala pada koneksi sistem. Silakan coba beberapa saat lagi.',
+            ])->onlyInput('email');
         }
 
         return back()->withErrors([
