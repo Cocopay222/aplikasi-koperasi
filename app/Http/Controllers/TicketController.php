@@ -44,7 +44,7 @@ class TicketController extends Controller
 
     public function pelaporRiwayat(Request $request)
     {
-        $query = Ticket::where('pelapor_id', Auth::id());
+        $query = Ticket::with(['aplikasi', 'kategori', 'picSupport'])->where('pelapor_id', Auth::id());
         
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -475,7 +475,7 @@ class TicketController extends Controller
         }
 
         $rawStatus = $ticket->status instanceof \BackedEnum ? $ticket->status->value : (string)$ticket->status;
-        if (strtolower($rawStatus) !== 'done') {
+        if (!in_array(strtolower($rawStatus), ['done', 'selesai'])) {
             return back()->with('error', 'Rating hanya dapat diberikan untuk tiket yang sudah selesai (Done).');
         }
 
