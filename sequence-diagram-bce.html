@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Diagram BCE - SupportFlow (Create Ticket)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+        .btn-secondary {
+            background: #0284c7;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #0369a1;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+        }
+        #diagram-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Sequence Diagram Berstereotype BCE (Boundary, Controller, Entity)</h1>
+        <p>Use Case: Membuat Tiket Kendala (Create Ticket) &mdash; Studi Kasus: SupportFlow (SAKTI Desk)</p>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" onclick="downloadPNG()">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download Gambar PNG (HD)
+        </button>
+        <button class="btn btn-secondary" onclick="downloadSVG()">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download Vektor SVG
+        </button>
+    </div>
+
+    <div class="card">
+        <div id="diagram-container">
+            <div class="mermaid">
+sequenceDiagram
+    autonumber
+
+    actor Pelapor as Actor: Pelapor
+    participant Boundary as <<boundary>><br>DashboardPelapor (Modal Create)
+    participant Controller as <<controller>><br>TicketController
+    participant Validator as <<controller>><br>StoreTicketRequest
+    participant EntityApp as <<entity>><br>MasterAplikasi
+    participant EntityTicket as <<entity>><br>Ticket
+    participant Database as <<database>><br>PostgreSQL
+
+    Note over Pelapor, Database: Fase 1: Membuka Form Buat Tiket
+    Pelapor ->> Boundary: Akses Dashboard & Klik "Buat Laporan Baru"
+    Boundary ->> Controller: Request data aplikasi aktif (GET)
+    Controller ->> EntityApp: where('is_active', true)->get()
+    EntityApp ->> Database: SELECT * FROM master_aplikasis WHERE is_active = true
+    Database -->> EntityApp: Return dataset master aplikasi
+    EntityApp -->> Controller: Return Collection
+    Controller -->> Boundary: Kirim daftar aplikasi ke View
+    Boundary -->> Pelapor: Tampilkan Modal Form (#modal-create)
+
+    Note over Pelapor, Database: Fase 2: Submit Laporan Kendala
+    Pelapor ->> Boundary: Input (aplikasi_id, urgensi, permasalahan, lampiran) & Klik "Kirim Laporan"
+    Boundary ->> Controller: POST /pelapor/tickets (Form Data Payload)
+
+    Note over Controller, Validator: Fase 3: Validasi Aturan Bisnis
+    Controller ->> Validator: validated()
+    
+    alt Skenario Alternatif: Validasi Gagal (Field Kosong / Ukuran File > 5MB)
+        Validator -->> Controller: Throw ValidationException (Errors)
+        Controller -->> Boundary: Redirect back with errors & old input
+        Boundary -->> Pelapor: Tampilkan pesan error validasi (warna merah)
+    else Skenario Normal: Validasi Berhasil
+        Validator -->> Controller: Return data tervalidasi
+
+        Note over Controller, Database: Fase 4: Penyimpanan Tiket
+        opt Jika ada file lampiran
+            Controller ->> Controller: Simpan file fisik & catat nama berkas
+        end
+
+        Controller ->> EntityTicket: Ticket::create(ticketData)
+        EntityTicket ->> EntityTicket: bootCreating (Generate No. Tiket: TKT-YYMMDDxxxx)
+        EntityTicket ->> Database: INSERT INTO tickets (...) VALUES (...)
+        Database -->> EntityTicket: Return status simpan & ID Tiket
+        EntityTicket -->> Controller: Return Ticket instance
+
+        Controller -->> Boundary: Redirect back with success session
+        Boundary -->> Pelapor: Tampilkan alert "Laporan berhasil dikirim (#TKT-...)"
+    end
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            sequence: {
+                showSequenceNumbers: true,
+                actorFontSize: 14,
+                messageFontSize: 13,
+                noteFontSize: 12,
+            }
+        });
+
+        function downloadSVG() {
+            const svgEl = document.querySelector('.mermaid svg');
+            if (!svgEl) return alert('Diagram belum selesai dimuat');
+            
+            const svgData = new XMLSerializer().serializeToString(svgEl);
+            const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'sequence-diagram-bce-supportflow.svg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadPNG() {
+            const svgEl = document.querySelector('.mermaid svg');
+            if (!svgEl) return alert('Diagram belum selesai dimuat');
+
+            const svgData = new XMLSerializer().serializeToString(svgEl);
+            const canvas = document.createElement('canvas');
+            const svgSize = svgEl.getBoundingClientRect();
+            
+            // Perbesar 2x scale agar hasil PNG tajam dan HD
+            const scale = 2;
+            canvas.width = svgSize.width * scale;
+            canvas.height = svgSize.height * scale;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const img = new Image();
+            img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
+            
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                const pngUrl = canvas.toDataURL('image/png');
+                
+                const link = document.createElement('a');
+                link.href = pngUrl;
+                link.download = 'sequence-diagram-bce-supportflow.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+        }
+    </script>
+</body>
+</html>
+
