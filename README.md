@@ -185,27 +185,27 @@ MAIL_FROM_ADDRESS=noreply@example.com
 
 ```
 aplikasi-koperasi/
-â”œâ”€â”€ app/
-â”‚   â”œâ”€â”€ Http/
-â”‚   â”‚   â”œâ”€â”€ Controllers/
-â”‚   â”‚   â””â”€â”€ Requests/
-â”‚   â”œâ”€â”€ Models/
-â”‚   â””â”€â”€ ...
-â”œâ”€â”€ resources/
-â”‚   â”œâ”€â”€ views/
-â”‚   â”œâ”€â”€ css/
-â”‚   â””â”€â”€ js/
-â”œâ”€â”€ routes/
-â”‚   â””â”€â”€ web.php
-â”œâ”€â”€ database/
-â”‚   â”œâ”€â”€ migrations/
-â”‚   â””â”€â”€ seeders/
-â”œâ”€â”€ public/
-â”œâ”€â”€ storage/
-â”œâ”€â”€ .env.example
-â”œâ”€â”€ composer.json
-â”œâ”€â”€ package.json
-â””â”€â”€ README.md
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   └── Requests/
+│   ├── Models/
+│   └── ...
+├── resources/
+│   ├── views/
+│   ├── css/
+│   └── js/
+├── routes/
+│   └── web.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── public/
+├── storage/
+├── .env.example
+├── composer.json
+├── package.json
+└── README.md
 ```
 
 ### Fitur Utama
@@ -277,6 +277,6 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 **[kembali ke atas](#supportflow)**
 
-Dibuat dengan â¤ï¸ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
+Dibuat dengan ❤️ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
 
 </div>
