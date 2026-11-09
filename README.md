@@ -8,9 +8,6 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka modern dan responsif.
-
-[Demo](#) â€¢ [Dokumentasi](#dokumentasi) â€¢ [Instalasi](#panduan-instalasi) â€¢ [Preview](#preview)
 
 </div>
 
