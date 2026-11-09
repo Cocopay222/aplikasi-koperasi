@@ -80,54 +80,6 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ---
 
-### Tampilan Peran: Tim Support
-
-*Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
-
-<br>
-
-#### Dashboard Utama Support
-![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
-*Pemantauan statistik tiket, grafik distribusi status (Open, Proses, Pending, Done), serta daftar tiket aktif secara real-time.*
-
-<br>
-
-#### Modal Update Tiket & Respons
-![Update Tiket](https://github.com/user-attachments/assets/d3a4805b-ae18-44e7-a555-99ee79c3016c)
-*Form modal interaktif untuk memperbarui status tiket, menambahkan jawaban/respons tim support, serta mengelola lampiran berkas.*
-
-<br>
-
-#### Manajemen Master Data
-![Master Data](https://github.com/user-attachments/assets/f18c08cf-35ad-4395-b466-3b5e7a415c61) 
-*Halaman kelola data master aplikasi, kategori kendala, daftar instansi/koperasi, serta hak akses PIC support secara terpusat.*
-
-<br>
-
----
-
-### Tampilan Peran: Pelapor (Koperasi / Instansi)
-
-*Antarmuka intuitif bagi pelapor untuk mengajukan laporan kendala baru dan memantau status tindak lanjutnya.*
-
-<br>
-
-#### Dashboard Pelapor
-![Dashboard Pelapor](https://github.com/user-attachments/assets/145659e9-4ee6-4991-b09a-5f44bbc2bbb1)
-*Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
-
-<br>
-
-#### Form Buat Laporan Baru
-![Buat Laporan Baru](https://github.com/user-attachments/assets/b52528d0-9d13-4055-846d-111a281ac15f) 
-*Form pengajuan tiket kendala baru yang praktis dengan pemilihan jenis aplikasi, kategori masalah, uraian detail, dan upload foto lampiran.*
-
-<br>
-
-#### Detail & Status Laporan
-![Detail Laporan](https://github.com/user-attachments/assets/b4d0b46b-ee36-4013-9c2b-614f2e2a4d85)
-*Tampilan rincian informasi tiket, kronologi progress penanganan dari petugas support, dan jawaban solusi akhir.*
-
 </div>
 
 ## Panduan Instalasi
