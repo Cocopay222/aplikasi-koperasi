@@ -78,14 +78,14 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ## Panduan Instalasi
 
-### 1ï¸. Clone Repositori
+### 1. Clone Repositori
 
 ```bash
 git clone https://github.com/Cocopay222/aplikasi-koperasi.git
 cd aplikasi-koperasi
 ```
 
-### 2ï¸. Install Dependensi
+### 2. Install Dependensi
 
 ```bash
 # Install PHP dependencies
@@ -95,7 +95,7 @@ composer install
 npm install
 ```
 
-### 3ï¸. Konfigurasi Environment
+### 3. Konfigurasi Environment
 
 ```bash
 # Salin file konfigurasi
@@ -121,7 +121,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 4ï¸. Migrasi Database
+### 4. Migrasi Database
 
 ```bash
 # Jalankan migrasi
@@ -131,7 +131,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-### 5ï¸. Jalankan Aplikasi
+### 5. Jalankan Aplikasi
 
 ```bash
 # Development server
@@ -143,7 +143,7 @@ php artisan serve --port=8001
 
 Aplikasi akan dapat diakses di `http://localhost:8000`
 
-### 6ï¸. Compile Assets (Opsional)
+### 6. Compile Assets (Opsional)
 
 ```bash
 # Development build
