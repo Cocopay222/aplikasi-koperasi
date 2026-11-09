@@ -267,7 +267,7 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 ## Kontak & Support
 
-- **Email**: [mradithn@gmail.com]
+- **Email**: [athafathiys@gmail.com](mailto:athafathiys@gmail.com)
 - **GitHub Issues**: [Report an Issue](https://github.com/Cocopay222/aplikasi-koperasi/issues)
 - **Discussions**: [Join Discussion](https://github.com/Cocopay222/aplikasi-koperasi/discussions)
 
