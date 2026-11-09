@@ -74,12 +74,6 @@ Sebelum memulai, pastikan Anda memiliki:
 - **MySQL** >= 8.0
 - **Git**
 
-## Preview
-
-<div align="center">
-
----
-
 </div>
 
 ## Panduan Instalasi
